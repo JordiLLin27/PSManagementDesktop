@@ -26,18 +26,20 @@ namespace PSManagement
         public MainWindow()
         {
             InitializeComponent();
-            timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(3);
-            timer.Tick += timer_Tick;
+            timer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(3)
+            };
+            timer.Tick += Timer_Tick;
             timer.Start();
         }
 
-        private void timer_Tick(object sender, EventArgs e)
+        private void Timer_Tick(object sender, EventArgs e)
         {
-            MenuPrincipalView ventanaPrincipal = new MenuPrincipalView();
+            PanelPrincipalView ventanaPrincipal = new PanelPrincipalView();
             ventanaPrincipal.Show();
             timer.Stop();
-            this.Close();
+            Close();
         }
     }
 }

@@ -6,16 +6,9 @@
         xmlns:local="clr-namespace:PSManagement"
         mc:Ignorable="d"
         Title="PSManagement" Height="350" Width="600" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" ShowInTaskbar="False">
-    <Grid Background="#FFA6A6A6">
+    <Grid Background="#FF144F8B">
 
-        <TextBlock Text="PSManagement" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Gill Sans Ultra Bold" FontWeight="Bold" FontSize="50">
-            <TextBlock.Foreground>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="Black" Offset="0"/>
-                    <GradientStop Color="#FF30A8CB" Offset="1"/>
-                </LinearGradientBrush>
-            </TextBlock.Foreground>
-        </TextBlock>
+        <TextBlock Text="PSManagement" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Verdana" FontWeight="Bold" FontSize="41" Foreground="Gainsboro"/>
 
     </Grid>
 </Window>

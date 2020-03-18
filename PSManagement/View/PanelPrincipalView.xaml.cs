@@ -17,11 +17,21 @@ namespace PSManagement.View
     /// <summary>
     /// Lógica de interacción para MenuPrincipalView.xaml
     /// </summary>
-    public partial class MenuPrincipalView : Window
+    public partial class PanelPrincipalView : Window
     {
-        public MenuPrincipalView()
+        public PanelPrincipalView()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("¿Confirmar salir?", "Salir", MessageBoxButton.OKCancel, MessageBoxImage.Asterisk, MessageBoxResult.Cancel);
+            
+            if (result.Equals(MessageBoxResult.OK))
+            {
+                Close();
+            }
         }
     }
 }
