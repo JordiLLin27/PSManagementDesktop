@@ -1,11 +1,11 @@
-﻿<Window x:Class="PSManagement.MainWindow"
+﻿<Window x:Class="PSManagement.View.MenuPrincipalView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PSManagement"
+        xmlns:local="clr-namespace:PSManagement.View"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="600" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="Assets/shipping_shipment_product.ico">
+        Title="PSManagement" Height="450" Width="800" WindowState="Maximized" Icon="/Assets/shipping_shipment_product.ico">
     <Grid>
         
     </Grid>
