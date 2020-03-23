@@ -27,11 +27,16 @@ namespace PSManagement.View
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("¿Confirmar salir?", "Salir", MessageBoxButton.OKCancel, MessageBoxImage.Asterisk, MessageBoxResult.Cancel);
-            
+
             if (result.Equals(MessageBoxResult.OK))
             {
                 Close();
             }
+        }
+
+        private void VentasButton_Click(object sender, RoutedEventArgs e)
+        {
+            PanelVentasVentasView.Visibility = Visibility.Visible;
         }
     }
 }

@@ -22,14 +22,23 @@
                 <MenuItem Header="Modo oscuro" IsCheckable="True" IsChecked="False"></MenuItem>
             </MenuItem>
         </Menu>
-        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
-            <Button Margin="5" Foreground="White" Height="50" Width="200" FontSize="24">Gestión</Button>
-            <Button Margin="5" Foreground="White" Height="50" Width="200" FontSize="24">Ventas</Button>
-            <Button Margin="5" Foreground="White" Height="50" Width="200" FontSize="24">Inventario</Button>
-            <Button Margin="5" Click="Button_Click" Content="Salir" Foreground="White" Height="50" Width="200" FontSize="24"/>
-        </StackPanel>
+        <DockPanel DockPanel.Dock="Left">
+
+            <DockPanel x:Name="PanelBotonesAccionesStackPanel" DockPanel.Dock="Top">
+                <Button x:Name="VentasButton"  DockPanel.Dock="Top" Margin="5" Foreground="White" Height="50" Width="200" FontSize="24" Click="VentasButton_Click">Ventas</Button>
+                <Button x:Name="GestionButton"  DockPanel.Dock="Top" Margin="5" Foreground="White" Height="50" Width="200" FontSize="24">Gestión</Button>
+                <Button x:Name="InventarioButton"  DockPanel.Dock="Top" Margin="5" Foreground="White" Height="50" Width="200" FontSize="24">Inventario</Button>
+            </DockPanel>
+
+            <DockPanel x:Name="PanelBotonesOpcionesDockPanel" DockPanel.Dock="Bottom" VerticalAlignment="Bottom">
+                <Button x:Name="SalirButton" DockPanel.Dock="Bottom" Margin="5" Click="Button_Click" Content="Salir" Foreground="White" Height="50" Width="200" FontSize="24"/>
+                <Button x:Name="OpcionesButton" DockPanel.Dock="Bottom" Margin="5" Content="Opciones" Foreground="White" Height="50" Width="200" FontSize="24"/>
+            </DockPanel>
+
+        </DockPanel>
         <Grid x:Name="PanelDeTrabajoGrid">
-            <Label HorizontalAlignment="Center" VerticalAlignment="Center" Margin="326,137.822,326,164" Grid.Row="1">Bienvenido</Label>
+            <Label HorizontalAlignment="Center" VerticalAlignment="Center">Bienvenido</Label>
+            <local:VentasView x:Name="PanelVentasVentasView" Visibility="Hidden"/>
         </Grid>
     </DockPanel>
 </Window>
