@@ -20,6 +20,10 @@
             Command="commands:CustomCommands.Exit"
             Executed="ExitCommandBinding_Executed"
             />
+        <CommandBinding
+            Command="commands:CustomCommands.Help"
+            Executed="ExitCommandBinding_Executed"
+            />
     </Window.CommandBindings>
 
     <!--Recursos-->
@@ -28,8 +32,11 @@
 
     <DockPanel>
         <Menu DockPanel.Dock="Top">
-            <MenuItem Header="Sistema">
+            <MenuItem Header="S_istema">
                 <MenuItem Header="_Salir" InputGestureText="Alt + F4" Command="commands:CustomCommands.Exit" ></MenuItem>
+            </MenuItem>
+            <MenuItem Header="_Ayuda">
+                <MenuItem Header="_Manual" InputGestureText="F1" Command="commands:CustomCommands.Help" ></MenuItem>
             </MenuItem>
         </Menu>
         <StatusBar x:Name="HoraStatusBar" DockPanel.Dock="Bottom" Background="{DynamicResource MaterialDesignPaper}">
@@ -50,7 +57,7 @@
 
             <DockPanel x:Name="PanelBotonesOpcionesDockPanel" DockPanel.Dock="Bottom" VerticalAlignment="Bottom">
                 <Button x:Name="SalirButton" Style="{StaticResource MaterialDesignRaisedAccentButton}" DockPanel.Dock="Bottom" Margin="5" Content="Salir" Foreground="White" Height="50" Width="200" FontSize="24" Command="commands:CustomCommands.Exit"/>
-                <Button x:Name="OpcionesButton" Style="{StaticResource MaterialDesignRaisedAccentButton}" DockPanel.Dock="Bottom" Margin="5" Content="Opciones" Foreground="White" Height="50" Width="200" FontSize="24"/>
+                <Button x:Name="ConfiguracionButton" Style="{StaticResource MaterialDesignRaisedAccentButton}" DockPanel.Dock="Bottom" Margin="5" Content="Configuración" Foreground="White" Height="50" Width="200" FontSize="24" Click="ConfiguracionButton_Click"/>
             </DockPanel>
 
         </DockPanel>

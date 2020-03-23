@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace PSManagement.View
 {
     /// <summary>
-    /// Lógica de interacción para TextoBienvenidaPorDefecto.xaml
+    /// Lógica de interacción para PanelOpcionesVIew.xaml
     /// </summary>
-    public partial class TextoBienvenidaPorDefecto : UserControl
+    public partial class PanelOpcionesVIew : UserControl
     {
-        public TextoBienvenidaPorDefecto()
+        public PanelOpcionesVIew()
         {
             InitializeComponent();
         }

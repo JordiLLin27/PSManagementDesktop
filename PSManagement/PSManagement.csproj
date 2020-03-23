@@ -72,11 +72,14 @@
     </Compile>
     <Compile Include="ViewModel\PanelPrincipalViewModel.cs" />
     <Compile Include="ViewModel\VentasViewModel.cs" />
+    <Compile Include="View\PanelOpcionesVIew.xaml.cs">
+      <DependentUpon>PanelOpcionesVIew.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\PanelPrincipalView.xaml.cs">
       <DependentUpon>PanelPrincipalView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\TextoBienvenidaPorDefecto.xaml.cs">
-      <DependentUpon>TextoBienvenidaPorDefecto.xaml</DependentUpon>
+    <Compile Include="View\TextoBienvenidaPorDefectoView.xaml.cs">
+      <DependentUpon>TextoBienvenidaPorDefectoView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\VentasView.xaml.cs">
       <DependentUpon>VentasView.xaml</DependentUpon>
@@ -97,11 +100,15 @@
       <DependentUpon>PantallaBienvenida.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\PanelOpcionesVIew.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\PanelPrincipalView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\TextoBienvenidaPorDefecto.xaml">
+    <Page Include="View\TextoBienvenidaPorDefectoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

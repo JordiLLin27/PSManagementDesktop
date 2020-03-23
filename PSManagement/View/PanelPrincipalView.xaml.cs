@@ -1,4 +1,5 @@
-﻿using PSManagement.Dialogs;
+﻿using MaterialDesignThemes.Wpf;
+using PSManagement.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,7 @@ namespace PSManagement.View
     public partial class PanelPrincipalView : Window
     {
         DispatcherTimer timer;
+        UIElement panelAnterior;
         public PanelPrincipalView()
         {
             InitializeComponent();
@@ -34,9 +36,11 @@ namespace PSManagement.View
             timer.Tick += HoraTimer_Tick;
             timer.Start();
 
-            TextoBienvenidaPorDefecto textoBienvenida = new TextoBienvenidaPorDefecto();
-            textoBienvenida.Margin = new Thickness(10);
-
+            TextoBienvenidaPorDefectoView textoBienvenida = new TextoBienvenidaPorDefectoView
+            {
+                Margin = new Thickness(10)
+            };
+            panelAnterior = textoBienvenida;
             PanelDeTrabajoGrid.Children.Add(textoBienvenida);
         }
 
@@ -51,18 +55,34 @@ namespace PSManagement.View
 
         private void ExitCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            ExitDialog ventanaSalir = new ExitDialog();
-
-            ventanaSalir.Owner = this;
-
-            ventanaSalir.ShowInTaskbar = false;
-            ventanaSalir.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            ExitDialog ventanaSalir = new ExitDialog
+            {
+                Owner = this,
+                ShowInTaskbar = false,
+                WindowStartupLocation = WindowStartupLocation.CenterScreen
+            };
 
 
             if (ventanaSalir.ShowDialog() == true)
             {
                 Application.Current.Shutdown();
             }
+        }
+
+        private void ConfiguracionButton_Click(object sender, RoutedEventArgs e)
+        {
+            BundledTheme bundled = (BundledTheme)App.Current.Resources.MergedDictionaries.First();
+
+            
+            if (bundled.BaseTheme == BaseTheme.Dark)
+            {
+                bundled.BaseTheme = BaseTheme.Light;
+            }
+            else
+            {
+                bundled.BaseTheme = BaseTheme.Dark;
+            }
+            
         }
     }
 }

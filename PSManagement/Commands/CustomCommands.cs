@@ -21,5 +21,18 @@ namespace PSManagement.Commands
             }
 
         );
+
+        public static readonly RoutedUICommand Help = new RoutedUICommand(
+
+            "Help",
+            "Help",
+            typeof(CustomCommands),
+            new InputGestureCollection() {
+
+                new KeyGesture(Key.F1)
+
+            }
+
+        );
     }
 }
