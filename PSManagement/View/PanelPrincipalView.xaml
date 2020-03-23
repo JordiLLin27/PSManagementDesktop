@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PSManagement.View"
+        xmlns:commands="clr-namespace:PSManagement.Commands"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -11,17 +12,34 @@
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="{materialDesign:MaterialDesignFont}"
-        Title="PSManagement" Height="1920" Width="1080" WindowState="Maximized" Icon="/Assets/shipping_shipment_product.ico" WindowStyle="None" ResizeMode="NoResize">
+        Title="PSManagement" Height="1080" Width="1920" WindowState="Maximized" Icon="/Assets/shipping_shipment_product.ico" WindowStyle="None" ResizeMode="NoResize">
+
+    <!--Comandos-->
+    <Window.CommandBindings>
+        <CommandBinding
+            Command="commands:CustomCommands.Exit"
+            Executed="ExitCommandBinding_Executed"
+            />
+    </Window.CommandBindings>
+
+    <!--Recursos-->
+    <Window.Resources>
+    </Window.Resources>
+
     <DockPanel>
         <Menu DockPanel.Dock="Top">
-            <MenuItem Header="Archivo">
-                <MenuItem Header="_Nuevo"></MenuItem>
-            </MenuItem>
-            <MenuItem Header="Gestion"></MenuItem>
-            <MenuItem Header="Opciones">
-                <MenuItem Header="Modo oscuro" IsCheckable="True" IsChecked="False"></MenuItem>
+            <MenuItem Header="Sistema">
+                <MenuItem Header="_Salir" InputGestureText="Alt + F4" Command="commands:CustomCommands.Exit" ></MenuItem>
             </MenuItem>
         </Menu>
+        <StatusBar x:Name="HoraStatusBar" DockPanel.Dock="Bottom" Background="{DynamicResource MaterialDesignPaper}">
+            <StatusBarItem x:Name="FechaStatusBarItem" HorizontalContentAlignment="Left">
+                <TextBlock x:Name="FechaTextBlock" FontFamily="{materialDesign:MaterialDesignFont}" Foreground="{DynamicResource MaterialDesignBody}" FontSize="20" Margin="5"/>
+            </StatusBarItem>
+            <StatusBarItem x:Name="HoraStatusBarItem" HorizontalContentAlignment="Right">
+                <TextBlock x:Name="HoraTextBlock" FontFamily="{materialDesign:MaterialDesignFont}" Foreground="{DynamicResource MaterialDesignBody}" FontSize="20" Margin="5"/>
+            </StatusBarItem>
+        </StatusBar>
         <DockPanel DockPanel.Dock="Left">
 
             <DockPanel x:Name="PanelBotonesAccionesStackPanel" DockPanel.Dock="Top">
@@ -31,14 +49,16 @@
             </DockPanel>
 
             <DockPanel x:Name="PanelBotonesOpcionesDockPanel" DockPanel.Dock="Bottom" VerticalAlignment="Bottom">
-                <Button x:Name="SalirButton" DockPanel.Dock="Bottom" Margin="5" Click="Button_Click" Content="Salir" Foreground="White" Height="50" Width="200" FontSize="24"/>
-                <Button x:Name="OpcionesButton" DockPanel.Dock="Bottom" Margin="5" Content="Opciones" Foreground="White" Height="50" Width="200" FontSize="24"/>
+                <Button x:Name="SalirButton" Style="{StaticResource MaterialDesignRaisedAccentButton}" DockPanel.Dock="Bottom" Margin="5" Content="Salir" Foreground="White" Height="50" Width="200" FontSize="24" Command="commands:CustomCommands.Exit"/>
+                <Button x:Name="OpcionesButton" Style="{StaticResource MaterialDesignRaisedAccentButton}" DockPanel.Dock="Bottom" Margin="5" Content="Opciones" Foreground="White" Height="50" Width="200" FontSize="24"/>
             </DockPanel>
 
         </DockPanel>
-        <Grid x:Name="PanelDeTrabajoGrid">
-            <Label HorizontalAlignment="Center" VerticalAlignment="Center">Bienvenido</Label>
-            <local:VentasView x:Name="PanelVentasVentasView" Visibility="Hidden"/>
-        </Grid>
+
+        <Border Margin="5" BorderBrush="LightBlue" BorderThickness="2">
+            <Grid x:Name="PanelDeTrabajoGrid">
+
+            </Grid>
+        </Border>
     </DockPanel>
 </Window>

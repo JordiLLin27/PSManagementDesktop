@@ -66,14 +66,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\CustomCommands.cs" />
+    <Compile Include="Dialogs\ExitDialog.xaml.cs">
+      <DependentUpon>ExitDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\PanelPrincipalViewModel.cs" />
     <Compile Include="ViewModel\VentasViewModel.cs" />
     <Compile Include="View\PanelPrincipalView.xaml.cs">
       <DependentUpon>PanelPrincipalView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\TextoBienvenidaPorDefecto.xaml.cs">
+      <DependentUpon>TextoBienvenidaPorDefecto.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\VentasView.xaml.cs">
       <DependentUpon>VentasView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Dialogs\ExitDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PantallaBienvenida.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -87,6 +98,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\PanelPrincipalView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TextoBienvenidaPorDefecto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -126,7 +141,6 @@
     <Resource Include="Assets\shipping_shipment_product.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Commands\" />
     <Folder Include="Model\" />
     <Folder Include="Service\" />
   </ItemGroup>

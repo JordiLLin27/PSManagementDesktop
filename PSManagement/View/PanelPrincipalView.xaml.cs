@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PSManagement.Dialogs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace PSManagement.View
 {
@@ -19,24 +21,48 @@ namespace PSManagement.View
     /// </summary>
     public partial class PanelPrincipalView : Window
     {
+        DispatcherTimer timer;
         public PanelPrincipalView()
         {
             InitializeComponent();
+            FechaTextBlock.Text = DateTime.Now.ToLongDateString();
+            timer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(1)
+            };
+
+            timer.Tick += HoraTimer_Tick;
+            timer.Start();
+
+            TextoBienvenidaPorDefecto textoBienvenida = new TextoBienvenidaPorDefecto();
+            textoBienvenida.Margin = new Thickness(10);
+
+            PanelDeTrabajoGrid.Children.Add(textoBienvenida);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void HoraTimer_Tick(object sender, EventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("¿Confirmar salir?", "Salir", MessageBoxButton.OKCancel, MessageBoxImage.Asterisk, MessageBoxResult.Cancel);
-
-            if (result.Equals(MessageBoxResult.OK))
-            {
-                Close();
-            }
+            HoraTextBlock.Text = DateTime.Now.ToLongTimeString();
         }
 
         private void VentasButton_Click(object sender, RoutedEventArgs e)
         {
-            PanelVentasVentasView.Visibility = Visibility.Visible;
+        }
+
+        private void ExitCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            ExitDialog ventanaSalir = new ExitDialog();
+
+            ventanaSalir.Owner = this;
+
+            ventanaSalir.ShowInTaskbar = false;
+            ventanaSalir.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
+
+            if (ventanaSalir.ShowDialog() == true)
+            {
+                Application.Current.Shutdown();
+            }
         }
     }
 }

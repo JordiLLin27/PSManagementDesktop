@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PSManagement"
         mc:Ignorable="d"
-        Title="PSManagement" Height="350" Width="600" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" ShowInTaskbar="False">
+        Title="PSManagement" Height="250" Width="400" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" ShowInTaskbar="False">
     <Grid Background="#FF144F8B">
 
         <TextBlock Text="PSManagement" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Verdana" FontWeight="Bold" FontSize="41" Foreground="Gainsboro"/>
