@@ -5,19 +5,94 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PSManagement.View"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
+             d:DesignHeight="978" d:DesignWidth="1696"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              Background="{DynamicResource MaterialDesignPaper}"
              TextElement.FontWeight="Medium"
              TextElement.FontSize="14"
              FontFamily="{materialDesign:MaterialDesignFont}">
+    <DockPanel x:Name="PanelPrincipalDockPanel">
 
-    <StackPanel x:Name="PanelPrincipalStackPanel">
-        <TextBlock FontSize="40">Bienvenid@ a PSManagement</TextBlock>
-        <TextBlock FontSize="18" Margin="20,10,0,10">Esta es la pantalla de inicio, aquí encontrarás ayuda básica sobre la aplicación.</TextBlock>
-        <TextBlock FontSize="18" Margin="30,0,0,0"><Run Text="Pulsa "/><Run Text="Ventas " FontStyle="Italic"/><Run Text="para iniciar una nueva venta con el gestor de ventas."/></TextBlock>
-        <TextBlock FontSize="18" Margin="30,0,0,0"><Run Text="Pulsa "/><Run Text="Gestión " FontStyle="Italic"/><Run Text="para obtener o modificar información de los inventarios disponibles."/></TextBlock>
-        <TextBlock FontSize="18" Margin="30,0,0,0"><Run Text="Pulsa "/><Run Text="Inventario " FontStyle="Italic"/><Run Text="para añadir un nuevo inventario al sistema."/></TextBlock>
-    </StackPanel>
+        <StackPanel DockPanel.Dock="Top" Margin="10">
+            <TextBlock FontSize="40">Bienvenid@ a PSManagement</TextBlock>
+            <TextBlock FontSize="18" Margin="20,10,0,10">Esta es la pantalla de inicio, aquí encontrarás ayuda básica sobre la aplicación.</TextBlock>
+            <TextBlock FontSize="18" Margin="30,0,0,0"><Run Text="Pulsa "/><Run Text="Ventas " FontStyle="Italic"/><Run Text="para iniciar una nueva venta con el gestor de ventas."/></TextBlock>
+            <TextBlock FontSize="18" Margin="30,0,0,0"><Run Text="Pulsa "/><Run Text="Gestión " FontStyle="Italic"/><Run Text="para obtener o modificar información de los inventarios disponibles."/></TextBlock>
+            <TextBlock FontSize="18" Margin="30,0,0,0"><Run Text="Pulsa "/><Run Text="Inventario " FontStyle="Italic"/><Run Text="para añadir un nuevo inventario al sistema."/></TextBlock>
+        </StackPanel>
+        
+        <Grid x:Name="CuadrosDeAyudaGrid">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <materialDesign:Card Grid.Column="0" Margin="20">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="300"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <!--Poner imagen-->
+                    <Image Height="300" Stretch="Fill" Source="/Assets/ventas.jpg"/>
+
+                    <StackPanel Grid.Row="1" Margin="8 24 8 4">
+                        <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" FontSize="40" Margin="10">
+                            Ayuda para realizar ventas
+                        </TextBlock>
+                        <Separator Grid.Row="2" Style="{StaticResource MaterialDesignDarkSeparator}" Margin="5 0 5 0" />
+                        <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="20">
+                            Este pequeño tutorial te ayudará con los primeros pasos para realizar ventas correctamente.
+                        </TextBlock>
+                    </StackPanel>
+                </Grid>
+            </materialDesign:Card>
+
+            <materialDesign:Card Grid.Column="1" Margin="20">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="300"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <!--Poner imagen-->
+                    <Image Height="300" Stretch="Fill" Source="/Assets/software_para_tiendas_de_ropa.jpg"/>
+
+                    <StackPanel Grid.Row="1" Margin="8 24 8 4">
+                        <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" FontSize="40" Margin="10">
+                            Ayuda para la gestión
+                        </TextBlock>
+                        <Separator Grid.Row="2" Style="{StaticResource MaterialDesignDarkSeparator}" Margin="5 0 5 0" />
+                        <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="20">
+                            Con estas sencillas instrucciones podrás empezar a gestionar todo tu almacén.
+                        </TextBlock>
+                    </StackPanel>
+                </Grid>
+            </materialDesign:Card>
+
+            <materialDesign:Card Grid.Column="2" Margin="20">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="300"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <!--Poner imagen-->
+                    <Image Height="300" Stretch="Fill" Source="/Assets/Gestión-de-inventario.jpg"/>
+
+                    <StackPanel Grid.Row="1" Margin="8 24 8 4">
+                        <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" TextWrapping="WrapWithOverflow" FontSize="40" Margin="10">
+                            Ayuda para nuevos inventarios
+                        </TextBlock>
+                        <Separator Grid.Row="2" Style="{StaticResource MaterialDesignDarkSeparator}" Margin="5 0 5 0" />
+                        <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="20">
+                           Guía rápida para crear tus inventarios y añadir artículos.
+                        </TextBlock>
+                    </StackPanel>
+                </Grid>
+            </materialDesign:Card>
+            
+        </Grid>
+    </DockPanel>
 </UserControl>

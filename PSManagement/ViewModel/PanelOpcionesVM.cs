@@ -29,6 +29,6 @@ namespace PSManagement.ViewModel
             }
         }
 
-        public void CambiaColor() { }
+        //Más opciones de configuración
     }
 }
