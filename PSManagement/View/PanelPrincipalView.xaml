@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PSManagement.View"
-        xmlns:commands="clr-namespace:PSManagement.Commands"
+        xmlns:comands="clr-namespace:PSManagement.Commands"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -17,13 +17,24 @@
     <!--Comandos-->
     <Window.CommandBindings>
         <CommandBinding
-            Command="commands:CustomCommands.Exit"
-            Executed="ExitCommandBinding_Executed"
-            />
+            Command="ApplicationCommands.Properties"
+            Executed="PropertiesCommandBinding_Executed"/>
+
         <CommandBinding
-            Command="commands:CustomCommands.Help"
-            Executed="ExitCommandBinding_Executed"
+            Command="ApplicationCommands.Help"
+            Executed="HelpCommandBinding_Executed"/>
+
+        <CommandBinding
+            Command="NavigationCommands.BrowseBack"
+            Executed="BrowseBackCommandBinding_Executed"
+            CanExecute="BrowseBackCommandBinding_CanExecute"
             />
+
+        <CommandBinding
+            Command="comands:CustomCommands.Exit"
+            Executed="ExitCommandBinding_Executed"
+            CanExecute="ExitCommandBinding_CanExecute"/>
+
     </Window.CommandBindings>
 
     <!--Recursos-->
@@ -33,10 +44,18 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="S_istema">
-                <MenuItem Header="_Salir" InputGestureText="Alt + F4" Command="commands:CustomCommands.Exit" ></MenuItem>
+                <MenuItem Header="_Salir" InputGestureText="Alt + F4"   Command="comands:CustomCommands.Exit">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="ExitToApp"/>
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="_Ayuda">
-                <MenuItem Header="_Manual" InputGestureText="F1" Command="commands:CustomCommands.Help" ></MenuItem>
+                <MenuItem Header="_Manual" InputGestureText="F1">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="Help"/>
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
         </Menu>
         <StatusBar x:Name="HoraStatusBar" DockPanel.Dock="Bottom" Background="{DynamicResource MaterialDesignPaper}">
@@ -50,22 +69,39 @@
         <DockPanel DockPanel.Dock="Left">
 
             <DockPanel x:Name="PanelBotonesAccionesStackPanel" DockPanel.Dock="Top">
-                <Button x:Name="VentasButton"  DockPanel.Dock="Top" Margin="5" Foreground="White" Height="50" Width="200" FontSize="24" Click="VentasButton_Click">Ventas</Button>
+                <Button x:Name="VentasButton"  DockPanel.Dock="Top" Margin="5" Foreground="White" Height="50" Width="200" FontSize="24">Ventas</Button>
                 <Button x:Name="GestionButton"  DockPanel.Dock="Top" Margin="5" Foreground="White" Height="50" Width="200" FontSize="24">Gestión</Button>
                 <Button x:Name="InventarioButton"  DockPanel.Dock="Top" Margin="5" Foreground="White" Height="50" Width="200" FontSize="24">Inventario</Button>
             </DockPanel>
 
             <DockPanel x:Name="PanelBotonesOpcionesDockPanel" DockPanel.Dock="Bottom" VerticalAlignment="Bottom">
-                <Button x:Name="SalirButton" Style="{StaticResource MaterialDesignRaisedAccentButton}" DockPanel.Dock="Bottom" Margin="5" Content="Salir" Foreground="White" Height="50" Width="200" FontSize="24" Command="commands:CustomCommands.Exit"/>
-                <Button x:Name="ConfiguracionButton" Style="{StaticResource MaterialDesignRaisedAccentButton}" DockPanel.Dock="Bottom" Margin="5" Content="Configuración" Foreground="White" Height="50" Width="200" FontSize="24" Click="ConfiguracionButton_Click"/>
+                <Button x:Name="SalirButton" Style="{StaticResource MaterialDesignRaisedAccentButton}" DockPanel.Dock="Bottom" Margin="5" Content="Salir" Foreground="White" Height="50" Width="200" FontSize="24" Command="comands:CustomCommands.Exit"/>
+                <Button x:Name="ConfiguracionButton" Style="{StaticResource MaterialDesignRaisedAccentButton}" DockPanel.Dock="Bottom" Margin="5" Content="Configuración" Foreground="White" Height="50" Width="200" FontSize="24" Command="ApplicationCommands.Properties"/>
             </DockPanel>
 
         </DockPanel>
 
         <Border Margin="5" BorderBrush="LightBlue" BorderThickness="2">
-            <Grid x:Name="PanelDeTrabajoGrid">
 
-            </Grid>
+            <StackPanel x:Name="ContenedorPanelTrabajoStackPanel" Orientation="Vertical">
+
+                <StackPanel x:Name="MenuNavStackPanel" Orientation="Horizontal">
+                    <Menu>
+                        <MenuItem Command="NavigationCommands.BrowseBack">
+                            <MenuItem.Icon>
+                                <materialDesign:PackIcon Kind="ArrowLeftThick" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </Menu>
+                    <TextBlock x:Name="TituloMenuTrabajoTextBlock" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontSize="20"/>
+                    <materialDesign:PackIcon x:Name="IconoTituloMaterialDIcon" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,0,0" Width="20" Height="20"/>
+                </StackPanel>
+                <Separator Margin="10,0,10,0"/>
+                <Grid x:Name="PanelDeTrabajoGrid">
+                    <!--Aquí dentro se irán insertando dinámicamente los controles de usuario que se vayan eligiendo (Por defecto se muestra un mensaje de Bienvenida)-->
+                </Grid>
+            </StackPanel>
+
         </Border>
     </DockPanel>
 </Window>

@@ -1,5 +1,6 @@
 ﻿using MaterialDesignThemes.Wpf;
 using PSManagement.Dialogs;
+using PSManagement.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,25 +24,15 @@ namespace PSManagement.View
     public partial class PanelPrincipalView : Window
     {
         DispatcherTimer timer;
-        UIElement panelAnterior;
         public PanelPrincipalView()
         {
+            this.DataContext = new PanelPrincipalViewModel();
             InitializeComponent();
-            FechaTextBlock.Text = DateTime.Now.ToLongDateString();
-            timer = new DispatcherTimer
-            {
-                Interval = TimeSpan.FromSeconds(1)
-            };
 
-            timer.Tick += HoraTimer_Tick;
-            timer.Start();
+            CargaFechaYHora();
 
-            TextoBienvenidaPorDefectoView textoBienvenida = new TextoBienvenidaPorDefectoView
-            {
-                Margin = new Thickness(10)
-            };
-            panelAnterior = textoBienvenida;
-            PanelDeTrabajoGrid.Children.Add(textoBienvenida);
+            PanelDeTrabajoGrid.Children.Add((this.DataContext as PanelPrincipalViewModel).CargaPanelBienvenida());
+            CambiaTituloIconoMenuNav();
         }
 
         private void HoraTimer_Tick(object sender, EventArgs e)
@@ -49,40 +40,96 @@ namespace PSManagement.View
             HoraTextBlock.Text = DateTime.Now.ToLongTimeString();
         }
 
+        private void CargaFechaYHora()
+        {
+
+            FechaTextBlock.Text = DateTime.Now.ToLongDateString();
+
+            timer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(1)
+            };
+
+            timer.Tick += HoraTimer_Tick;
+            timer.Start();
+        }
+
         private void VentasButton_Click(object sender, RoutedEventArgs e)
         {
         }
 
-        private void ExitCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+
+
+        private void HelpCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            ExitDialog ventanaSalir = new ExitDialog
-            {
-                Owner = this,
-                ShowInTaskbar = false,
-                WindowStartupLocation = WindowStartupLocation.CenterScreen
-            };
 
-
-            if (ventanaSalir.ShowDialog() == true)
-            {
-                Application.Current.Shutdown();
-            }
         }
 
-        private void ConfiguracionButton_Click(object sender, RoutedEventArgs e)
-        {
-            BundledTheme bundled = (BundledTheme)App.Current.Resources.MergedDictionaries.First();
 
-            
-            if (bundled.BaseTheme == BaseTheme.Dark)
+        //Comando para cargar el panel de opciones del programa
+
+        private void PropertiesCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            PanelDeTrabajoGrid.Children.Clear();
+            PanelDeTrabajoGrid.Children.Add((this.DataContext as PanelPrincipalViewModel).CargaPanelOpciones());
+            CambiaTituloIconoMenuNav();
+
+        }
+
+        //Comando para mostrar el diálogo para salir de la aplicación
+        private void ExitCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            (this.DataContext as PanelPrincipalViewModel).ExitDialog
+                (
+                    new ExitDialog
+                    {
+                        Owner = this,
+                        ShowInTaskbar = false,
+                        WindowStartupLocation = WindowStartupLocation.CenterScreen
+                    }
+                );
+        }
+
+        private void ExitCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+
+        //Comando para el botón de volver al panel anterior
+        private void BrowseBackCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            PanelDeTrabajoGrid.Children.Clear();
+            PanelDeTrabajoGrid.Children.Add((this.DataContext as PanelPrincipalViewModel).ComandoBotonAtrás());
+            CambiaTituloIconoMenuNav();
+        }
+
+        private void BrowseBackCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = !((this.DataContext as PanelPrincipalViewModel).PanelActual is TextoBienvenidaPorDefectoView);
+        }
+
+        private void CambiaTituloIconoMenuNav()
+        {
+
+            string texto = "";
+            PackIcon icon = new PackIcon();
+
+            if ((this.DataContext as PanelPrincipalViewModel).PanelActual is PanelOpcionesVIew)
             {
-                bundled.BaseTheme = BaseTheme.Light;
+                texto = "Opciones";
+                icon.Kind = PackIconKind.Settings;
+
             }
-            else
+            else if ((this.DataContext as PanelPrincipalViewModel).PanelActual is TextoBienvenidaPorDefectoView)
             {
-                bundled.BaseTheme = BaseTheme.Dark;
+                texto = "Panel Principal";
+                icon.Kind = PackIconKind.HomeCircle;
             }
-            
+
+
+            TituloMenuTrabajoTextBlock.Text = texto;
+            IconoTituloMaterialDIcon.Kind = icon.Kind;
         }
     }
 }

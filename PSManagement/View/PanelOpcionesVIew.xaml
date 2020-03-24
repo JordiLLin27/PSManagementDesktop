@@ -4,9 +4,28 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PSManagement.View"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             Background="{DynamicResource MaterialDesignPaper}"
+             TextElement.FontWeight="Medium"
+             TextElement.FontSize="14"
+             FontFamily="{materialDesign:MaterialDesignFont}"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+
+    <Grid x:Name="PanelPrincipalGrid" Margin="50">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center">
+            <TextBlock Text="Cambiar tema:  "></TextBlock>
+            <TextBlock Text="Claro  "></TextBlock>
+            <ToggleButton x:Name="CambiaTemaToggleButton" Style="{StaticResource MaterialDesignSwitchToggleButton}" ToolTip="Cambiar de tema" IsChecked="False" Click="CambiaTemaToggleButton_Click" />
+            <TextBlock Text="   Oscuro  "></TextBlock>
+        </StackPanel>
+        <StackPanel Grid.Row="1"></StackPanel>
     </Grid>
 </UserControl>

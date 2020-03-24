@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using PSManagement.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,7 +24,13 @@ namespace PSManagement.View
     {
         public PanelOpcionesVIew()
         {
+            this.DataContext = new PanelOpcionesVM();
             InitializeComponent();
+        }
+
+        private void CambiaTemaToggleButton_Click(object sender, RoutedEventArgs e)
+        {
+            (this.DataContext as PanelOpcionesVM).CambiaTema();
         }
     }
 }
