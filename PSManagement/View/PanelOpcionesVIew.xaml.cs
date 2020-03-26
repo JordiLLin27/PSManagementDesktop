@@ -26,6 +26,11 @@ namespace PSManagement.View
         {
             this.DataContext = new PanelOpcionesVM();
             InitializeComponent();
+
+            if (Properties.Settings.Default.TemaOscuro)
+                CambiaTemaToggleButton.IsChecked = true;
+            else
+                CambiaTemaToggleButton.IsChecked = false;
         }
 
         private void CambiaTemaToggleButton_Click(object sender, RoutedEventArgs e)

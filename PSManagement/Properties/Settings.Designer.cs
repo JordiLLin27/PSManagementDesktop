@@ -22,5 +22,17 @@ namespace PSManagement.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool TemaOscuro {
+            get {
+                return ((bool)(this["TemaOscuro"]));
+            }
+            set {
+                this["TemaOscuro"] = value;
+            }
+        }
     }
 }

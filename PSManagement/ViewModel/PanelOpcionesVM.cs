@@ -22,10 +22,14 @@ namespace PSManagement.ViewModel
             if (bundled.BaseTheme == BaseTheme.Dark)
             {
                 bundled.BaseTheme = BaseTheme.Light;
+                Properties.Settings.Default.TemaOscuro = false;
+                Properties.Settings.Default.Save();
             }
             else
             {
                 bundled.BaseTheme = BaseTheme.Dark;
+                Properties.Settings.Default.TemaOscuro = true;
+                Properties.Settings.Default.Save();
             }
         }
 

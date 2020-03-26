@@ -1,4 +1,5 @@
-﻿using PSManagement.View;
+﻿using MaterialDesignThemes.Wpf;
+using PSManagement.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,9 +38,29 @@ namespace PSManagement
         private void Timer_Tick(object sender, EventArgs e)
         {
             PanelPrincipalView ventanaPrincipal = new PanelPrincipalView();
+            CompruebaConfig();
             ventanaPrincipal.Show();
             timer.Stop();
             Close();
+        }
+
+        private void CompruebaConfig()
+        {
+
+            EsTemaOscuro();
+
+        }
+
+        private void EsTemaOscuro()
+        {
+            BundledTheme bundled = (BundledTheme)App.Current.Resources.MergedDictionaries.First();
+
+            if (Properties.Settings.Default.TemaOscuro)
+            {
+                bundled.BaseTheme = BaseTheme.Dark;
+            }
+            else
+                bundled.BaseTheme = BaseTheme.Light;
         }
     }
 }

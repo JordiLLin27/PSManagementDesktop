@@ -21,7 +21,7 @@
             <TextBlock FontSize="18" Margin="30,0,0,0"><Run Text="Pulsa "/><Run Text="Gestión " FontStyle="Italic"/><Run Text="para obtener o modificar información de los inventarios disponibles."/></TextBlock>
             <TextBlock FontSize="18" Margin="30,0,0,0"><Run Text="Pulsa "/><Run Text="Inventario " FontStyle="Italic"/><Run Text="para añadir un nuevo inventario al sistema."/></TextBlock>
         </StackPanel>
-        
+
         <Grid x:Name="CuadrosDeAyudaGrid">
 
             <Grid.ColumnDefinitions>
@@ -30,69 +30,87 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <materialDesign:Card Grid.Column="0" Margin="20">
+            <materialDesign:Card Grid.Column="0" Margin="20" UniformCornerRadius="10">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="300"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <!--Poner imagen-->
                     <Image Height="300" Stretch="Fill" Source="/Assets/ventas.jpg"/>
-
+                    <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 16 -20">
+                        <materialDesign:PackIcon Kind="AboutCircle" />
+                    </Button>
                     <StackPanel Grid.Row="1" Margin="8 24 8 4">
                         <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" FontSize="40" Margin="10">
                             Ayuda para realizar ventas
                         </TextBlock>
                         <Separator Grid.Row="2" Style="{StaticResource MaterialDesignDarkSeparator}" Margin="5 0 5 0" />
-                        <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="20">
+                        <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="20" Margin="10">
                             Este pequeño tutorial te ayudará con los primeros pasos para realizar ventas correctamente.
                         </TextBlock>
                     </StackPanel>
+                    <Button Grid.Row="2" Style="{StaticResource MaterialDesignFlatButton}" HorizontalAlignment="Left" Margin="8 4 8 8" FontWeight="Bold" FontSize="18">
+                        MÁS INFORMACIÓN...
+                    </Button>
                 </Grid>
             </materialDesign:Card>
 
-            <materialDesign:Card Grid.Column="1" Margin="20">
+            <materialDesign:Card Grid.Column="1" Margin="20" UniformCornerRadius="10">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="300"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <!--Poner imagen-->
                     <Image Height="300" Stretch="Fill" Source="/Assets/software_para_tiendas_de_ropa.jpg"/>
-
+                    <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 16 -20">
+                        <materialDesign:PackIcon Kind="AboutCircle" />
+                    </Button>
                     <StackPanel Grid.Row="1" Margin="8 24 8 4">
                         <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" FontSize="40" Margin="10">
                             Ayuda para la gestión
                         </TextBlock>
                         <Separator Grid.Row="2" Style="{StaticResource MaterialDesignDarkSeparator}" Margin="5 0 5 0" />
-                        <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="20">
+                        <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="20" Margin="10">
                             Con estas sencillas instrucciones podrás empezar a gestionar todo tu almacén.
                         </TextBlock>
                     </StackPanel>
+                    <Button Grid.Row="2" Style="{StaticResource MaterialDesignFlatButton}" HorizontalAlignment="Left" Margin="8 4 8 8" FontWeight="Bold" FontSize="18">
+                        MÁS INFORMACIÓN...
+                    </Button>
                 </Grid>
             </materialDesign:Card>
 
-            <materialDesign:Card Grid.Column="2" Margin="20">
+            <materialDesign:Card Grid.Column="2" Margin="20" UniformCornerRadius="10">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="300"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <!--Poner imagen-->
                     <Image Height="300" Stretch="Fill" Source="/Assets/Gestión-de-inventario.jpg"/>
-
+                    <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 16 -20">
+                        <materialDesign:PackIcon Kind="AboutCircle" />
+                    </Button>
                     <StackPanel Grid.Row="1" Margin="8 24 8 4">
                         <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" TextWrapping="WrapWithOverflow" FontSize="40" Margin="10">
                             Ayuda para nuevos inventarios
                         </TextBlock>
                         <Separator Grid.Row="2" Style="{StaticResource MaterialDesignDarkSeparator}" Margin="5 0 5 0" />
-                        <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="20">
+                        <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="20" Margin="10">
                            Guía rápida para crear tus inventarios y añadir artículos.
                         </TextBlock>
                     </StackPanel>
+                    <Button Grid.Row="2" Style="{StaticResource MaterialDesignFlatButton}" HorizontalAlignment="Left" Margin="8 4 8 8" FontWeight="Bold" FontSize="18">
+                        MÁS INFORMACIÓN...
+                    </Button>
                 </Grid>
             </materialDesign:Card>
-            
+
         </Grid>
     </DockPanel>
 </UserControl>
