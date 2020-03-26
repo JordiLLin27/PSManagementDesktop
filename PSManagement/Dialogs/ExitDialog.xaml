@@ -7,11 +7,11 @@
         mc:Ignorable="d"
          xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        Background="DarkGray"
+        Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="{materialDesign:MaterialDesignFont}"
-        Title="ExitDialog" Height="200" Width="400" WindowStyle="None" ResizeMode="NoResize" BorderBrush="DarkCyan" BorderThickness="5">
+        Title="ExitDialog" Height="200" Width="400" WindowStyle="None" ResizeMode="NoResize" BorderBrush="DeepSkyBlue" BorderThickness="5">
 
     <StackPanel x:Name="PanelPrincipalStackPanel" HorizontalAlignment="Center" VerticalAlignment="Center">
         <TextBlock Text="¿Confirmar Salir?" HorizontalAlignment="Center" FontSize="24"/>
