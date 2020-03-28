@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PSManagement.ViewModel
 {
-    class VentasViewModel
+    class PanelVentasVM
     {
     }
 }

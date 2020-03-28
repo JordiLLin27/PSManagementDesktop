@@ -35,6 +35,15 @@
             Executed="ExitCommandBinding_Executed"
             CanExecute="ExitCommandBinding_CanExecute"/>
 
+        <CommandBinding
+            Command="comands:CustomCommands.Sales"
+            Executed="SalesCommandBinding_Executed"
+            />
+
+        <CommandBinding
+            Command="comands:CustomCommands.Inventory"
+            Executed="InventoryCommandBinding_Executed"/>
+
     </Window.CommandBindings>
 
     <!--Recursos-->
@@ -69,9 +78,9 @@
         <DockPanel DockPanel.Dock="Left">
 
             <DockPanel x:Name="PanelBotonesAccionesStackPanel" DockPanel.Dock="Top">
-                <Button x:Name="VentasButton"  DockPanel.Dock="Top" Margin="5" Foreground="White" Height="50" Width="200" FontSize="24">Ventas</Button>
+                <Button x:Name="VentasButton"  DockPanel.Dock="Top" Margin="5" Foreground="White" Height="50" Width="200" FontSize="24" Command="comands:CustomCommands.Sales">Ventas</Button>
                 <Button x:Name="GestionButton"  DockPanel.Dock="Top" Margin="5" Foreground="White" Height="50" Width="200" FontSize="24">Gestión</Button>
-                <Button x:Name="InventarioButton"  DockPanel.Dock="Top" Margin="5" Foreground="White" Height="50" Width="200" FontSize="24">Inventario</Button>
+                <Button x:Name="InventarioButton"  DockPanel.Dock="Top" Margin="5" Foreground="White" Height="50" Width="200" FontSize="24" Command="comands:CustomCommands.Inventory">Inventario</Button>
             </DockPanel>
 
             <DockPanel x:Name="PanelBotonesOpcionesDockPanel" DockPanel.Dock="Bottom" VerticalAlignment="Bottom">

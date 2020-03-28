@@ -1,0 +1,79 @@
+﻿<UserControl x:Class="PSManagement.View.PanelInventariosView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PSManagement.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="978" d:DesignWidth="1696"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             Background="{DynamicResource MaterialDesignPaper}"
+             TextElement.FontWeight="Medium"
+             TextElement.FontSize="14"
+             FontFamily="{materialDesign:MaterialDesignFont}" Width="Auto" Height="Auto">
+    <UserControl.Resources>
+
+    </UserControl.Resources>
+
+    <TabControl x:Name="OpcionesInventarioTabControl" TabStripPlacement="Top" Background="{DynamicResource MaterialDesignPaper}" FontSize="20">
+        <TabItem Header="Inventario" Width="200" Height="50">
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center" Height="50">
+                    <Button x:Name="NuevoInventarioButton" Content="Añadir inventario" Height="50" Width="200" Margin="0,0,10,0"/>
+                    <Button x:Name="EditarInventarioButton" Content="Editar inventario" Height="50" Width="200" Margin="0,0,10,0"/>
+                    <Button x:Name="EliminarInventarioButton" Content="Eliminar inventario" Height="50" Width="200"/>
+                </StackPanel>
+                <GroupBox Header="Mantenimiento de Inventario" Margin="10">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0" Grid.Column="0" Content="Seleccionar Inventario: " FontSize="24" Grid.ColumnSpan="2" VerticalAlignment="Center"/>
+                        <ComboBox Grid.Row="0" Grid.Column="1"
+                            materialDesign:HintAssist.Hint="Inventarios"
+                            MinWidth="72" VerticalAlignment="Center"
+                            ItemsSource="{Binding LongListToTestComboVirtualization}" SelectedValue="{Binding SelectedValueOne}" Margin="0,48" Grid.ColumnSpan="5">
+                            <ComboBox.SelectedItem>
+                                <Binding Path="SelectedValueOne" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged"/>
+                            </ComboBox.SelectedItem>
+                            <ComboBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel />
+                                </ItemsPanelTemplate>
+                            </ComboBox.ItemsPanel>
+                        </ComboBox>
+                        <Label Grid.Row="1" Grid.Column="0" Content="Nombre Inventario: " FontSize="24"/>
+                        <TextBox x:Name="NameTextBox" Grid.Column="2" Grid.Row="1" 
+                                 materialDesign:HintAssist.Hint="Name" materialDesign:HintAssist.HelperText="Helper text longer than error" Grid.ColumnSpan="5">
+                            <TextBox.Text>
+                                <Binding Path="Name" UpdateSourceTrigger="PropertyChanged">
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                    </Grid>
+                </GroupBox>
+            </DockPanel>
+        </TabItem>
+        <TabItem Header="Artículos" Width="200">
+            <GroupBox Header="Mantenimiento de artículos" Margin="10"></GroupBox>
+        </TabItem>
+        <TabItem Header="Categorías" Width="200">
+            <GroupBox Header="Mantenimiento de categorías" Margin="10"></GroupBox>
+        </TabItem>
+        <TabItem Header="Colores" Width="200">
+            <GroupBox Header="Mantenimiento de colores" Margin="10"></GroupBox>
+        </TabItem>
+    </TabControl>
+</UserControl>

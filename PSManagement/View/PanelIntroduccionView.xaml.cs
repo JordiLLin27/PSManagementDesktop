@@ -18,9 +18,9 @@ namespace PSManagement.View
     /// <summary>
     /// Lógica de interacción para TextoBienvenidaPorDefecto.xaml
     /// </summary>
-    public partial class TextoBienvenidaPorDefectoView : UserControl
+    public partial class PanelIntroduccionView : UserControl
     {
-        public TextoBienvenidaPorDefectoView()
+        public PanelIntroduccionView()
         {
             InitializeComponent();
         }

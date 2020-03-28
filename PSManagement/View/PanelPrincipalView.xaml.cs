@@ -26,12 +26,12 @@ namespace PSManagement.View
         DispatcherTimer timer;
         public PanelPrincipalView()
         {
-            this.DataContext = new PanelPrincipalViewModel();
+            this.DataContext = new PanelPrincipalVM();
             InitializeComponent();
 
             CargaFechaYHora();
 
-            PanelDeTrabajoGrid.Children.Add((this.DataContext as PanelPrincipalViewModel).CargaPanelBienvenida());
+            PanelDeTrabajoGrid.Children.Add((this.DataContext as PanelPrincipalVM).CargaPanelBienvenida());
             CambiaTituloIconoMenuNav();
         }
 
@@ -54,12 +54,6 @@ namespace PSManagement.View
             timer.Start();
         }
 
-        private void VentasButton_Click(object sender, RoutedEventArgs e)
-        {
-        }
-
-
-
         private void HelpCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
 
@@ -71,7 +65,7 @@ namespace PSManagement.View
         private void PropertiesCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             PanelDeTrabajoGrid.Children.Clear();
-            PanelDeTrabajoGrid.Children.Add((this.DataContext as PanelPrincipalViewModel).CargaPanelOpciones());
+            PanelDeTrabajoGrid.Children.Add((this.DataContext as PanelPrincipalVM).CargaPanelOpciones());
             CambiaTituloIconoMenuNav();
 
         }
@@ -79,7 +73,7 @@ namespace PSManagement.View
         //Comando para mostrar el diálogo para salir de la aplicación
         private void ExitCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            (this.DataContext as PanelPrincipalViewModel).ExitDialog
+            (this.DataContext as PanelPrincipalVM).ExitDialog
                 (
                     new ExitDialog
                     {
@@ -100,13 +94,13 @@ namespace PSManagement.View
         private void BrowseBackCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             PanelDeTrabajoGrid.Children.Clear();
-            PanelDeTrabajoGrid.Children.Add((this.DataContext as PanelPrincipalViewModel).ComandoBotonAtrás());
+            PanelDeTrabajoGrid.Children.Add((this.DataContext as PanelPrincipalVM).ComandoBotonAtrás());
             CambiaTituloIconoMenuNav();
         }
 
         private void BrowseBackCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = !((this.DataContext as PanelPrincipalViewModel).PanelActual is TextoBienvenidaPorDefectoView);
+            e.CanExecute = !((this.DataContext as PanelPrincipalVM).PanelActual is PanelIntroduccionView);
         }
 
         private void CambiaTituloIconoMenuNav()
@@ -115,21 +109,39 @@ namespace PSManagement.View
             string texto = "";
             PackIcon icon = new PackIcon();
 
-            if ((this.DataContext as PanelPrincipalViewModel).PanelActual is PanelOpcionesVIew)
+            if ((this.DataContext as PanelPrincipalVM).PanelActual is PanelOpcionesVIew)
             {
                 texto = "Opciones";
                 icon.Kind = PackIconKind.Settings;
 
             }
-            else if ((this.DataContext as PanelPrincipalViewModel).PanelActual is TextoBienvenidaPorDefectoView)
+            else if ((this.DataContext as PanelPrincipalVM).PanelActual is PanelIntroduccionView)
             {
                 texto = "Panel Principal";
                 icon.Kind = PackIconKind.HomeCircle;
+            }
+            else if ((this.DataContext as PanelPrincipalVM).PanelActual is PanelInventariosView)
+            {
+                texto = "Inventarios";
+                icon.Kind = PackIconKind.Bookshelf;
             }
 
 
             TituloMenuTrabajoTextBlock.Text = texto;
             IconoTituloMaterialDIcon.Kind = icon.Kind;
+        }
+
+        //Comando para cambiar al panel de mantenimiento de inventarios
+        private void SalesCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+
+        }
+
+        private void InventoryCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            PanelDeTrabajoGrid.Children.Clear();
+            PanelDeTrabajoGrid.Children.Add((this.DataContext as PanelPrincipalVM).CargaPanelInventarios());
+            CambiaTituloIconoMenuNav();
         }
     }
 }

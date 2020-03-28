@@ -21,7 +21,27 @@ namespace PSManagement.Commands
                 }
             );
 
-       
+        public static readonly RoutedUICommand Sales = new RoutedUICommand(
+
+                "Sales",
+                "Sales",
+                typeof(CustomCommands),
+                new InputGestureCollection()
+                {
+                    new KeyGesture(Key.S, ModifierKeys.Control)
+                }
+            );
+
+        public static readonly RoutedUICommand Inventory = new RoutedUICommand
+            (
+                "Inventory",
+                "Inventory",
+                typeof(CustomCommands),
+                new InputGestureCollection()
+                {
+                    new KeyGesture(Key.I,ModifierKeys.Control)
+                }
+            );
     }
 
 }

@@ -9,20 +9,20 @@ using System.Windows;
 
 namespace PSManagement.ViewModel
 {
-    class PanelPrincipalViewModel
+    class PanelPrincipalVM
     {
         public UIElement PanelAnterior { get; set; }
         public UIElement PanelActual { get; set; }
 
-        public PanelPrincipalViewModel()
+        public PanelPrincipalVM()
         {
             PanelAnterior = new UIElement();
             PanelActual = new UIElement();
         }
 
-        public TextoBienvenidaPorDefectoView CargaPanelBienvenida()
+        public PanelIntroduccionView CargaPanelBienvenida()
         {
-            TextoBienvenidaPorDefectoView textoBienvenida = new TextoBienvenidaPorDefectoView
+            PanelIntroduccionView textoBienvenida = new PanelIntroduccionView
             {
                 Margin = new Thickness(10)
             };
@@ -40,6 +40,13 @@ namespace PSManagement.ViewModel
             PanelActual = new PanelOpcionesVIew();
 
             return (PanelOpcionesVIew)PanelActual;
+        }
+
+        public PanelInventariosView CargaPanelInventarios()
+        {
+            PanelActual = new PanelInventariosView();
+
+            return (PanelInventariosView)PanelActual;
         }
 
         public void ExitDialog(ExitDialog ventanaSalir)
