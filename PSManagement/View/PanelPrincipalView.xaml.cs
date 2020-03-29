@@ -31,7 +31,7 @@ namespace PSManagement.View
 
             CargaFechaYHora();
 
-            PanelDeTrabajoGrid.Children.Add((this.DataContext as PanelPrincipalVM).CargaPanelBienvenida());
+            PanelDeTrabajoGrid.Children.Add((this.DataContext as PanelPrincipalVM).PanelActual);
             CambiaTituloIconoMenuNav();
         }
 
@@ -70,6 +70,11 @@ namespace PSManagement.View
 
         }
 
+        private void PropertiesCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = !((this.DataContext as PanelPrincipalVM).PanelActual is PanelOpcionesVIew);
+        }
+
         //Comando para mostrar el diálogo para salir de la aplicación
         private void ExitCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
@@ -94,7 +99,7 @@ namespace PSManagement.View
         private void BrowseBackCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             PanelDeTrabajoGrid.Children.Clear();
-            PanelDeTrabajoGrid.Children.Add((this.DataContext as PanelPrincipalVM).ComandoBotonAtrás());
+            PanelDeTrabajoGrid.Children.Add((this.DataContext as PanelPrincipalVM).BotonHome());
             CambiaTituloIconoMenuNav();
         }
 
@@ -131,17 +136,23 @@ namespace PSManagement.View
             IconoTituloMaterialDIcon.Kind = icon.Kind;
         }
 
-        //Comando para cambiar al panel de mantenimiento de inventarios
+
         private void SalesCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
 
         }
 
+        //Comando para cambiar al panel de mantenimiento de inventarios
         private void InventoryCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             PanelDeTrabajoGrid.Children.Clear();
             PanelDeTrabajoGrid.Children.Add((this.DataContext as PanelPrincipalVM).CargaPanelInventarios());
             CambiaTituloIconoMenuNav();
+        }
+
+        private void InventoryCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = !((this.DataContext as PanelPrincipalVM).PanelActual is PanelInventariosView);
         }
     }
 }

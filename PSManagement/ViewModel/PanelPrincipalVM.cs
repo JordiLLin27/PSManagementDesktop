@@ -1,6 +1,7 @@
 ﻿using PSManagement.Dialogs;
 using PSManagement.View;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,42 +12,45 @@ namespace PSManagement.ViewModel
 {
     class PanelPrincipalVM
     {
-        public UIElement PanelAnterior { get; set; }
         public UIElement PanelActual { get; set; }
+
 
         public PanelPrincipalVM()
         {
-            PanelAnterior = new UIElement();
-            PanelActual = new UIElement();
+            CargaPanelBienvenida();
         }
 
         public PanelIntroduccionView CargaPanelBienvenida()
         {
-            PanelIntroduccionView textoBienvenida = new PanelIntroduccionView
+
+            PanelIntroduccionView panelIntro = new PanelIntroduccionView()
             {
                 Margin = new Thickness(10)
             };
 
-            PanelAnterior = textoBienvenida;
-            PanelActual = textoBienvenida;
+            PanelActual = panelIntro;
 
-            return textoBienvenida;
+            return panelIntro;
         }
 
 
         public PanelOpcionesVIew CargaPanelOpciones()
         {
 
-            PanelActual = new PanelOpcionesVIew();
+            PanelOpcionesVIew panelOpt = new PanelOpcionesVIew();
 
-            return (PanelOpcionesVIew)PanelActual;
+            PanelActual = panelOpt;
+
+            return panelOpt;
         }
 
         public PanelInventariosView CargaPanelInventarios()
         {
-            PanelActual = new PanelInventariosView();
+            PanelInventariosView panelInv = new PanelInventariosView();
 
-            return (PanelInventariosView)PanelActual;
+            PanelActual = panelInv;
+
+            return panelInv;
         }
 
         public void ExitDialog(ExitDialog ventanaSalir)
@@ -58,10 +62,9 @@ namespace PSManagement.ViewModel
             }
         }
 
-        public UIElement ComandoBotonAtrás()
+        internal UIElement BotonHome()
         {
-            PanelActual = PanelAnterior;
-            return PanelActual;
+            return CargaPanelBienvenida();
         }
     }
 }

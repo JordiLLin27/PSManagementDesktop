@@ -18,7 +18,8 @@
     <Window.CommandBindings>
         <CommandBinding
             Command="ApplicationCommands.Properties"
-            Executed="PropertiesCommandBinding_Executed"/>
+            Executed="PropertiesCommandBinding_Executed"
+            CanExecute="PropertiesCommandBinding_CanExecute"/>
 
         <CommandBinding
             Command="ApplicationCommands.Help"
@@ -42,7 +43,8 @@
 
         <CommandBinding
             Command="comands:CustomCommands.Inventory"
-            Executed="InventoryCommandBinding_Executed"/>
+            Executed="InventoryCommandBinding_Executed"
+            CanExecute="InventoryCommandBinding_CanExecute"/>
 
     </Window.CommandBindings>
 
@@ -96,9 +98,9 @@
 
                 <StackPanel x:Name="MenuNavStackPanel" Orientation="Horizontal">
                     <Menu>
-                        <MenuItem Command="NavigationCommands.BrowseBack">
+                        <MenuItem Command="NavigationCommands.BrowseBack" Header="Inicio">
                             <MenuItem.Icon>
-                                <materialDesign:PackIcon Kind="ArrowLeftThick" />
+                                <materialDesign:PackIcon Kind="Home" />
                             </MenuItem.Icon>
                         </MenuItem>
                     </Menu>
