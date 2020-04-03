@@ -162,6 +162,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ModeloTienda.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Model\PropertyChangedModel.cs" />
+    <Compile Include="Service\BBDDService.cs" />
+    <Compile Include="ViewModel\PanelIntroduccionVM.cs" />
     <Compile Include="ViewModel\PanelInventariosVM.cs" />
     <Compile Include="ViewModel\PanelOpcionesVM.cs" />
     <Compile Include="ViewModel\PanelPrincipalVM.cs" />
@@ -255,9 +258,7 @@
   <ItemGroup>
     <Resource Include="Assets\shipping_shipment_product.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Service\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
       <Visible>False</Visible>
