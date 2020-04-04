@@ -238,12 +238,12 @@
           <Property Name="PrecioUnitario" Type="Double" Nullable="false" />
           <Property Name="StockMinimo" Type="Int32" Nullable="false" />
           <Property Name="StockDisponible" Type="SByte" Nullable="false" />
-          <NavigationProperty Name="categorias" Relationship="Self.fk_articulos_categorias" FromRole="articulos" ToRole="categorias" />
-          <NavigationProperty Name="colores" Relationship="Self.fk_articulos_colores" FromRole="articulos" ToRole="colores" />
-          <NavigationProperty Name="inventarios" Relationship="Self.fk_articulos_inventarios" FromRole="articulos" ToRole="inventarios" />
-          <NavigationProperty Name="cantidadpornumeros" Relationship="Self.fk_cantidadnum_articulo" FromRole="articulos" ToRole="cantidadpornumeros" />
-          <NavigationProperty Name="cantidadportallas" Relationship="Self.fk_cantidadtallas_articulo" FromRole="articulos" ToRole="cantidadportallas" />
-          <NavigationProperty Name="detallesfactura" Relationship="Self.fk_detalles_articulo" FromRole="articulos" ToRole="detallesfactura" />
+          <NavigationProperty Name="CATEGORIA" Relationship="Self.fk_articulos_categorias" FromRole="articulos" ToRole="categorias" />
+          <NavigationProperty Name="COLOR" Relationship="Self.fk_articulos_colores" FromRole="articulos" ToRole="colores" />
+          <NavigationProperty Name="INVENTARIO" Relationship="Self.fk_articulos_inventarios" FromRole="articulos" ToRole="inventarios" />
+          <NavigationProperty Name="CANTIDADNUM" Relationship="Self.fk_cantidadnum_articulo" FromRole="articulos" ToRole="cantidadpornumeros" />
+          <NavigationProperty Name="CANTIDADTALLA" Relationship="Self.fk_cantidadtallas_articulo" FromRole="articulos" ToRole="cantidadportallas" />
+          <NavigationProperty Name="ENFACTURA" Relationship="Self.fk_detalles_articulo" FromRole="articulos" ToRole="detallesfactura" />
         </EntityType>
         <EntityType Name="cantidadpornumeros">
           <Key>
@@ -262,7 +262,7 @@
           <Property Name="N45" Type="Int32" Nullable="false" />
           <Property Name="N46" Type="Int32" Nullable="false" />
           <Property Name="N47" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="articulos" Relationship="Self.fk_cantidadnum_articulo" FromRole="cantidadpornumeros" ToRole="articulos" />
+          <NavigationProperty Name="ARTICULOS" Relationship="Self.fk_cantidadnum_articulo" FromRole="cantidadpornumeros" ToRole="articulos" />
         </EntityType>
         <EntityType Name="cantidadportallas">
           <Key>
@@ -274,7 +274,7 @@
           <Property Name="M" Type="Int32" Nullable="false" />
           <Property Name="L" Type="Int32" Nullable="false" />
           <Property Name="XL" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="articulos" Relationship="Self.fk_cantidadtallas_articulo" FromRole="cantidadportallas" ToRole="articulos" />
+          <NavigationProperty Name="ARTICULOS" Relationship="Self.fk_cantidadtallas_articulo" FromRole="cantidadportallas" ToRole="articulos" />
         </EntityType>
         <EntityType Name="categorias">
           <Key>
@@ -282,7 +282,7 @@
           </Key>
           <Property Name="IdCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Categoria" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="articulos" Relationship="Self.fk_articulos_categorias" FromRole="categorias" ToRole="articulos" />
+          <NavigationProperty Name="ARTICULOS" Relationship="Self.fk_articulos_categorias" FromRole="categorias" ToRole="articulos" />
         </EntityType>
         <EntityType Name="colores">
           <Key>
@@ -290,7 +290,7 @@
           </Key>
           <Property Name="IdColor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Color" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="articulos" Relationship="Self.fk_articulos_colores" FromRole="colores" ToRole="articulos" />
+          <NavigationProperty Name="ARTICULOS" Relationship="Self.fk_articulos_colores" FromRole="colores" ToRole="articulos" />
         </EntityType>
         <EntityType Name="detallesfactura">
           <Key>
@@ -300,8 +300,8 @@
           <Property Name="IdFactura" Type="Int32" Nullable="false" />
           <Property Name="IdArticulo" Type="Int32" Nullable="false" />
           <Property Name="CantidadArticulo" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="articulos" Relationship="Self.fk_detalles_articulo" FromRole="detallesfactura" ToRole="articulos" />
-          <NavigationProperty Name="facturas" Relationship="Self.fk_detalles_factura" FromRole="detallesfactura" ToRole="facturas" />
+          <NavigationProperty Name="ARTICULO" Relationship="Self.fk_detalles_articulo" FromRole="detallesfactura" ToRole="articulos" />
+          <NavigationProperty Name="FACTURA" Relationship="Self.fk_detalles_factura" FromRole="detallesfactura" ToRole="facturas" />
         </EntityType>
         <EntityType Name="facturas">
           <Key>
@@ -309,7 +309,7 @@
           </Key>
           <Property Name="IdFactura" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FechaCreacion" Type="DateTime" Nullable="false" />
-          <NavigationProperty Name="detallesfactura" Relationship="Self.fk_detalles_factura" FromRole="facturas" ToRole="detallesfactura" />
+          <NavigationProperty Name="DETALLES" Relationship="Self.fk_detalles_factura" FromRole="facturas" ToRole="detallesfactura" />
         </EntityType>
         <EntityType Name="inventarios">
           <Key>
@@ -318,7 +318,7 @@
           <Property Name="IdInventario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Descripcion" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="FechaCreacion" Type="DateTime" Nullable="false" />
-          <NavigationProperty Name="articulos" Relationship="Self.fk_articulos_inventarios" FromRole="inventarios" ToRole="articulos" />
+          <NavigationProperty Name="ARTICULOS" Relationship="Self.fk_articulos_inventarios" FromRole="inventarios" ToRole="articulos" />
         </EntityType>
         <Association Name="fk_articulos_categorias">
           <End Role="categorias" Type="Self.categorias" Multiplicity="1">

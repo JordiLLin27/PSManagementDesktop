@@ -28,6 +28,6 @@ namespace PSManagement.Model
         public int N46 { get; set; }
         public int N47 { get; set; }
     
-        public virtual articulos articulos { get; set; }
+        public virtual articulos ARTICULOS { get; set; }
     }
 }

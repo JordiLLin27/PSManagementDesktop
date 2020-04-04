@@ -17,7 +17,7 @@ namespace PSManagement.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public inventarios()
         {
-            this.articulos = new HashSet<articulos>();
+            this.ARTICULOS = new HashSet<articulos>();
         }
     
         public int IdInventario { get; set; }
@@ -25,6 +25,6 @@ namespace PSManagement.Model
         public System.DateTime FechaCreacion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<articulos> articulos { get; set; }
+        public virtual ICollection<articulos> ARTICULOS { get; set; }
     }
 }

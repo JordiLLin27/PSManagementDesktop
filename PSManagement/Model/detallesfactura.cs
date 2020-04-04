@@ -18,7 +18,7 @@ namespace PSManagement.Model
         public int IdArticulo { get; set; }
         public int CantidadArticulo { get; set; }
     
-        public virtual articulos articulos { get; set; }
-        public virtual facturas facturas { get; set; }
+        public virtual articulos ARTICULO { get; set; }
+        public virtual facturas FACTURA { get; set; }
     }
 }

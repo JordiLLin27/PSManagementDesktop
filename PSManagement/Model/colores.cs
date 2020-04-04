@@ -17,13 +17,13 @@ namespace PSManagement.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public colores()
         {
-            this.articulos = new HashSet<articulos>();
+            this.ARTICULOS = new HashSet<articulos>();
         }
     
         public int IdColor { get; set; }
         public string Color { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<articulos> articulos { get; set; }
+        public virtual ICollection<articulos> ARTICULOS { get; set; }
     }
 }

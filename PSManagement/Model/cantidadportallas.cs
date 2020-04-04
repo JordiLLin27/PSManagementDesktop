@@ -21,6 +21,6 @@ namespace PSManagement.Model
         public int L { get; set; }
         public int XL { get; set; }
     
-        public virtual articulos articulos { get; set; }
+        public virtual articulos ARTICULOS { get; set; }
     }
 }
