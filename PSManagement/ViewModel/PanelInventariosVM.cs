@@ -37,13 +37,18 @@ namespace PSManagement.ViewModel
             ListaInventarios = BBDDService.GetInventarios();
             ListaCategorias = BBDDService.GetCategorias();
             ListaColores = BBDDService.GetColores();
-
             /*
             NuevoInventario = new inventarios();
             NuevaCategoria = new categorias();
             NuevoColor = new colores();
             */
         }
+
+        public void InsertarInventario(string nombreInventario) { }
+
+        public void InsertarCategoria(string nombreCategoria) { }
+
+        public void InsertarColor(string nombreColor) { }
 
         public event PropertyChangedEventHandler PropertyChanged;
     }

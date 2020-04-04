@@ -262,7 +262,7 @@
           <Property Name="N45" Type="Int32" Nullable="false" />
           <Property Name="N46" Type="Int32" Nullable="false" />
           <Property Name="N47" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ARTICULOS" Relationship="Self.fk_cantidadnum_articulo" FromRole="cantidadpornumeros" ToRole="articulos" />
+          <NavigationProperty Name="ARTICULO" Relationship="Self.fk_cantidadnum_articulo" FromRole="cantidadpornumeros" ToRole="articulos" />
         </EntityType>
         <EntityType Name="cantidadportallas">
           <Key>
@@ -274,7 +274,7 @@
           <Property Name="M" Type="Int32" Nullable="false" />
           <Property Name="L" Type="Int32" Nullable="false" />
           <Property Name="XL" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ARTICULOS" Relationship="Self.fk_cantidadtallas_articulo" FromRole="cantidadportallas" ToRole="articulos" />
+          <NavigationProperty Name="ARTICULO" Relationship="Self.fk_cantidadtallas_articulo" FromRole="cantidadportallas" ToRole="articulos" />
         </EntityType>
         <EntityType Name="categorias">
           <Key>

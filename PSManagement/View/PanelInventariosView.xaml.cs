@@ -25,6 +25,7 @@ namespace PSManagement.View
         {
             this.DataContext = new PanelInventariosVM();
             InitializeComponent();
+            TablaArticulosInventario.DataContext = (this.DataContext as PanelInventariosVM).ListaArticulos;
         }
     }
 }

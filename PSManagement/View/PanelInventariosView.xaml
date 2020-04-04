@@ -40,27 +40,58 @@
         <!--Mantenimiento de Articulos-->
         <GroupBox Header="Mantenimiento de Artículos" Margin="5" Grid.Row="0" Grid.ColumnSpan="3">
 
-            <StackPanel Orientation="Vertical">
+            <DockPanel>
 
-                <DataGrid x:Name="TablaArticulosInventario" ItemsSource="{Binding ListaArticulos}" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="False"  CanUserSortColumns="True">
-                    <DataGrid.Columns>
-                        <materialDesign:DataGridTextColumn Header="Nombre Artículo" Binding="{Binding }" Width="*"/>
-                        <materialDesign:DataGridTextColumn Header="Inventario" Width="*"/>
-                        <materialDesign:DataGridTextColumn Header="Categoría" Width="*"/>
-                        <materialDesign:DataGridTextColumn Header="Color" Width="*"/>
-                        <materialDesign:DataGridTextColumn Header="Modelo" Width="*"/>
-                        <materialDesign:DataGridTextColumn Header="Precio" Width="*"/>
-                        <materialDesign:DataGridTextColumn Header="Stock Mínima" Width="*"/>
-                        <materialDesign:DataGridTextColumn Header="Sotck total" Width="*"/>
-                    </DataGrid.Columns>
-                </DataGrid>
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Right" Margin="20">
 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="20">
+                    <Label Content="Filtrar por inventario" Margin="10"/>
+                    <ComboBox x:Name="FiltroInventariosComboBox" ItemsSource="{Binding ListaInventarios}" Width="200" Margin="10"></ComboBox>
+
+                    <Label Content="Filtrar por Categoria" Margin="10"/>
+                    <ComboBox x:Name="FiltroCategoriasComboBox" ItemsSource="{Binding ListaCategorias}" Width="200" Margin="10"></ComboBox>
+
+                    <Label Content="Filtrar por Color" Margin="10"/>
+                    <ComboBox x:Name="FiltroColoresComboBox" ItemsSource="{Binding ListaColores}" Width="200" Margin="10"></ComboBox>
+
+                    <TextBox materialDesign:HintAssist.Hint="Búsqueda de artículos" Margin="10" Width="200"></TextBox>
+                </StackPanel>
+
+                <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="20">
+                    <Button x:Name="ActivarModificacionArticulosButton" Content="Modificar campos" Width="200" Margin="0,0,20,0"/>
                     <Button x:Name="GuardarArticulosButton" Content="Aceptar" Width="200" Margin="0,0,20,0"/>
                     <Button x:Name="RefrescarTablaButton" Content="Refrescar" Width="200"/>
                 </StackPanel>
 
-            </StackPanel>
+
+                <DataGrid x:Name="TablaArticulosInventario" ItemsSource="{Binding}" SelectedItem="{Binding ArticuloSeleccionado}" 
+                          AutoGenerateColumns="False" 
+                          CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="False"  CanUserSortColumns="True" 
+                          SelectionUnit="FullRow" SelectionMode="Single"
+                          IsReadOnly="True"
+                          Foreground="{DynamicResource MaterialDesignBody}"
+                          AlternatingRowBackground="#6ec6ff">
+                    <DataGrid.Columns>
+                        <materialDesign:DataGridTextColumn Header="Nombre Artículo" Binding="{Binding Nombre}" Width="*"/>
+                        <materialDesign:DataGridTextColumn Header="Inventario" Binding="{Binding INVENTARIO.Descripcion}" Width="*"/>
+                        <materialDesign:DataGridTextColumn Header="Categoría" Binding="{Binding CATEGORIA.Categoria}" Width="*"/>
+                        <materialDesign:DataGridTextColumn Header="Color" Binding="{Binding COLOR.Color}" Width="*"/>
+                        <materialDesign:DataGridTextColumn Header="Modelo" Binding="{Binding Modelo}" Width="*"/>
+                        <DataGridTemplateColumn Header="Precio" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock>
+                                        <Run Text="{Binding PrecioUnitario}"/>
+                                        <Run Text="€"/>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <materialDesign:DataGridTextColumn Header="Stock Mínimo" Binding="{Binding StockMinimo}" Width="*"/>
+                        <DataGridCheckBoxColumn Header="Sotck Disponible" Binding="{Binding StockDisponible}" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+            </DockPanel>
 
         </GroupBox>
 
