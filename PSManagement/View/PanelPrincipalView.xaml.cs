@@ -108,6 +108,7 @@ namespace PSManagement.View
             e.CanExecute = !((this.DataContext as PanelPrincipalVM).PanelActual is PanelIntroduccionView);
         }
 
+        //Método que cambia el titulo del menu de navegación según el panel.
         private void CambiaTituloIconoMenuNav()
         {
 
@@ -130,16 +131,27 @@ namespace PSManagement.View
                 texto = "Inventarios";
                 icon.Kind = PackIconKind.Bookshelf;
             }
+            else if ((this.DataContext as PanelPrincipalVM).PanelActual is PanelVentasView)
+            {
+                texto = "Ventas";
+                icon.Kind = PackIconKind.CashRegister;
+            }
 
 
             TituloMenuTrabajoTextBlock.Text = texto;
             IconoTituloMaterialDIcon.Kind = icon.Kind;
         }
 
-
+        //Comando para cambiar al panel de ventas y facturación
         private void SalesCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            //Cargar panel ventas
+        }
 
+
+        private void SalesCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            // can executed ventas
         }
 
         //Comando para cambiar al panel de mantenimiento de inventarios
@@ -153,6 +165,17 @@ namespace PSManagement.View
         private void InventoryCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = !((this.DataContext as PanelPrincipalVM).PanelActual is PanelInventariosView);
+        }
+
+        //Comando para cambiar al panel de gestión de stock
+        private void ManageCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+
+        }
+
+        private void ManageCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+
         }
     }
 }

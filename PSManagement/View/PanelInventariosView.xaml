@@ -42,9 +42,9 @@
 
             <StackPanel Orientation="Vertical">
 
-                <DataGrid x:Name="TablaArticulosInventario" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="False"  CanUserSortColumns="True">
+                <DataGrid x:Name="TablaArticulosInventario" ItemsSource="{Binding ListaArticulos}" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="False"  CanUserSortColumns="True">
                     <DataGrid.Columns>
-                        <materialDesign:DataGridTextColumn Header="Nombre Artículo" Width="*"/>
+                        <materialDesign:DataGridTextColumn Header="Nombre Artículo" Binding="{Binding }" Width="*"/>
                         <materialDesign:DataGridTextColumn Header="Inventario" Width="*"/>
                         <materialDesign:DataGridTextColumn Header="Categoría" Width="*"/>
                         <materialDesign:DataGridTextColumn Header="Color" Width="*"/>
@@ -73,7 +73,6 @@
                 <TabItem Header="Añadir Inventario">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                           
                             <ColumnDefinition Width="3*"/>
                         </Grid.ColumnDefinitions>
 
@@ -82,8 +81,10 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <TextBox x:Name="NombreInventarioTextBox" Grid.Column="1" Grid.Row="0" materialDesign:HintAssist.Hint="Introduce el nombre del inventario a añadir" Foreground="{DynamicResource MaterialDesignBody}" Margin="15" VerticalAlignment="Center"/>
-                        
+                        <TextBox x:Name="NombreInventarioTextBox" Grid.Column="1" Grid.Row="0" 
+                                 materialDesign:HintAssist.Hint="Introduce el nombre del inventario a añadir" Foreground="{DynamicResource MaterialDesignBody}" Margin="15" VerticalAlignment="Center"
+                                 Text="{Binding NuevoInventario.Descripcion}"/>
+
                         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2" Margin="20">
                             <Button x:Name="GuardarButton" Content="Aceptar" Width="100" Margin="0,0,20,0"/>
                             <Button x:Name="LimpiarButton" Content="Limpiar" Width="100" />
@@ -105,11 +106,15 @@
                         </Grid.RowDefinitions>
 
 
-                        <ComboBox x:Name="EditarListaInventariosComboBox" Grid.Column="1" Margin="15" materialDesign:HintAssist.Hint="Selecciona Inventario" Foreground="{DynamicResource MaterialDesignBody}"></ComboBox>
+                        <ComboBox x:Name="EditarListaInventariosComboBox" Grid.Column="1" Margin="15" 
+                                  materialDesign:HintAssist.Hint="Selecciona Inventario" Foreground="{DynamicResource MaterialDesignBody}" 
+                                  ItemsSource="{Binding ListaInventarios}" SelectedItem="{Binding InventarioSeleccionado}" DisplayMemberPath="Descripcion"></ComboBox>
 
-                        
-                        <TextBox x:Name="EditarNombreInventarioTextBox" Grid.Column="1" Grid.Row="1" materialDesign:HintAssist.Hint="Introduce el nombre del inventario" Foreground="{DynamicResource MaterialDesignBody}" Height="30" Margin="15"/>
-                        
+
+                        <TextBox x:Name="EditarNombreInventarioTextBox" Grid.Column="1" Grid.Row="1" 
+                                 materialDesign:HintAssist.Hint="Introduce el nombre del inventario" Foreground="{DynamicResource MaterialDesignBody}" Height="30" Margin="15"
+                                 Text="{Binding InventarioSeleccionado.Descripcion}"/>
+
                         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="5" Margin="20">
                             <Button x:Name="EditarGuardarButton" Content="Aceptar" Width="100" Margin="0,0,20,0"/>
                             <Button x:Name="EditarLimpiarButton" Content="Limpiar" Width="100" />
@@ -129,7 +134,9 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <ComboBox x:Name="EliminarListaInventariosComboBox" Grid.Row="0" Grid.Column="1" Margin="15" materialDesign:HintAssist.Hint="Selecciona Inventario" Foreground="{DynamicResource MaterialDesignBody}"></ComboBox>
+                        <ComboBox x:Name="EliminarListaInventariosComboBox" Grid.Row="0" Grid.Column="1" 
+                                  Margin="15" materialDesign:HintAssist.Hint="Selecciona Inventario" Foreground="{DynamicResource MaterialDesignBody}"
+                                  ItemsSource="{Binding ListaInventarios}" SelectedItem="{Binding InventarioSeleccionado}" DisplayMemberPath="Descripcion"></ComboBox>
 
                         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" Margin="20">
                             <Button x:Name="EliminarGuardarButton" Content="Aceptar" Width="100" Margin="0,0,20,0"/>
@@ -159,7 +166,7 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                       
+
                         <TextBox x:Name="NombreColorTextBox" Grid.Column="1" Grid.Row="0" materialDesign:HintAssist.Hint="Introduce el nombre del color a añadir" Foreground="{DynamicResource MaterialDesignBody}" Margin="15" VerticalAlignment="Center"/>
 
                         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2" Margin="20">
@@ -182,8 +189,10 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <ComboBox x:Name="EditarListaColoresComboBox" Grid.Column="1" Margin="15" materialDesign:HintAssist.Hint="Selecciona Color" Foreground="{DynamicResource MaterialDesignBody}"></ComboBox>
-                        
+                        <ComboBox x:Name="EditarListaColoresComboBox" Grid.Column="1" 
+                                  Margin="15" materialDesign:HintAssist.Hint="Selecciona Color" Foreground="{DynamicResource MaterialDesignBody}"
+                                  ItemsSource="{Binding ListaColores}" SelectedItem="{Binding ColorSeleccionado}" DisplayMemberPath="Color"></ComboBox>
+
                         <TextBox x:Name="EditarNombreColorTextBox" Grid.Column="1" Grid.Row="1" materialDesign:HintAssist.Hint="Introduce el color" Foreground="{DynamicResource MaterialDesignBody}" Margin="15"/>
 
                         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="5" Margin="20">
@@ -206,8 +215,10 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <ComboBox x:Name="EliminarListaColoresComboBox" Grid.Row="0" Grid.Column="1" Margin="15" materialDesign:HintAssist.Hint="Selecciona Color" Foreground="{DynamicResource MaterialDesignBody}"></ComboBox>
-                        
+                        <ComboBox x:Name="EliminarListaColoresComboBox" Grid.Row="0" Grid.Column="1" 
+                                  Margin="15" materialDesign:HintAssist.Hint="Selecciona Color" Foreground="{DynamicResource MaterialDesignBody}"
+                                   ItemsSource="{Binding ListaColores}" SelectedItem="{Binding ColorSeleccionado}" DisplayMemberPath="Color"></ComboBox>
+
                         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" Margin="20">
                             <Button x:Name="EliminarGuardarColorButton" Content="Aceptar" Width="100" Margin="0,0,20,0"/>
                             <Button x:Name="EliminarRefrescarColorButton" Content="Refrescar" Width="100"/>
@@ -236,7 +247,7 @@
                         </Grid.RowDefinitions>
 
                         <TextBox x:Name="NombreCategoriaTextBox" Grid.Column="1" Grid.Row="0" materialDesign:HintAssist.Hint="Introduce el nombre la categoría a añadir" Foreground="{DynamicResource MaterialDesignBody}" Margin="15" VerticalAlignment="Center"/>
-                        
+
                         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2" Margin="20">
                             <Button x:Name="GuardarCategoriaButton" Content="Aceptar" Width="100" Margin="0,0,20,0"/>
                             <Button x:Name="LimpiarCategoriaButton" Content="Limpiar" Width="100"/>
@@ -257,10 +268,12 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <ComboBox x:Name="EditarListacategoriasComboBox" Grid.Column="1" Margin="15" materialDesign:HintAssist.Hint="Selecciona Categoría" Foreground="{DynamicResource MaterialDesignBody}"></ComboBox>
-                        
+                        <ComboBox x:Name="EditarListacategoriasComboBox" Grid.Column="1" 
+                                  Margin="15" materialDesign:HintAssist.Hint="Selecciona Categoría" Foreground="{DynamicResource MaterialDesignBody}"
+                                   ItemsSource="{Binding ListaCategorias}" SelectedItem="{Binding CategoriaSeleccionada}" DisplayMemberPath="Categoria"></ComboBox>
+
                         <TextBox x:Name="EditarNombreCategoriaTextBox" Grid.Column="1" Grid.Row="1" materialDesign:HintAssist.Hint="Introduce el nombre de la categoría" Foreground="{DynamicResource MaterialDesignBody}" Margin="15"/>
-                        
+
                         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="5" Margin="20">
                             <Button x:Name="EditarGuardarCategoriaButton" Content="Aceptar" Width="100" Margin="0,0,20,0"/>
                             <Button x:Name="EditarLimpiarCategoriaButton" Content="Limpiar" Width="100"/>
@@ -280,8 +293,10 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <ComboBox x:Name="EliminarListaCategoriaComboBox" Grid.Row="0" Grid.Column="1" Margin="15" materialDesign:HintAssist.Hint="Selecciona Categoría" Foreground="{DynamicResource MaterialDesignBody}"></ComboBox>
-                        
+                        <ComboBox x:Name="EliminarListaCategoriaComboBox" Grid.Row="0" Grid.Column="1" 
+                                  Margin="15" materialDesign:HintAssist.Hint="Selecciona Categoría" Foreground="{DynamicResource MaterialDesignBody}"
+                                  ItemsSource="{Binding ListaCategorias}" SelectedItem="{Binding CategoriaSeleccionada}" DisplayMemberPath="Categoria"></ComboBox>
+
                         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" Margin="30">
                             <Button x:Name="EliminarGuardarCategoriaButton" Content="Aceptar" Width="100" Margin="0,0,20,0"/>
                             <Button x:Name="EliminarRefrescarCategoraiButton" Content="Refrescar" Width="100"/>

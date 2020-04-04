@@ -18,9 +18,9 @@ namespace PSManagement.View
     /// <summary>
     /// Lógica de interacción para VentasView.xaml
     /// </summary>
-    public partial class VentasView : UserControl
+    public partial class PanelVentasView : UserControl
     {
-        public VentasView()
+        public PanelVentasView()
         {
             InitializeComponent();
         }

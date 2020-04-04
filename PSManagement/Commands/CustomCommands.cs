@@ -39,7 +39,40 @@ namespace PSManagement.Commands
                 typeof(CustomCommands),
                 new InputGestureCollection()
                 {
-                    new KeyGesture(Key.I,ModifierKeys.Control)
+                    new KeyGesture(Key.I, ModifierKeys.Control)
+                }
+            );
+
+        public static readonly RoutedUICommand Manage = new RoutedUICommand
+            (
+                "Manage",
+                "Manage",
+                typeof(CustomCommands),
+                new InputGestureCollection()
+                {
+                    new KeyGesture(Key.M, ModifierKeys.Control)
+                }
+            );
+
+        public static readonly RoutedUICommand Clean = new RoutedUICommand
+            (
+                "Clean",
+                "Clean",
+                typeof(CustomCommands),
+                new InputGestureCollection()
+                {
+                    new KeyGesture(Key.L, ModifierKeys.Control)
+                }
+            );
+
+        public static readonly RoutedUICommand Refresh = new RoutedUICommand
+            (
+                "Refresh",
+                "Refresh",
+                typeof(CustomCommands),
+                new InputGestureCollection()
+                {
+                    new KeyGesture(Key.F5)
                 }
             );
     }

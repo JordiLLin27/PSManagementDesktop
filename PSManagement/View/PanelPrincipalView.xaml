@@ -39,12 +39,18 @@
         <CommandBinding
             Command="comands:CustomCommands.Sales"
             Executed="SalesCommandBinding_Executed"
+            CanExecute="SalesCommandBinding_CanExecute"
             />
 
         <CommandBinding
             Command="comands:CustomCommands.Inventory"
             Executed="InventoryCommandBinding_Executed"
             CanExecute="InventoryCommandBinding_CanExecute"/>
+
+        <CommandBinding
+            Command="comands:CustomCommands.Manage"
+            Executed="ManageCommandBinding_Executed"
+            CanExecute="ManageCommandBinding_CanExecute"/>
 
     </Window.CommandBindings>
 
