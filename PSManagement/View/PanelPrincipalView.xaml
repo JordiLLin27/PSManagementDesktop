@@ -86,14 +86,39 @@
         <DockPanel DockPanel.Dock="Left">
 
             <DockPanel x:Name="PanelBotonesAccionesStackPanel" DockPanel.Dock="Top">
-                <Button x:Name="VentasButton"  DockPanel.Dock="Top" Margin="5" Foreground="White" Height="50" Width="200" FontSize="24" Command="comands:CustomCommands.Sales">Ventas</Button>
-                <Button x:Name="GestionButton"  DockPanel.Dock="Top" Margin="5" Foreground="White" Height="50" Width="200" FontSize="24">Gestión</Button>
-                <Button x:Name="InventarioButton"  DockPanel.Dock="Top" Margin="5" Foreground="White" Height="50" Width="200" FontSize="24" Command="comands:CustomCommands.Inventory">Inventario</Button>
+
+                <Button x:Name="VentasButton" DockPanel.Dock="Top"
+                        Margin="5" Foreground="White" Height="50" Width="200" FontSize="24" materialDesign:ButtonAssist.CornerRadius="25"
+                        Content="Ventas"
+                        Command="comands:CustomCommands.Sales"/>
+
+                <Button x:Name="GestionButton" DockPanel.Dock="Top"
+                        Margin="5" Foreground="White" Height="50" Width="200" FontSize="24" materialDesign:ButtonAssist.CornerRadius="25"
+                        Content="Gestión"
+                        Command="comands:CustomCommands.Manage"/>
+
+
+                <Button x:Name="InventarioButton" DockPanel.Dock="Top" Margin="5" Foreground="White" Height="50" Width="200" FontSize="24" 
+                        materialDesign:ButtonAssist.CornerRadius="25"
+                        Content="Inventario"
+                        Command="comands:CustomCommands.Inventory"/>
+
             </DockPanel>
 
             <DockPanel x:Name="PanelBotonesOpcionesDockPanel" DockPanel.Dock="Bottom" VerticalAlignment="Bottom">
-                <Button x:Name="SalirButton" Style="{StaticResource MaterialDesignRaisedAccentButton}" DockPanel.Dock="Bottom" Margin="5" Content="Salir" Foreground="White" Height="50" Width="200" FontSize="24" Command="comands:CustomCommands.Exit"/>
-                <Button x:Name="ConfiguracionButton" Style="{StaticResource MaterialDesignRaisedAccentButton}" DockPanel.Dock="Bottom" Margin="5" Content="Configuración" Foreground="White" Height="50" Width="200" FontSize="24" Command="ApplicationCommands.Properties"/>
+
+                <Button x:Name="SalirButton" DockPanel.Dock="Bottom" 
+                        Style="{StaticResource MaterialDesignRaisedAccentButton}" materialDesign:ButtonAssist.CornerRadius="25"
+                        Margin="5" Foreground="White" Height="50" Width="200" FontSize="24"
+                        Content="Salir"
+                        Command="comands:CustomCommands.Exit"/>
+
+                <Button x:Name="ConfiguracionButton" DockPanel.Dock="Bottom" 
+                        Style="{StaticResource MaterialDesignRaisedAccentButton}" materialDesign:ButtonAssist.CornerRadius="25"
+                        Margin="5" Foreground="White" Height="50" Width="200" FontSize="24" 
+                        Content="Configuración"
+                        Command="ApplicationCommands.Properties"/>
+
             </DockPanel>
 
         </DockPanel>

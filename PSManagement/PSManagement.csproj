@@ -120,6 +120,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\CustomCommands.cs" />
+    <Compile Include="Converters\NullToNAConverter.cs" />
     <Compile Include="Dialogs\ExitDialog.xaml.cs">
       <DependentUpon>ExitDialog.xaml</DependentUpon>
     </Compile>
@@ -169,6 +170,9 @@
     <Compile Include="ViewModel\PanelOpcionesVM.cs" />
     <Compile Include="ViewModel\PanelPrincipalVM.cs" />
     <Compile Include="ViewModel\PanelVentasVM.cs" />
+    <Compile Include="View\PanelGestionView.xaml.cs">
+      <DependentUpon>PanelGestionView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\PanelInventariosView.xaml.cs">
       <DependentUpon>PanelInventariosView.xaml</DependentUpon>
     </Compile>
@@ -200,6 +204,10 @@
       <DependentUpon>PantallaBienvenida.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\PanelGestionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\PanelInventariosView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

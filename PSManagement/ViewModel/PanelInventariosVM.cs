@@ -15,40 +15,76 @@ namespace PSManagement.ViewModel
     {
 
         public CollectionViewSource ListaArticulos { get; set; }
+
         public ObservableCollection<inventarios> ListaInventarios { get; set; }
         public ObservableCollection<categorias> ListaCategorias { get; set; }
         public ObservableCollection<colores> ListaColores { get; set; }
 
         public articulos ArticuloSeleccionado { get; set; }
 
-
         public inventarios InventarioSeleccionado { get; set; }
-        public inventarios NuevoInventario { get; set; }
-
         public categorias CategoriaSeleccionada { get; set; }
-        public categorias NuevaCategoria { get; set; }
-
-        public colores NuevoColor { get; set; }
         public colores ColorSeleccionado { get; set; }
 
         public PanelInventariosVM()
         {
+            ArticuloSeleccionado = new articulos();
             ListaArticulos = new CollectionViewSource() { Source = BBDDService.GetArticulos() };
             ListaInventarios = BBDDService.GetInventarios();
             ListaCategorias = BBDDService.GetCategorias();
             ListaColores = BBDDService.GetColores();
-            /*
-            NuevoInventario = new inventarios();
-            NuevaCategoria = new categorias();
-            NuevoColor = new colores();
-            */
         }
 
-        public void InsertarInventario(string nombreInventario) { }
+        public int InsertarInventario(string nombreInventario)
+        {
+            inventarios nuevoInventario = new inventarios()
+            {
+                Descripcion = nombreInventario,
+                FechaCreacion = DateTime.Now
+            };
 
-        public void InsertarCategoria(string nombreCategoria) { }
+            return BBDDService.AddInventario(nuevoInventario);
+        }
 
-        public void InsertarColor(string nombreColor) { }
+        public int InsertarCategoria(string nombreCategoria)
+        {
+            categorias nuevaCategoria = new categorias()
+            {
+                Categoria = nombreCategoria
+            };
+
+            return BBDDService.AddCategoria(nuevaCategoria);
+        }
+
+        public int InsertarColor(string nombreColor)
+        {
+            colores nuevoColor = new colores()
+            {
+                Color = nombreColor
+            };
+
+            return BBDDService.AddColor(nuevoColor);
+        }
+
+        public int SaveChanges()
+        {
+            return BBDDService.SaveChanges();
+        }
+
+        public int DeleteInventario()
+        {
+            return BBDDService.DeleteInventario(InventarioSeleccionado);
+        }
+
+        public int DeleteCategoria()
+        {
+            return BBDDService.DeleteCategoria(CategoriaSeleccionada);
+        }
+
+        public int DeleteColor()
+        {
+            return BBDDService.DeleteColor(ColorSeleccionado);
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
     }

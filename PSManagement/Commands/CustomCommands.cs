@@ -54,16 +54,27 @@ namespace PSManagement.Commands
                 }
             );
 
-        public static readonly RoutedUICommand Clean = new RoutedUICommand
-            (
-                "Clean",
-                "Clean",
-                typeof(CustomCommands),
-                new InputGestureCollection()
-                {
-                    new KeyGesture(Key.L, ModifierKeys.Control)
-                }
-            );
+        public static readonly RoutedUICommand InventoryCrud = new RoutedUICommand
+           (
+               "InventoryCrud",
+               "InventoryCrud",
+               typeof(CustomCommands)
+           );
+
+        public static readonly RoutedUICommand CategoryCrud = new RoutedUICommand
+           (
+               "CategoryCrud",
+               "CategoryCrud",
+               typeof(CustomCommands)
+           );
+
+        public static readonly RoutedUICommand ColorCrud = new RoutedUICommand
+           (
+               "ColorCrud",
+               "ColorCrud",
+               typeof(CustomCommands)
+           );
+
 
         public static readonly RoutedUICommand Refresh = new RoutedUICommand
             (

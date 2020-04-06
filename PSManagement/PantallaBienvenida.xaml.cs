@@ -18,6 +18,26 @@ using System.Windows.Threading;
 
 namespace PSManagement
 {
+    public enum InventoryCRUDAction
+    {
+        Insert_Inventario,
+        Update_Inventario,
+        Delete_Inventario
+    }
+    public enum ColorCRUDAction
+    {
+        Insert_Color,
+        Update_Color,
+        Delete_Color
+    }
+
+    public enum CategoryCRUDAction
+    {
+        Insert_Categoria,
+        Update_Categoria,
+        Delete_Categoria
+    }
+
     /// <summary>
     /// Lógica de interacción para MainWindow.xaml
     /// </summary>
