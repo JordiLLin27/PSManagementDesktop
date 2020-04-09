@@ -5,14 +5,32 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PSManagement.View"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
-              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             d:DesignHeight="978" d:DesignWidth="1696"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              Background="{DynamicResource MaterialDesignPaper}"
              TextElement.FontWeight="Medium"
              TextElement.FontSize="18"
              FontFamily="{materialDesign:MaterialDesignFont}" Width="Auto" Height="Auto">
-    <Grid>
 
-    </Grid>
+    <DockPanel x:Name="PanelGestionPrincipalDockPanel">
+
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+            <Label Target="{Binding ElementName=SeleccionInventarioComboBox}" Content="Seleccionar inventario" Margin="10"/>
+
+            <ComboBox x:Name="SeleccionInventarioComboBox" ItemsSource="{Binding ListaInventarios}" DisplayMemberPath="Descripcion" Margin="10" Width="300"/>
+            
+        </StackPanel>
+
+        <TextBlock Text="{Binding ElementName=SeleccionInventarioComboBox, Path=SelectedItem.FechaCreacion}" Width="300" Foreground="Black"/>
+
+        <!--
+        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding}" Selected="{Binding}">
+
+        </DataGrid>
+        -->
+
+    </DockPanel>
+
 </UserControl>

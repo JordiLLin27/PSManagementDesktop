@@ -41,6 +41,16 @@
             Executed="RefreshCommandBinding_Executed"
             CanExecute="RefreshCommandBinding_CanExecute"/>
 
+        <CommandBinding
+            Command="com:CustomCommands.Filter"
+            Executed="FilterCommandBinding_Executed"
+            CanExecute="FilterCommandBinding_CanExecute"/>
+
+        <CommandBinding
+            Command="com:CustomCommands.CleanFilter"
+            Executed="CleanFiltersCommandBinding_Executed"
+            CanExecute="CleanFiltersCommandBinding_CanExecute"/>
+
     </UserControl.CommandBindings>
 
     <!--Principal-->
@@ -66,32 +76,35 @@
 
                 <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Right" Margin="20">
 
-                    <Label Content="Filtrar por inventario" Margin="10"/>
-                    <ComboBox x:Name="FiltroInventariosComboBox" ItemsSource="{Binding ListaInventarios}" DisplayMemberPath="Descripcion" Width="200" Margin="10"></ComboBox>
+                    <Label Content="Filtrar por inventario" Margin="10" FontSize="12" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="FiltroInventariosComboBox" ItemsSource="{Binding ListaInventarios}" DisplayMemberPath="Descripcion" SelectedItem="{Binding FiltroArticuloPorInventario}" Width="200" Margin="10" materialDesign:HintAssist.Hint="Todos"></ComboBox>
 
-                    <Label Content="Filtrar por Categoria" Margin="10"/>
-                    <ComboBox x:Name="FiltroCategoriasComboBox" ItemsSource="{Binding ListaCategorias}" DisplayMemberPath="Categoria" Width="200" Margin="10"></ComboBox>
+                    <Label Content="Filtrar por Categoria" Margin="10" FontSize="12" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="FiltroCategoriasComboBox" ItemsSource="{Binding ListaCategorias}" DisplayMemberPath="Categoria" SelectedItem="{Binding FiltroArticuloPorCategoria}" Width="200" Margin="10" materialDesign:HintAssist.Hint="Todas"></ComboBox>
 
-                    <Label Content="Filtrar por Color" Margin="10"/>
-                    <ComboBox x:Name="FiltroColoresComboBox" ItemsSource="{Binding ListaColores}" DisplayMemberPath="Color" Width="200" Margin="10"></ComboBox>
+                    <Label Content="Filtrar por Color" Margin="10" FontSize="12" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="FiltroColoresComboBox" ItemsSource="{Binding ListaColores}" DisplayMemberPath="Color" SelectedItem="{Binding FiltroArticuloPorColor}" Width="200" Margin="10" materialDesign:HintAssist.Hint="Todos"></ComboBox>
 
-                    <TextBox materialDesign:HintAssist.Hint="Búsqueda de artículos" Margin="10" Width="200"></TextBox>
+                    <TextBox x:Name="BarraFiltroTextBox" materialDesign:HintAssist.Hint="Búsqueda de artículos" Margin="10" Width="200" Text="{Binding FiltroArticuloPorNombre}"></TextBox>
+
+                    <Button x:Name="FiltrarButton" Content="Filtrar" Margin="10" Width="100" Command="com:CustomCommands.Filter"/>
+                    <Button x:Name="LimpiarFiltrosButton" Content="Borrar Filtros" Margin="10" Width="130" Command="com:CustomCommands.CleanFilter"/>
                 </StackPanel>
 
                 <GroupBox DockPanel.Dock="Right" Header="Modificar artículos" Margin="5" Width="200" materialDesign:ColorZoneAssist.Mode="Accent">
                     <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                         <Button x:Name="ActivarModificacionArticulosButton" Content="Modificar artículos" Width="150" Margin="0,0,0,40" Height="50" Style="{StaticResource MaterialDesignRaisedAccentButton}" Click="ActivarModificacionArticulosButton_Click"/>
-                        <Button x:Name="GuardarArticulosButton" Content="Guardar cambios" Width="150" Margin="0,0,0,40" Height="50" Style="{StaticResource MaterialDesignRaisedAccentButton}"/>
+                        <Button x:Name="GuardarArticulosButton" Content="Guardar cambios" Width="150" Margin="0,0,0,40" Height="50" Style="{StaticResource MaterialDesignRaisedAccentButton}" Click="GuardarArticulosButton_Click"/>
                         <Button x:Name="RefrescarTablaButton" Content="Refrescar" Width="150" Height="50" Style="{StaticResource MaterialDesignRaisedAccentButton}"/>
                     </StackPanel>
                 </GroupBox>
 
-                <DataGrid x:Name="TablaArticulosInventario" ItemsSource="{Binding}" SelectedItem="{Binding ArticuloSeleccionado}" 
+                <DataGrid x:Name="TablaArticulosInventarioDataGrid" ItemsSource="{Binding ListaArticulos}"
                           AutoGenerateColumns="False" 
-                          CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="False"  CanUserSortColumns="True" 
-                          SelectionUnit="FullRow" SelectionMode="Extended"
+                          CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="False"  CanUserSortColumns="True" CanUserAddRows="False"
                           IsReadOnly="True"
-                          Foreground="{DynamicResource MaterialDesignBody}"
+                          SelectionUnit="FullRow" SelectionMode="Single"
+                          Foreground="{DynamicResource MaterialDesignBody}" BorderThickness="2"
                           AlternatingRowBackground="#6ec6ff">
                     <DataGrid.Columns>
                         <materialDesign:DataGridTextColumn Header="Nombre Artículo" Binding="{Binding Nombre}" Width="*"/>
@@ -112,11 +125,6 @@
                         <materialDesign:DataGridTextColumn Header="Stock Mínimo" Binding="{Binding StockMinimo}" Width="*"/>
                         <DataGridCheckBoxColumn Header="Sotck Disponible" Binding="{Binding StockDisponible}" Width="*"/>
                     </DataGrid.Columns>
-                    <DataGrid.RowDetailsTemplate>
-                        <DataTemplate>
-
-                        </DataTemplate>
-                    </DataGrid.RowDetailsTemplate>
                 </DataGrid>
 
             </DockPanel>
@@ -124,50 +132,94 @@
         </GroupBox>
 
         <GroupBox Grid.Row="1" Grid.Column="0" Header="Tallas Artículo" Margin="5">
-            <DataGrid x:Name="TablaTallasArticuloDataGrid" ItemsSource="{Binding}"
-                      AutoGenerateColumns="False" 
-                      CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="False"  CanUserSortColumns="True" 
-                      SelectionUnit="FullRow" SelectionMode="Single"
-                      IsReadOnly="True"
-                      Foreground="{DynamicResource MaterialDesignBody}"
-                      AlternatingRowBackground="#6ec6ff">
 
-                <DataGrid.Columns>
-                    <materialDesign:DataGridTextColumn Header="XS" Binding="{Binding CANTIDADTALLA.XS}" Width="*"/>
-                    <materialDesign:DataGridTextColumn Header="S" Binding="{Binding CANTIDADTALLA.S}" Width="*"/>
-                    <materialDesign:DataGridTextColumn Header="M" Binding="{Binding CANTIDADTALLA.M}" Width="*"/>
-                    <materialDesign:DataGridTextColumn Header="L" Binding="{Binding CANTIDADTALLA.L}" Width="*"/>
-                    <materialDesign:DataGridTextColumn Header="XL" Binding="{Binding CANTIDADTALLA.XL}" Width="*"/>
-                </DataGrid.Columns>
+            <Grid x:Name="TablaTallasArticuloSeleccionadoGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-            </DataGrid>
+                <TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">XS</TextBlock>
+                <TextBlock Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">S</TextBlock>
+                <TextBlock Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">M</TextBlock>
+                <TextBlock Grid.Column="3" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">L</TextBlock>
+                <TextBlock Grid.Column="4" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">XL</TextBlock>
+
+                <Separator Grid.Row="1" Grid.ColumnSpan="5"/>
+
+                <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADTALLA.XS}"/>
+                <TextBlock Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADTALLA.S}"/>
+                <TextBlock Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADTALLA.M}"/>
+                <TextBlock Grid.Column="3" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADTALLA.L}"/>
+                <TextBlock Grid.Column="4" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADTALLA.XL}"/>
+
+            </Grid>
+
         </GroupBox>
 
         <GroupBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Header="Números Artículo" Margin="5">
-            <DataGrid x:Name="TablaNumerosArticuloDataGrid" ItemsSource="{Binding}"
-                      AutoGenerateColumns="False" 
-                      CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="False"  CanUserSortColumns="True" 
-                      SelectionUnit="FullRow" SelectionMode="Single"
-                      IsReadOnly="True"
-                      Foreground="{DynamicResource MaterialDesignBody}"
-                      AlternatingRowBackground="#6ec6ff">
 
-                <DataGrid.Columns>
-                    <materialDesign:DataGridTextColumn Header="36" Binding="{Binding CANTIDADNUM.N36}" Width="*"/>
-                    <materialDesign:DataGridTextColumn Header="37" Binding="{Binding CANTIDADNUM.N37}" Width="*"/>
-                    <materialDesign:DataGridTextColumn Header="38" Binding="{Binding CANTIDADNUM.N38}" Width="*"/>
-                    <materialDesign:DataGridTextColumn Header="39" Binding="{Binding CANTIDADNUM.N39}" Width="*"/>
-                    <materialDesign:DataGridTextColumn Header="40" Binding="{Binding CANTIDADNUM.N40}" Width="*"/>
-                    <materialDesign:DataGridTextColumn Header="41" Binding="{Binding CANTIDADNUM.N41}" Width="*"/>
-                    <materialDesign:DataGridTextColumn Header="42" Binding="{Binding CANTIDADNUM.N42}" Width="*"/>
-                    <materialDesign:DataGridTextColumn Header="43" Binding="{Binding CANTIDADNUM.N43}" Width="*"/>
-                    <materialDesign:DataGridTextColumn Header="44" Binding="{Binding CANTIDADNUM.N44}" Width="*"/>
-                    <materialDesign:DataGridTextColumn Header="45" Binding="{Binding CANTIDADNUM.N45}" Width="*"/>
-                    <materialDesign:DataGridTextColumn Header="46" Binding="{Binding CANTIDADNUM.N46}" Width="*"/>
-                    <materialDesign:DataGridTextColumn Header="47" Binding="{Binding CANTIDADNUM.N47}" Width="*"/>
-                </DataGrid.Columns>
 
-            </DataGrid>
+            <Grid x:Name="TablaNumerosArticuloSeleccionadoGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">36</TextBlock>
+                <TextBlock Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">37</TextBlock>
+                <TextBlock Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">38</TextBlock>
+                <TextBlock Grid.Column="3" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">39</TextBlock>
+                <TextBlock Grid.Column="4" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">40</TextBlock>
+                <TextBlock Grid.Column="5" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">41</TextBlock>
+                <TextBlock Grid.Column="6" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">42</TextBlock>
+                <TextBlock Grid.Column="7" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">43</TextBlock>
+                <TextBlock Grid.Column="8" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">44</TextBlock>
+                <TextBlock Grid.Column="9" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">45</TextBlock>
+                <TextBlock Grid.Column="10" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">46</TextBlock>
+                <TextBlock Grid.Column="11" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">47</TextBlock>
+
+                <Separator Grid.Row="1" Grid.ColumnSpan="12"/>
+
+                <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N36}"/>
+                <TextBlock Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N37}"/>
+                <TextBlock Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N38}"/>
+                <TextBlock Grid.Column="3" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N39}"/>
+                <TextBlock Grid.Column="4" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N40}"/>
+                <TextBlock Grid.Column="5" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N41}"/>
+                <TextBlock Grid.Column="6" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N42}"/>
+                <TextBlock Grid.Column="7" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N43}"/>
+                <TextBlock Grid.Column="8" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N44}"/>
+                <TextBlock Grid.Column="9" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N45}"/>
+                <TextBlock Grid.Column="10" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N46}"/>
+                <TextBlock Grid.Column="11" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N47}"/>
+
+            </Grid>
+
+
         </GroupBox>
 
         <!--Mantenimiento de inventario-->

@@ -165,6 +165,7 @@
     </Compile>
     <Compile Include="Model\PropertyChangedModel.cs" />
     <Compile Include="Service\BBDDService.cs" />
+    <Compile Include="ViewModel\PanelGestionVM.cs" />
     <Compile Include="ViewModel\PanelIntroduccionVM.cs" />
     <Compile Include="ViewModel\PanelInventariosVM.cs" />
     <Compile Include="ViewModel\PanelOpcionesVM.cs" />

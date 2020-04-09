@@ -28,8 +28,11 @@ namespace PSManagement.ViewModel
 
         public PanelInventariosVM()
         {
-            ArticuloSeleccionado = new articulos();
-            ListaArticulos = new CollectionViewSource() { Source = BBDDService.GetArticulos() };
+            ListaArticulos = new CollectionViewSource
+            {
+                Source = BBDDService.GetArticulos()
+            };
+
             ListaInventarios = BBDDService.GetInventarios();
             ListaCategorias = BBDDService.GetCategorias();
             ListaColores = BBDDService.GetColores();

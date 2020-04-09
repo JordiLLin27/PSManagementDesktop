@@ -1,4 +1,5 @@
-﻿using PSManagement.ViewModel;
+﻿using PSManagement.Model;
+using PSManagement.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,9 +30,6 @@ namespace PSManagement.View
         {
             this.DataContext = new PanelInventariosVM();
             InitializeComponent();
-            TablaArticulosInventario.DataContext = (this.DataContext as PanelInventariosVM).ListaArticulos;
-            TablaNumerosArticuloDataGrid.DataContext = (this.DataContext as PanelInventariosVM).ArticuloSeleccionado;
-            TablaTallasArticuloDataGrid.DataContext = (this.DataContext as PanelInventariosVM).ArticuloSeleccionado;
         }
 
         #region Cambios_En_Tabs
@@ -243,11 +241,41 @@ namespace PSManagement.View
 
         private void ActivarModificacionArticulosButton_Click(object sender, RoutedEventArgs e)
         {
-
             //FALTA HACER
             if (MessageBox.Show("¿Activar edición de artículos?", "Modo Edición", MessageBoxButton.OKCancel, MessageBoxImage.Exclamation) == MessageBoxResult.OK)
             {
+
+
             }
+        }
+
+        private void FilterCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+
+        }
+
+        private void FilterCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = (FiltroInventariosComboBox.SelectedItem != null || FiltroCategoriasComboBox.SelectedItem != null || FiltroColoresComboBox.SelectedItem != null || BarraFiltroTextBox.Text != "");
+        }
+
+        private void CleanFiltersCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            FiltroInventariosComboBox.SelectedItem = null;
+            FiltroCategoriasComboBox.SelectedItem = null;
+            FiltroColoresComboBox.SelectedItem = null;
+            BarraFiltroTextBox.Text = "";
+
+        }
+
+        private void CleanFiltersCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = (FiltroInventariosComboBox.SelectedItem != null || FiltroCategoriasComboBox.SelectedItem != null || FiltroColoresComboBox.SelectedItem != null || BarraFiltroTextBox.Text != "");
+        }
+
+        private void GuardarArticulosButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show((DataContext as PanelInventariosVM).ArticuloSeleccionado.Nombre);
         }
     }
 }

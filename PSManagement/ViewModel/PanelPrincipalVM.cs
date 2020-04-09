@@ -56,6 +56,24 @@ namespace PSManagement.ViewModel
             return panelInv;
         }
 
+        public PanelGestionView CargaPanelGestion()
+        {
+            PanelGestionView panelGest = new PanelGestionView();
+
+            PanelActual = panelGest;
+
+            return panelGest;
+        }
+
+        public PanelVentasView CargaPanelVentas()
+        {
+            PanelVentasView panelVentas = new PanelVentasView();
+
+            PanelActual = panelVentas;
+
+            return panelVentas;
+        }
+
         public void ExitDialog(ExitDialog ventanaSalir)
         {
 

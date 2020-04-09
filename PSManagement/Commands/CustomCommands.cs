@@ -86,6 +86,24 @@ namespace PSManagement.Commands
                     new KeyGesture(Key.F5)
                 }
             );
+
+        public static readonly RoutedUICommand Filter = new RoutedUICommand
+            (
+                "Filter",
+                "Filter",
+                typeof(CustomCommands),
+                new InputGestureCollection()
+                {
+                    new KeyGesture(Key.F, ModifierKeys.Alt)
+                }
+            );
+
+        public static readonly RoutedUICommand CleanFilter = new RoutedUICommand
+            (
+                "CleanFilter",
+                "CleanFilter",
+                typeof(CustomCommands)
+            );
     }
 
 }

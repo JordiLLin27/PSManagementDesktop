@@ -136,6 +136,11 @@ namespace PSManagement.View
                 texto = "Ventas";
                 icon.Kind = PackIconKind.CashRegister;
             }
+            else if ((this.DataContext as PanelPrincipalVM).PanelActual is PanelGestionView)
+            {
+                texto = "Gestión de Stock";
+                icon.Kind = PackIconKind.TableEdit;
+            }
 
 
             TituloMenuTrabajoTextBlock.Text = texto;
@@ -145,13 +150,15 @@ namespace PSManagement.View
         //Comando para cambiar al panel de ventas y facturación
         private void SalesCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            //Cargar panel ventas
+            PanelDeTrabajoGrid.Children.Clear();
+            PanelDeTrabajoGrid.Children.Add((this.DataContext as PanelPrincipalVM).CargaPanelVentas());
+            CambiaTituloIconoMenuNav();
         }
 
 
         private void SalesCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            // can executed ventas
+            e.CanExecute = !((this.DataContext as PanelPrincipalVM).PanelActual is PanelVentasView);
         }
 
         //Comando para cambiar al panel de mantenimiento de inventarios
@@ -170,12 +177,14 @@ namespace PSManagement.View
         //Comando para cambiar al panel de gestión de stock
         private void ManageCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-
+            PanelDeTrabajoGrid.Children.Clear();
+            PanelDeTrabajoGrid.Children.Add((this.DataContext as PanelPrincipalVM).CargaPanelGestion());
+            CambiaTituloIconoMenuNav();
         }
 
         private void ManageCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-
+            e.CanExecute = !((this.DataContext as PanelPrincipalVM).PanelActual is PanelGestionView);
         }
     }
 }
