@@ -120,7 +120,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\CustomCommands.cs" />
-    <Compile Include="Converters\NullToNAConverter.cs" />
     <Compile Include="Dialogs\ExitDialog.xaml.cs">
       <DependentUpon>ExitDialog.xaml</DependentUpon>
     </Compile>
@@ -164,13 +163,18 @@
       <DependentUpon>ModeloTienda.edmx</DependentUpon>
     </Compile>
     <Compile Include="Model\PropertyChangedModel.cs" />
+    <Compile Include="Model\TotalTallasModel.cs" />
     <Compile Include="Service\BBDDService.cs" />
+    <Compile Include="ViewModel\FormularioCrudArticuloVM.cs" />
     <Compile Include="ViewModel\PanelGestionVM.cs" />
     <Compile Include="ViewModel\PanelIntroduccionVM.cs" />
     <Compile Include="ViewModel\PanelInventariosVM.cs" />
     <Compile Include="ViewModel\PanelOpcionesVM.cs" />
     <Compile Include="ViewModel\PanelPrincipalVM.cs" />
     <Compile Include="ViewModel\PanelVentasVM.cs" />
+    <Compile Include="Dialogs\FormularioCrudArticuloDialogView.xaml.cs">
+      <DependentUpon>FormularioCrudArticuloDialogView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\PanelGestionView.xaml.cs">
       <DependentUpon>PanelGestionView.xaml</DependentUpon>
     </Compile>
@@ -205,6 +209,10 @@
       <DependentUpon>PantallaBienvenida.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Dialogs\FormularioCrudArticuloDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\PanelGestionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

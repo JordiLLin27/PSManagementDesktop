@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PSManagement.View"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:comands="clr-namespace:PSManagement.Commands"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -129,10 +130,13 @@
 
                 <StackPanel x:Name="MenuNavStackPanel" Orientation="Horizontal">
                     <Menu>
-                        <MenuItem Command="NavigationCommands.BrowseBack" Header="Inicio">
+                        <MenuItem Command="NavigationCommands.BrowseBack" Background="{DynamicResource PrimaryHueMidBrush}" Margin="10">
                             <MenuItem.Icon>
-                                <materialDesign:PackIcon Kind="Home" />
+                                <materialDesign:PackIcon Kind="Home"/>
                             </MenuItem.Icon>
+                            <MenuItem.Header>
+                                <TextBlock Text="Página de Inicio" FontSize="20" FontWeight="DemiBold" Foreground="{DynamicResource MaterialDesignBody}"/>
+                            </MenuItem.Header>
                         </MenuItem>
                     </Menu>
                     <TextBlock x:Name="TituloMenuTrabajoTextBlock" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontSize="20"/>
@@ -140,10 +144,10 @@
                 </StackPanel>
                 <Separator Margin="10,0,10,0"/>
                 <Grid x:Name="PanelDeTrabajoGrid">
+
                     <!--Aquí dentro se irán insertando dinámicamente los controles de usuario que se vayan eligiendo (Por defecto se muestra un mensaje de Bienvenida)-->
                 </Grid>
             </StackPanel>
-
         </Border>
     </DockPanel>
 </Window>

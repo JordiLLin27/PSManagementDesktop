@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PSManagement.View"
              xmlns:com="clr-namespace:PSManagement.Commands"
-             xmlns:convert="clr-namespace:PSManagement.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="978" d:DesignWidth="1696"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -13,7 +12,7 @@
              Background="{DynamicResource MaterialDesignPaper}"
              TextElement.FontWeight="Medium"
              TextElement.FontSize="18"
-             FontFamily="{materialDesign:MaterialDesignFont}" Width="Auto" Height="Auto">
+             FontFamily="{materialDesign:MaterialDesignFont}" MaxHeight="1080">
 
     <!--Recursos-->
     <UserControl.Resources>
@@ -37,12 +36,12 @@
             CanExecute="ColorCrudCommandBinding_CanExecute"/>
 
         <CommandBinding
-            Command="com:CustomCommands.Refresh"
-            Executed="RefreshCommandBinding_Executed"
-            CanExecute="RefreshCommandBinding_CanExecute"/>
+            Command="com:CustomCommands.ItemCrud"
+            Executed="ItemCrudCommandBinding_Executed"
+            CanExecute="ItemCrudCommandBinding_CanExecute"/>
 
         <CommandBinding
-            Command="com:CustomCommands.Filter"
+            Command="ApplicationCommands.Find"
             Executed="FilterCommandBinding_Executed"
             CanExecute="FilterCommandBinding_CanExecute"/>
 
@@ -54,6 +53,7 @@
     </UserControl.CommandBindings>
 
     <!--Principal-->
+
     <Grid x:Name="PanelPrincipalGrid">
 
         <Grid.ColumnDefinitions>
@@ -63,9 +63,9 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
 
 
@@ -74,64 +74,63 @@
 
             <DockPanel>
 
-                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Right" Margin="20">
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center" >
 
-                    <Label Content="Filtrar por inventario" Margin="10" FontSize="12" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="FiltroInventariosComboBox" ItemsSource="{Binding ListaInventarios}" DisplayMemberPath="Descripcion" SelectedItem="{Binding FiltroArticuloPorInventario}" Width="200" Margin="10" materialDesign:HintAssist.Hint="Todos"></ComboBox>
+                    <Label Content="Filtrar por inventario" Margin="10" FontSize="18" VerticalAlignment="Center" Target="{Binding ElementName=FiltroInventariosComboBox}"/>
+                    <ComboBox x:Name="FiltroInventariosComboBox" ItemsSource="{Binding ListaInventarios}" DisplayMemberPath="Descripcion" SelectedItem="{Binding FiltroInventarioSeleccionado}" Width="200" Margin="10" materialDesign:HintAssist.Hint="Todos"></ComboBox>
 
-                    <Label Content="Filtrar por Categoria" Margin="10" FontSize="12" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="FiltroCategoriasComboBox" ItemsSource="{Binding ListaCategorias}" DisplayMemberPath="Categoria" SelectedItem="{Binding FiltroArticuloPorCategoria}" Width="200" Margin="10" materialDesign:HintAssist.Hint="Todas"></ComboBox>
+                    <Label Content="Filtrar por Categoria" Margin="10" FontSize="18" VerticalAlignment="Center" Target="{Binding ElementName=FiltroCategoriasComboBox}"/>
+                    <ComboBox x:Name="FiltroCategoriasComboBox" ItemsSource="{Binding ListaCategorias}" DisplayMemberPath="Categoria" SelectedItem="{Binding FiltroCategoriaSeleccionada}" Width="200" Margin="10" materialDesign:HintAssist.Hint="Todas"></ComboBox>
 
-                    <Label Content="Filtrar por Color" Margin="10" FontSize="12" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="FiltroColoresComboBox" ItemsSource="{Binding ListaColores}" DisplayMemberPath="Color" SelectedItem="{Binding FiltroArticuloPorColor}" Width="200" Margin="10" materialDesign:HintAssist.Hint="Todos"></ComboBox>
+                    <Label Content="Filtrar por Color" Margin="10" FontSize="18" VerticalAlignment="Center" Target="{Binding ElementName=FiltroColoresComboBox}"/>
+                    <ComboBox x:Name="FiltroColoresComboBox" ItemsSource="{Binding ListaColores}" DisplayMemberPath="Color" SelectedItem="{Binding FiltroColorSeleccionado}" Width="200" Margin="10" materialDesign:HintAssist.Hint="Todos"></ComboBox>
 
-                    <TextBox x:Name="BarraFiltroTextBox" materialDesign:HintAssist.Hint="Búsqueda de artículos" Margin="10" Width="200" Text="{Binding FiltroArticuloPorNombre}"></TextBox>
+                    <TextBox x:Name="BarraFiltroTextBox" materialDesign:HintAssist.Hint="Búsqueda de artículos" Margin="10" Width="200" Text="{Binding FiltroArticuloPorNombreOModelo, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TextChanged="BarraFiltroTextBox_TextChanged"></TextBox>
 
-                    <Button x:Name="FiltrarButton" Content="Filtrar" Margin="10" Width="100" Command="com:CustomCommands.Filter"/>
-                    <Button x:Name="LimpiarFiltrosButton" Content="Borrar Filtros" Margin="10" Width="130" Command="com:CustomCommands.CleanFilter"/>
+                    <Button x:Name="FiltrarButton" Margin="10" Width="100" Command="ApplicationCommands.Find" IsDefault="True">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Search"/>
+                            <TextBlock Text="Filtrar" Margin="5,0,0,0"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="LimpiarFiltrosButton" Content="Borrar Filtros" Margin="10" Width="130" Command="com:CustomCommands.CleanFilter" IsCancel="True"/>
                 </StackPanel>
 
-                <GroupBox DockPanel.Dock="Right" Header="Modificar artículos" Margin="5" Width="200" materialDesign:ColorZoneAssist.Mode="Accent">
-                    <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                        <Button x:Name="ActivarModificacionArticulosButton" Content="Modificar artículos" Width="150" Margin="0,0,0,40" Height="50" Style="{StaticResource MaterialDesignRaisedAccentButton}" Click="ActivarModificacionArticulosButton_Click"/>
-                        <Button x:Name="GuardarArticulosButton" Content="Guardar cambios" Width="150" Margin="0,0,0,40" Height="50" Style="{StaticResource MaterialDesignRaisedAccentButton}" Click="GuardarArticulosButton_Click"/>
-                        <Button x:Name="RefrescarTablaButton" Content="Refrescar" Width="150" Height="50" Style="{StaticResource MaterialDesignRaisedAccentButton}"/>
-                    </StackPanel>
+                <GroupBox DockPanel.Dock="Right" Header="Modificar Tabla" Margin="5" Width="200" materialDesign:ColorZoneAssist.Mode="Accent">
+                    <ScrollViewer CanContentScroll="True">
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                            <Button x:Name="NuevoArticuloButton" Content="Añadir Artículos" Width="150" Margin="0,0,0,40" Height="50" Style="{StaticResource MaterialDesignRaisedAccentButton}"  Command="com:CustomCommands.ItemCrud"/>
+                            <Button x:Name="UpdateArticuloButton" Content="Modificar Artículo" Width="150" Margin="0,0,0,40" Height="50" Style="{StaticResource MaterialDesignRaisedAccentButton}"  Command="com:CustomCommands.ItemCrud"/>
+                            <Button x:Name="DeleteArticuloButton" Content="Eliminar Articulo" Width="150" Height="50" Style="{StaticResource MaterialDesignRaisedAccentButton}"  Command="com:CustomCommands.ItemCrud"/>
+                        </StackPanel>
+                    </ScrollViewer>
                 </GroupBox>
 
-                <DataGrid x:Name="TablaArticulosInventarioDataGrid" ItemsSource="{Binding ListaArticulos}"
+                <DataGrid x:Name="TablaArticulosInventarioDataGrid" SelectedItem="{Binding ArticuloSeleccionado}" ItemsSource="{Binding ListaArticulos.View}"
                           AutoGenerateColumns="False" 
-                          CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="False"  CanUserSortColumns="True" CanUserAddRows="False"
+                          CanUserResizeColumns="True" CanUserResizeRows="False" CanUserReorderColumns="False"  CanUserSortColumns="True" CanUserAddRows="False" CanUserDeleteRows="False" IsSynchronizedWithCurrentItem="False"
                           IsReadOnly="True"
                           SelectionUnit="FullRow" SelectionMode="Single"
                           Foreground="{DynamicResource MaterialDesignBody}" BorderThickness="2"
-                          AlternatingRowBackground="#6ec6ff">
+                          >
                     <DataGrid.Columns>
                         <materialDesign:DataGridTextColumn Header="Nombre Artículo" Binding="{Binding Nombre}" Width="*"/>
                         <materialDesign:DataGridTextColumn Header="Inventario" Binding="{Binding INVENTARIO.Descripcion}" Width="*"/>
                         <materialDesign:DataGridTextColumn Header="Categoría" Binding="{Binding CATEGORIA.Categoria}" Width="*"/>
                         <materialDesign:DataGridTextColumn Header="Color" Binding="{Binding COLOR.Color}" Width="*"/>
                         <materialDesign:DataGridTextColumn Header="Modelo" Binding="{Binding Modelo}" Width="*"/>
-                        <DataGridTemplateColumn Header="Precio" Width="*">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock>
-                                        <Run Text="{Binding PrecioUnitario}"/>
-                                        <Run Text="€"/>
-                                    </TextBlock>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
+                        <materialDesign:DataGridTextColumn Header="Precio" Width="*" Binding="{Binding PrecioUnitario, UpdateSourceTrigger=PropertyChanged, StringFormat='#.00€'}"/>
                         <materialDesign:DataGridTextColumn Header="Stock Mínimo" Binding="{Binding StockMinimo}" Width="*"/>
-                        <DataGridCheckBoxColumn Header="Sotck Disponible" Binding="{Binding StockDisponible}" Width="*"/>
+                        <DataGridCheckBoxColumn Header="Venta disponible" Binding="{Binding StockDisponible}" Width="*" ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}" EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}"/>
+
+
                     </DataGrid.Columns>
                 </DataGrid>
-
             </DockPanel>
 
         </GroupBox>
 
-        <GroupBox Grid.Row="1" Grid.Column="0" Header="Tallas Artículo" Margin="5">
+        <GroupBox Grid.Row="1" Grid.Column="0" Header="Tallas Textiles" Margin="5">
 
             <Grid x:Name="TablaTallasArticuloSeleccionadoGrid">
                 <Grid.ColumnDefinitions>
@@ -144,7 +143,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2*"/>
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">XS</TextBlock>
@@ -155,17 +154,17 @@
 
                 <Separator Grid.Row="1" Grid.ColumnSpan="5"/>
 
-                <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADTALLA.XS}"/>
-                <TextBlock Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADTALLA.S}"/>
-                <TextBlock Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADTALLA.M}"/>
-                <TextBlock Grid.Column="3" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADTALLA.L}"/>
-                <TextBlock Grid.Column="4" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADTALLA.XL}"/>
+                <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="XS"  Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADTALLA.XS, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
+                <TextBlock Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="S" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADTALLA.S, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
+                <TextBlock Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="M" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADTALLA.M, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
+                <TextBlock Grid.Column="3" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="L" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADTALLA.L, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
+                <TextBlock Grid.Column="4" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="XL" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADTALLA.XL, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
 
             </Grid>
 
         </GroupBox>
 
-        <GroupBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Header="Números Artículo" Margin="5">
+        <GroupBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Header="Números Calzado" Margin="5">
 
 
             <Grid x:Name="TablaNumerosArticuloSeleccionadoGrid">
@@ -186,7 +185,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2*"/>
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">36</TextBlock>
@@ -204,18 +203,18 @@
 
                 <Separator Grid.Row="1" Grid.ColumnSpan="12"/>
 
-                <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N36}"/>
-                <TextBlock Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N37}"/>
-                <TextBlock Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N38}"/>
-                <TextBlock Grid.Column="3" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N39}"/>
-                <TextBlock Grid.Column="4" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N40}"/>
-                <TextBlock Grid.Column="5" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N41}"/>
-                <TextBlock Grid.Column="6" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N42}"/>
-                <TextBlock Grid.Column="7" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N43}"/>
-                <TextBlock Grid.Column="8" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N44}"/>
-                <TextBlock Grid.Column="9" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N45}"/>
-                <TextBlock Grid.Column="10" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N46}"/>
-                <TextBlock Grid.Column="11" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N47}"/>
+                <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N36" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N36, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
+                <TextBlock Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N37" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N37, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
+                <TextBlock Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N38" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N38, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
+                <TextBlock Grid.Column="3" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N39" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N39, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
+                <TextBlock Grid.Column="4" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N40" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N40, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
+                <TextBlock Grid.Column="5" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N41" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N41, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
+                <TextBlock Grid.Column="6" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N42" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N42, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
+                <TextBlock Grid.Column="7" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N43" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N43, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
+                <TextBlock Grid.Column="8" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N44" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N44, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
+                <TextBlock Grid.Column="9" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N45" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N45, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
+                <TextBlock Grid.Column="10" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N46" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N46, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
+                <TextBlock Grid.Column="11" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N47" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N47, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
 
             </Grid>
 
@@ -224,246 +223,263 @@
 
         <!--Mantenimiento de inventario-->
         <GroupBox Header="Mantenimiento de Inventario" Margin="5" Grid.Row="2" Grid.Column="0">
+            <ScrollViewer CanContentScroll="True">
+                <TabControl x:Name="InventariosTabControl" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" SelectionChanged="InventariosTabControl_SelectionChanged">
 
-            <TabControl x:Name="InventariosTabControl" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" SelectionChanged="InventariosTabControl_SelectionChanged">
+                    <!--Inventarios Disponibles-->
+                    <TabItem x:Name="InventariosDisponiblesTabitem" Header="Inventarios disponibles">
+                        <ListView ItemsSource="{Binding ListaInventarios}" DisplayMemberPath="Descripcion"></ListView>
+                    </TabItem>
 
-                <!--Añadir-->
-                <TabItem x:Name="AddInventarioTabItem" Header="Añadir Inventario" >
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="3*"/>
-                        </Grid.ColumnDefinitions>
+                    <!--Añadir-->
+                    <TabItem x:Name="AddInventarioTabItem" Header="Añadir Inventario" >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                            </Grid.ColumnDefinitions>
 
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
 
-                        <TextBox x:Name="NombreInventarioAddTextBox" Grid.Column="1" Grid.Row="0" materialDesign:HintAssist.Hint="Introduce el nombre del inventario a añadir" Foreground="{DynamicResource MaterialDesignBody}" Margin="15" VerticalAlignment="Center"/>
+                            <TextBox x:Name="NombreInventarioAddTextBox" Grid.Column="1" Grid.Row="0" materialDesign:HintAssist.Hint="Introduce el nombre del inventario a añadir" Foreground="{DynamicResource MaterialDesignBody}" Margin="15" VerticalAlignment="Center"/>
 
-                        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2" Margin="20">
-                            <Button x:Name="GuardarInventarioAddButton" Content="Aceptar" Width="100" Margin="0,0,20,0" Command="com:CustomCommands.InventoryCrud"/>
-                            <Button x:Name="LimpiarAddInventarioButton" Content="Limpiar" Width="100"/>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2" Margin="20">
+                                <Button x:Name="GuardarInventarioAddButton" Content="Aceptar" Width="100" Margin="0,0,20,0" Command="com:CustomCommands.InventoryCrud"/>
+                                <Button x:Name="LimpiarAddInventarioButton" Content="Limpiar" Width="100"/>
 
-                        </StackPanel>
-                    </Grid>
-                </TabItem>
+                            </StackPanel>
+                        </Grid>
+                    </TabItem>
 
-                <!--Editar-->
-                <TabItem x:Name="UpdateInventarioTabItem" Header="Editar Inventario">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="3*"/>
-                        </Grid.ColumnDefinitions>
+                    <!--Editar-->
+                    <TabItem x:Name="UpdateInventarioTabItem" Header="Editar Inventario">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                            </Grid.ColumnDefinitions>
 
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
 
 
-                        <ComboBox x:Name="EditarListaInventariosComboBox" Grid.Column="1" Margin="15" 
+                            <ComboBox x:Name="EditarListaInventariosComboBox" Grid.Column="1" Margin="15" 
                                   materialDesign:HintAssist.Hint="Selecciona Inventario" Foreground="{DynamicResource MaterialDesignBody}" 
                                   ItemsSource="{Binding ListaInventarios}" SelectedItem="{Binding InventarioSeleccionado}" DisplayMemberPath="Descripcion"></ComboBox>
 
 
-                        <TextBox x:Name="EditarNombreInventarioTextBox" Grid.Column="1" Grid.Row="1" 
+                            <TextBox x:Name="EditarNombreInventarioTextBox" Grid.Column="1" Grid.Row="1" 
                                  materialDesign:HintAssist.Hint="Introduce el nombre del inventario" Foreground="{DynamicResource MaterialDesignBody}" Height="30" Margin="15"/>
 
-                        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="5" Margin="20">
-                            <Button x:Name="EditarGuardarButton" Content="Aceptar" Width="100" Margin="0,0,20,0" Command="com:CustomCommands.InventoryCrud"/>
-                            <Button x:Name="EditarLimpiarButton" Content="Limpiar" Width="100" />
-                        </StackPanel>
-                    </Grid>
-                </TabItem>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="5" Margin="20">
+                                <Button x:Name="EditarGuardarButton" Content="Aceptar" Width="100" Margin="0,0,20,0" Command="com:CustomCommands.InventoryCrud"/>
+                                <Button x:Name="EditarLimpiarButton" Content="Limpiar" Width="100" />
+                            </StackPanel>
+                        </Grid>
+                    </TabItem>
 
-                <!--Eliminar-->
-                <TabItem x:Name="DeleteInventarioTabItem" Header="Eliminar Inventario">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="3*"/>
-                        </Grid.ColumnDefinitions>
+                    <!--Eliminar-->
+                    <TabItem x:Name="DeleteInventarioTabItem" Header="Eliminar Inventario">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                            </Grid.ColumnDefinitions>
 
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
 
-                        <ComboBox x:Name="EliminarListaInventariosComboBox" Grid.Row="0" Grid.Column="1" 
+                            <ComboBox x:Name="EliminarListaInventariosComboBox" Grid.Row="0" Grid.Column="1" 
                                   Margin="15" materialDesign:HintAssist.Hint="Selecciona Inventario" Foreground="{DynamicResource MaterialDesignBody}"
                                   ItemsSource="{Binding ListaInventarios}" SelectedItem="{Binding InventarioSeleccionado}" DisplayMemberPath="Descripcion"></ComboBox>
 
-                        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" Margin="20">
-                            <Button x:Name="EliminarGuardarButton" Content="Aceptar" Width="100" Margin="0,0,20,0" Command="com:CustomCommands.InventoryCrud"/>
-                            <Button x:Name="EliminarRefrescarButton" Content="Refrescar" Width="100"/>
-                        </StackPanel>
-                    </Grid>
-                </TabItem>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" Margin="20">
+                                <Button x:Name="EliminarGuardarButton" Content="Aceptar" Width="100" Margin="0,0,20,0" Command="com:CustomCommands.InventoryCrud"/>
+                                <Button x:Name="EliminarRefrescarButton" Content="Refrescar" Width="100"/>
+                            </StackPanel>
+                        </Grid>
+                    </TabItem>
 
-            </TabControl>
-
+                </TabControl>
+            </ScrollViewer>
         </GroupBox>
 
         <!--Mantenimiento de Colores-->
         <GroupBox Header="Mantenimiento de Colores" Margin="5" Grid.Row="2" Grid.Column="1">
+            <ScrollViewer CanContentScroll="True">
+                <TabControl x:Name="ColoresTabControl" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" SelectionChanged="ColoresTabControl_SelectionChanged">
 
-            <TabControl x:Name="ColoresTabControl" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" SelectionChanged="ColoresTabControl_SelectionChanged">
+                    <!--Colores Disponibles-->
+                    <TabItem x:Name="ColoresDisponiblesTabitem" Header="Colores disponibles">
+                        <ListView ItemsSource="{Binding ListaColores}" DisplayMemberPath="Color"></ListView>
+                    </TabItem>
 
-                <!--Añadir-->
-                <TabItem x:Name="AddColorTabItem" Header="Añadir Color">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="3*"/>
-                        </Grid.ColumnDefinitions>
+                    <!--Añadir-->
+                    <TabItem x:Name="AddColorTabItem" Header="Añadir Color">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                            </Grid.ColumnDefinitions>
 
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
 
 
-                        <TextBox x:Name="NombreColorAddTextBox" Grid.Column="1" Grid.Row="0" materialDesign:HintAssist.Hint="Introduce el nombre del color a añadir" Foreground="{DynamicResource MaterialDesignBody}" Margin="15" VerticalAlignment="Center"/>
+                            <TextBox x:Name="NombreColorAddTextBox" Grid.Column="1" Grid.Row="0" materialDesign:HintAssist.Hint="Introduce el nombre del color a añadir" Foreground="{DynamicResource MaterialDesignBody}" Margin="15" VerticalAlignment="Center"/>
 
-                        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2" Margin="20">
-                            <Button x:Name="GuardarColorButton" Content="Aceptar" Width="100" Margin="0,0,20,0" Command="com:CustomCommands.ColorCrud"/>
-                            <Button x:Name="LimpiarAddColorButton" Content="Limpiar" Width="100" />
-                        </StackPanel>
-                    </Grid>
-                </TabItem>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2" Margin="20">
+                                <Button x:Name="GuardarColorButton" Content="Aceptar" Width="100" Margin="0,0,20,0" Command="com:CustomCommands.ColorCrud"/>
+                                <Button x:Name="LimpiarAddColorButton" Content="Limpiar" Width="100" />
+                            </StackPanel>
+                        </Grid>
+                    </TabItem>
 
-                <!--Editar-->
-                <TabItem x:Name="UpdateColorTabItem" Header="Editar Color">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="3*"/>
-                        </Grid.ColumnDefinitions>
+                    <!--Editar-->
+                    <TabItem x:Name="UpdateColorTabItem" Header="Editar Color">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                            </Grid.ColumnDefinitions>
 
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
 
-                        <ComboBox x:Name="EditarListaColoresComboBox" Grid.Column="1" 
+                            <ComboBox x:Name="EditarListaColoresComboBox" Grid.Column="1" 
                                   Margin="15" materialDesign:HintAssist.Hint="Selecciona Color" Foreground="{DynamicResource MaterialDesignBody}"
                                   ItemsSource="{Binding ListaColores}" SelectedItem="{Binding ColorSeleccionado}" DisplayMemberPath="Color"></ComboBox>
 
-                        <TextBox x:Name="EditarNombreColorTextBox" Grid.Column="1" Grid.Row="1" materialDesign:HintAssist.Hint="Introduce el color" Foreground="{DynamicResource MaterialDesignBody}" Margin="15"/>
+                            <TextBox x:Name="EditarNombreColorTextBox" Grid.Column="1" Grid.Row="1" materialDesign:HintAssist.Hint="Introduce el color" Foreground="{DynamicResource MaterialDesignBody}" Margin="15"/>
 
-                        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="5" Margin="20">
-                            <Button x:Name="EditarColorGuardarButton" Content="Aceptar" Width="100" Margin="0,0,20,0" Command="com:CustomCommands.ColorCrud"/>
-                            <Button x:Name="EditarLimpiarColorButton" Content="Limpiar" Width="100"/>
-                        </StackPanel>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="5" Margin="20">
+                                <Button x:Name="EditarColorGuardarButton" Content="Aceptar" Width="100" Margin="0,0,20,0" Command="com:CustomCommands.ColorCrud"/>
+                                <Button x:Name="EditarLimpiarColorButton" Content="Limpiar" Width="100"/>
+                            </StackPanel>
 
-                    </Grid>
-                </TabItem>
+                        </Grid>
+                    </TabItem>
 
-                <!--Eliminar-->
-                <TabItem x:Name="DeleteColorTabItem" Header="Eliminar Color">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="3*"/>
-                        </Grid.ColumnDefinitions>
+                    <!--Eliminar-->
+                    <TabItem x:Name="DeleteColorTabItem" Header="Eliminar Color">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                            </Grid.ColumnDefinitions>
 
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
 
-                        <ComboBox x:Name="EliminarListaColoresComboBox" Grid.Row="0" Grid.Column="1" 
+                            <ComboBox x:Name="EliminarListaColoresComboBox" Grid.Row="0" Grid.Column="1" 
                                   Margin="15" materialDesign:HintAssist.Hint="Selecciona Color" Foreground="{DynamicResource MaterialDesignBody}"
                                    ItemsSource="{Binding ListaColores}" SelectedItem="{Binding ColorSeleccionado}" DisplayMemberPath="Color"></ComboBox>
 
-                        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" Margin="20">
-                            <Button x:Name="EliminarGuardarColorButton" Content="Aceptar" Width="100" Margin="0,0,20,0" Command="com:CustomCommands.ColorCrud"/>
-                            <Button x:Name="EliminarRefrescarColorButton" Content="Refrescar" Width="100"/>
-                        </StackPanel>
-                    </Grid>
-                </TabItem>
-            </TabControl>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" Margin="20">
+                                <Button x:Name="EliminarGuardarColorButton" Content="Aceptar" Width="100" Margin="0,0,20,0" Command="com:CustomCommands.ColorCrud"/>
+                                <Button x:Name="EliminarRefrescarColorButton" Content="Refrescar" Width="100"/>
+                            </StackPanel>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+            </ScrollViewer>
         </GroupBox>
 
 
         <!--Mantenimiento de Categorías-->
         <GroupBox Header="Mantenimiento de Categorías" Margin="5" Grid.Row="2" Grid.Column="2">
+            <ScrollViewer CanContentScroll="True">
+                <TabControl x:Name="CategoriasTabControl" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" SelectionChanged="CategoriasTabControl_SelectionChanged">
 
-            <TabControl x:Name="CategoriasTabControl" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" SelectionChanged="CategoriasTabControl_SelectionChanged">
+                    <!--Colores Disponibles-->
+                    <TabItem x:Name="CategoriassDisponiblesTabitem" Header="Categorias disponibles">
+                        <ListView ItemsSource="{Binding ListaCategorias}" DisplayMemberPath="Categoria"></ListView>
+                    </TabItem>
 
-                <!--Añadir-->
-                <TabItem x:Name="AddCategoriaTabItem" Header="Añadir Categoría">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="3*"/>
-                        </Grid.ColumnDefinitions>
+                    <!--Añadir-->
+                    <TabItem x:Name="AddCategoriaTabItem" Header="Añadir Categoría">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                            </Grid.ColumnDefinitions>
 
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
 
-                        <TextBox x:Name="NombreCategoriaAddTextBox" Grid.Column="1" Grid.Row="0" materialDesign:HintAssist.Hint="Introduce el nombre la categoría a añadir" Foreground="{DynamicResource MaterialDesignBody}" Margin="15" VerticalAlignment="Center"/>
+                            <TextBox x:Name="NombreCategoriaAddTextBox" Grid.Column="1" Grid.Row="0" materialDesign:HintAssist.Hint="Introduce el nombre la categoría a añadir" Foreground="{DynamicResource MaterialDesignBody}" Margin="15" VerticalAlignment="Center"/>
 
-                        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2" Margin="20">
-                            <Button x:Name="GuardarCategoriaButton" Content="Aceptar" Width="100" Margin="0,0,20,0" Command="com:CustomCommands.CategoryCrud"/>
-                            <Button x:Name="LimpiarAddCategoriaButton" Content="Limpiar" Width="100" />
-                        </StackPanel>
-                    </Grid>
-                </TabItem>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2" Margin="20">
+                                <Button x:Name="GuardarCategoriaButton" Content="Aceptar" Width="100" Margin="0,0,20,0" Command="com:CustomCommands.CategoryCrud"/>
+                                <Button x:Name="LimpiarAddCategoriaButton" Content="Limpiar" Width="100" />
+                            </StackPanel>
+                        </Grid>
+                    </TabItem>
 
-                <!--Editar-->
-                <TabItem x:Name="UpdateCategoriaTabItem" Header="Editar Categoría">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="3*"/>
-                        </Grid.ColumnDefinitions>
+                    <!--Editar-->
+                    <TabItem x:Name="UpdateCategoriaTabItem" Header="Editar Categoría">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                            </Grid.ColumnDefinitions>
 
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
 
-                        <ComboBox x:Name="EditarListacategoriasComboBox" Grid.Column="1" 
+                            <ComboBox x:Name="EditarListacategoriasComboBox" Grid.Column="1" 
                                   Margin="15" materialDesign:HintAssist.Hint="Selecciona Categoría" Foreground="{DynamicResource MaterialDesignBody}"
                                    ItemsSource="{Binding ListaCategorias}" SelectedItem="{Binding CategoriaSeleccionada}" DisplayMemberPath="Categoria"></ComboBox>
 
-                        <TextBox x:Name="EditarNombreCategoriaTextBox" Grid.Column="1" Grid.Row="1" materialDesign:HintAssist.Hint="Introduce el nombre de la categoría" Foreground="{DynamicResource MaterialDesignBody}" Margin="15"/>
+                            <TextBox x:Name="EditarNombreCategoriaTextBox" Grid.Column="1" Grid.Row="1" materialDesign:HintAssist.Hint="Introduce el nombre de la categoría" Foreground="{DynamicResource MaterialDesignBody}" Margin="15"/>
 
-                        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="5" Margin="20">
-                            <Button x:Name="EditarGuardarCategoriaButton" Content="Aceptar" Width="100" Margin="0,0,20,0"  Command="com:CustomCommands.CategoryCrud"/>
-                            <Button x:Name="EditarLimpiarCategoriaButton" Content="Limpiar" Width="100"/>
-                        </StackPanel>
-                    </Grid>
-                </TabItem>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="5" Margin="20">
+                                <Button x:Name="EditarGuardarCategoriaButton" Content="Aceptar" Width="100" Margin="0,0,20,0"  Command="com:CustomCommands.CategoryCrud"/>
+                                <Button x:Name="EditarLimpiarCategoriaButton" Content="Limpiar" Width="100"/>
+                            </StackPanel>
+                        </Grid>
+                    </TabItem>
 
-                <!--Eliminar-->
-                <TabItem x:Name="DeleteCategoriaTabItem" Header="Eliminar Categoría">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="3*"/>
-                        </Grid.ColumnDefinitions>
+                    <!--Eliminar-->
+                    <TabItem x:Name="DeleteCategoriaTabItem" Header="Eliminar Categoría">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                            </Grid.ColumnDefinitions>
 
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
 
-                        <ComboBox x:Name="EliminarListaCategoriaComboBox" Grid.Row="0" Grid.Column="1" 
+                            <ComboBox x:Name="EliminarListaCategoriaComboBox" Grid.Row="0" Grid.Column="1" 
                                   Margin="15" materialDesign:HintAssist.Hint="Selecciona Categoría" Foreground="{DynamicResource MaterialDesignBody}"
                                   ItemsSource="{Binding ListaCategorias}" SelectedItem="{Binding CategoriaSeleccionada}" DisplayMemberPath="Categoria"></ComboBox>
 
-                        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" Margin="30">
-                            <Button x:Name="EliminarGuardarCategoriaButton" Content="Aceptar" Width="100" Margin="0,0,20,0"  Command="com:CustomCommands.CategoryCrud"/>
-                            <Button x:Name="EliminarRefrescarCategoraiButton" Content="Refrescar" Width="100"/>
-                        </StackPanel>
-                    </Grid>
-                </TabItem>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" Margin="30">
+                                <Button x:Name="EliminarGuardarCategoriaButton" Content="Aceptar" Width="100" Margin="0,0,20,0"  Command="com:CustomCommands.CategoryCrud"/>
+                                <Button x:Name="EliminarRefrescarCategoraiButton" Content="Refrescar" Width="100"/>
+                            </StackPanel>
+                        </Grid>
+                    </TabItem>
 
-            </TabControl>
-
+                </TabControl>
+            </ScrollViewer>
         </GroupBox>
 
 
     </Grid>
+
 </UserControl>

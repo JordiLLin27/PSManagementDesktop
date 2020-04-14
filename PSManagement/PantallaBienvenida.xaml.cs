@@ -38,6 +38,13 @@ namespace PSManagement
         Delete_Categoria
     }
 
+    public enum ItemCRUDAction
+    {
+        Insert_Item,
+        Update_Item,
+        Delete_Item
+    }
+
     /// <summary>
     /// Lógica de interacción para MainWindow.xaml
     /// </summary>

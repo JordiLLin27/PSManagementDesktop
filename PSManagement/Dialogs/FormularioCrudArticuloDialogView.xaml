@@ -1,0 +1,169 @@
+﻿<Window x:Class="PSManagement.View.FormularioCrudArticuloDialogView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PSManagement.View"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="{materialDesign:MaterialDesignFont}"
+        Height="800" Width="800" WindowState="Normal" WindowStyle="None" ResizeMode="NoResize" BorderThickness="7" BorderBrush="{DynamicResource SecondaryHueLightBrush}">
+
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Save"
+                        Executed="SaveCommand_Executed">
+        </CommandBinding>
+        <CommandBinding Command="ApplicationCommands.Close"
+                        Executed="CloseCommand_Executed">
+        </CommandBinding>
+    </Window.CommandBindings>
+
+    <Window.Resources>
+        <Style TargetType="TextBox" x:Key="TextBoxTablas">
+            <Setter Property="Width" Value="40"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+        </Style>
+    </Window.Resources>
+
+    <GroupBox x:Name="VentanaCrudItemsGroupBox"   Style="{DynamicResource MaterialDesignGroupBox}" materialDesign:ColorZoneAssist.Mode="Accent">
+        <ScrollViewer>
+            <StackPanel Margin="10">
+                <Label Content="Nombre del artículo"/>
+                <TextBox Text="{Binding ArticuloCrud.Nombre}"/>
+                <Label Margin="0,10,0,0" Content="Modelo"/>
+                <TextBox Text="{Binding ArticuloCrud.Modelo}"/>
+                <Label Margin="0,10,0,0" Content="Inventario"/>
+                <ComboBox ItemsSource="{Binding ListaInventarios}" DisplayMemberPath="Descripcion" SelectedValue="{Binding ArticuloCrud.INVENTARIO}"/>
+
+                <Label Margin="0,10,0,0" Content="Categoría"/>
+                <ComboBox ItemsSource="{Binding ListaCategorias}" DisplayMemberPath="Categoria" SelectedValue="{Binding ArticuloCrud.CATEGORIA}"/>
+
+                <Label Margin="0,10,0,0" Content="Color"/>
+                <ComboBox ItemsSource="{Binding ListaColores}" DisplayMemberPath="Color" SelectedValue="{Binding ArticuloCrud.COLOR}"/>
+
+                <Label Margin="0,10,0,0" Content="Precio unitario"/>
+                <TextBox Text="{Binding ArticuloCrud.PrecioUnitario, StringFormat='F'}"/>
+
+                <Label Margin="0,10,0,0" Content="Stock Mínimo"/>
+                <TextBox Text="{Binding ArticuloCrud.StockMinimo}"/>
+
+                <CheckBox Margin="0,10,0,20" IsChecked="{Binding ArticuloCrud.StockDisponible}" Content="Artículo disponible para su venta"/>
+
+                <StackPanel x:Name="SeleccionTallasStackPanel" Orientation="Horizontal" Margin="5">
+                    <Label Content="Tallas textiles"/>
+                    <ToggleButton x:Name="SeleccionTallasToggleButton" Style="{StaticResource MaterialDesignSwitchToggleButton}" IsChecked="False" ToolTip="Selecciona tallas textiles o de calzado" Checked="SeleccionTallasToggleButton_Checked" Unchecked="SeleccionTallasToggleButton_Unchecked"  />
+                    <Label Content="Tallas calzado"/>
+
+                </StackPanel>
+
+                <materialDesign:Card x:Name="SeccionTallasNuevoArtículoMDCard" Background="{DynamicResource MaterialDesignBackground}">
+                    <StackPanel>
+                        <Expander x:Name="TablaIntroducirTallasTextilExpander" HorizontalAlignment="Stretch" Header="Tallas Textil">
+                            <StackPanel Orientation="Vertical" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Margin="24,8,24,16">
+                                <TextBlock Text="Introduce la cantidad de tallas" />
+                                <Grid Opacity=".78">
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">XS</TextBlock>
+                                    <TextBlock Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">S</TextBlock>
+                                    <TextBlock Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">M</TextBlock>
+                                    <TextBlock Grid.Column="3" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">L</TextBlock>
+                                    <TextBlock Grid.Column="4" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">XL</TextBlock>
+
+                                    <Separator Grid.Row="1" Grid.ColumnSpan="5"/>
+
+                                    <TextBox Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="XS" Text="{Binding Cantidadportallas.XS, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="S" Text="{Binding Cantidadportallas.S, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="M" Text="{Binding Cantidadportallas.M, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="3" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="L" Text="{Binding Cantidadportallas.L, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="4" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="XL" Text="{Binding Cantidadportallas.XL, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+
+
+                                </Grid>
+
+                            </StackPanel>
+                        </Expander>
+                        <Border Background="{DynamicResource MaterialDesignDivider}" Height="1" HorizontalAlignment="Stretch" SnapsToDevicePixels="True" />
+                        <Expander x:Name="TablaIntroducirTallasCalzadoExpander" HorizontalAlignment="Stretch" Header="Tallas Calzado" Visibility="Collapsed">
+                            <StackPanel Orientation="Vertical" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Margin="24,8,24,16">
+                                <TextBlock Text="Introduce la cantidad de tallas" />
+                                <Grid Opacity=".78">
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">36</TextBlock>
+                                    <TextBlock Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">37</TextBlock>
+                                    <TextBlock Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">38</TextBlock>
+                                    <TextBlock Grid.Column="3" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">39</TextBlock>
+                                    <TextBlock Grid.Column="4" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">40</TextBlock>
+                                    <TextBlock Grid.Column="5" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">41</TextBlock>
+                                    <TextBlock Grid.Column="6" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">42</TextBlock>
+                                    <TextBlock Grid.Column="7" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">43</TextBlock>
+                                    <TextBlock Grid.Column="8" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">44</TextBlock>
+                                    <TextBlock Grid.Column="9" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">45</TextBlock>
+                                    <TextBlock Grid.Column="10" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">46</TextBlock>
+                                    <TextBlock Grid.Column="11" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">47</TextBlock>
+
+                                    <Separator Grid.Row="1" Grid.ColumnSpan="12"/>
+
+                                    <TextBox Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N36" Text="{Binding Cantidadpornumeros.N36, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N37" Text="{Binding Cantidadpornumeros.N37, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N38" Text="{Binding Cantidadpornumeros.N38, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="3" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N39" Text="{Binding Cantidadpornumeros.N39, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="4" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N40" Text="{Binding Cantidadpornumeros.N40, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="5" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N41" Text="{Binding Cantidadpornumeros.N41, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="6" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N42" Text="{Binding Cantidadpornumeros.N42, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="7" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N43" Text="{Binding Cantidadpornumeros.N43, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="8" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N44" Text="{Binding Cantidadpornumeros.N44, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="9" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N45" Text="{Binding Cantidadpornumeros.N45, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="10" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N46" Text="{Binding Cantidadpornumeros.N46, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="11" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N47" Text="{Binding Cantidadpornumeros.N47, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                </Grid>
+                            </StackPanel>
+                        </Expander>
+                    </StackPanel>
+                </materialDesign:Card>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+                    <Button x:Name="AceptarButton" Command="ApplicationCommands.Save" Margin="0,0,10,0"/>
+                    <Button x:Name="CancelarButton" Command="ApplicationCommands.Close" Content="Cancelar" Margin="15" Style="{StaticResource MaterialDesignRaisedAccentButton}"/>
+                </StackPanel >
+            </StackPanel>
+        </ScrollViewer>
+    </GroupBox>
+</Window>

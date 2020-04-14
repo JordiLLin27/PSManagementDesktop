@@ -75,6 +75,13 @@ namespace PSManagement.Commands
                typeof(CustomCommands)
            );
 
+        public static readonly RoutedUICommand ItemCrud = new RoutedUICommand
+           (
+               "ItemCrud",
+               "ItemCrud",
+               typeof(CustomCommands)
+           );
+
 
         public static readonly RoutedUICommand Refresh = new RoutedUICommand
             (
@@ -84,17 +91,6 @@ namespace PSManagement.Commands
                 new InputGestureCollection()
                 {
                     new KeyGesture(Key.F5)
-                }
-            );
-
-        public static readonly RoutedUICommand Filter = new RoutedUICommand
-            (
-                "Filter",
-                "Filter",
-                typeof(CustomCommands),
-                new InputGestureCollection()
-                {
-                    new KeyGesture(Key.F, ModifierKeys.Alt)
                 }
             );
 

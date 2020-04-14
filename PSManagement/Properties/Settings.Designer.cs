@@ -34,5 +34,17 @@ namespace PSManagement.Properties {
                 this["TemaOscuro"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0000")]
+        public string PinSeguridad {
+            get {
+                return ((string)(this["PinSeguridad"]));
+            }
+            set {
+                this["PinSeguridad"] = value;
+            }
+        }
     }
 }

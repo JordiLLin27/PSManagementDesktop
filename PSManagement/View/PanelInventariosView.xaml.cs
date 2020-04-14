@@ -25,6 +25,7 @@ namespace PSManagement.View
         InventoryCRUDAction invAction;
         ColorCRUDAction colorAction;
         CategoryCRUDAction categoryAction;
+        ItemCRUDAction itemAction;
 
         public PanelInventariosView()
         {
@@ -180,6 +181,7 @@ namespace PSManagement.View
         #endregion GroupBox_Categorias
 
         #region GroupBox_Colores
+
         private void ColorCrudCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             switch (colorAction)
@@ -227,55 +229,98 @@ namespace PSManagement.View
                     break;
             }
         }
+
         #endregion GroupBox_Colores
 
-        private void RefreshCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        #region GroupBox_Items
+
+        private void ItemCrudCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
 
-        }
 
-        private void RefreshCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-
-        }
-
-        private void ActivarModificacionArticulosButton_Click(object sender, RoutedEventArgs e)
-        {
-            //FALTA HACER
-            if (MessageBox.Show("¿Activar edición de artículos?", "Modo Edición", MessageBoxButton.OKCancel, MessageBoxImage.Exclamation) == MessageBoxResult.OK)
+            switch ((e.OriginalSource as Button).Name)
             {
+                case "NuevoArticuloButton":
+                    itemAction = ItemCRUDAction.Insert_Item;
 
+                    break;
 
+                case "UpdateArticuloButton":
+                    itemAction = ItemCRUDAction.Update_Item;
+
+                    break;
+
+                case "DeleteArticuloButton":
+                    itemAction = ItemCRUDAction.Delete_Item;
+
+                    break;
+
+                default:
+                    itemAction = ItemCRUDAction.Insert_Item;
+
+                    break;
             }
+
+            FormularioCrudArticuloDialogView formularioCrudArticulo = (DataContext as PanelInventariosVM).ItemCrud_Execute(itemAction);
+            formularioCrudArticulo.ShowDialog();
+            ////////////////////////
+
         }
 
+        private void ItemCrudCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = (DataContext as PanelInventariosVM).ItemCrudCommandBinding_CanExecute((e.OriginalSource as Button).Name);
+        }
+
+        #region Filtrado_de_datos
+        //Comando para filtrar
         private void FilterCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-
+            (DataContext as PanelInventariosVM).FiltroArticulos();
         }
 
         private void FilterCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = (FiltroInventariosComboBox.SelectedItem != null || FiltroCategoriasComboBox.SelectedItem != null || FiltroColoresComboBox.SelectedItem != null || BarraFiltroTextBox.Text != "");
+            e.CanExecute = (DataContext as PanelInventariosVM).Filter_CanExecute();
         }
 
+        //Comando para borrar los filtros y mostrar toda la tabla
         private void CleanFiltersCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            FiltroInventariosComboBox.SelectedItem = null;
-            FiltroCategoriasComboBox.SelectedItem = null;
-            FiltroColoresComboBox.SelectedItem = null;
-            BarraFiltroTextBox.Text = "";
-
+            (DataContext as PanelInventariosVM).CleanFilters_Execute();
+            (DataContext as PanelInventariosVM).FiltroArticulos();
         }
 
         private void CleanFiltersCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = (FiltroInventariosComboBox.SelectedItem != null || FiltroCategoriasComboBox.SelectedItem != null || FiltroColoresComboBox.SelectedItem != null || BarraFiltroTextBox.Text != "");
+            e.CanExecute = (DataContext as PanelInventariosVM).Filter_CanExecute();
         }
 
-        private void GuardarArticulosButton_Click(object sender, RoutedEventArgs e)
+        private void BarraFiltroTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            MessageBox.Show((DataContext as PanelInventariosVM).ArticuloSeleccionado.Nombre);
+            (DataContext as PanelInventariosVM).FiltroArticulos();
         }
+
+        //Evento que indica si la cantidad de una talla del artículo seleccionado ha alcanzado o está por debajo del stock mínimo
+        private void TextBlock_TargetUpdated(object sender, DataTransferEventArgs e)
+        {
+            int cantidadActual = (string.IsNullOrEmpty(((TextBlock)sender).Text) ? -1 : int.Parse(((TextBlock)sender).Text));
+
+            if (cantidadActual >= 0)
+            {
+                if ((DataContext as PanelInventariosVM).CantidadMinimaAlcanzada(cantidadActual))
+                {
+                    ((TextBlock)sender).Background = Brushes.Red;
+                }
+                else
+                {
+                    ((TextBlock)sender).Background = null;
+                }
+            }
+        }
+
+        #endregion Filtrado_de_datos
+
+        #endregion GroupBox_Items  
     }
 }

@@ -54,6 +54,7 @@ namespace PSManagement.View
             timer.Start();
         }
 
+        //Comando para cargar el manual de ayuda
         private void HelpCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
 

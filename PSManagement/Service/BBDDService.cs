@@ -126,29 +126,14 @@ namespace PSManagement.Service
             return new ObservableCollection<detallesfactura>(query.ToList());
         }
 
-        public static int GetCantidadTotalArticulo(articulos articulo)
+        public static articulos FindArticulo(articulos articuloFind)
         {
-            var queryTallas = from ct in _context.cantidadportallas
-                              where ct.IdArticulo == articulo.IdArticulo
-                              select ct;
 
-            if (queryTallas.Count() <= 0)
-            {
-                var queryNumeros = from cn in _context.cantidadpornumeros
-                                   where cn.IdArticulo == articulo.IdArticulo
-                                   select cn;
+            var query = from art in _context.articulos
+                        where art.IdArticulo == articuloFind.IdArticulo
+                        select art;
 
-                if (queryNumeros.Count() <= 0) return -1;
-
-                cantidadpornumeros cantidadNums = queryNumeros.ToList().First();
-
-                return cantidadNums.N36 + cantidadNums.N37 + cantidadNums.N38 + cantidadNums.N39 + cantidadNums.N40 + cantidadNums.N41 + cantidadNums.N42 + cantidadNums.N43 + cantidadNums.N45 + cantidadNums.N46 + cantidadNums.N47;
-
-            }
-
-            cantidadportallas cantidadTallas = queryTallas.ToList().First();
-
-            return cantidadTallas.XS + cantidadTallas.S + cantidadTallas.M + cantidadTallas.L + cantidadTallas.XL;
+            return query.First();
         }
 
         //*******
