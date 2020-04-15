@@ -16,8 +16,8 @@ namespace PSManagement.ViewModel
 
         public articulos ArticuloCrud { get; set; }
 
-        public cantidadportallas Cantidadportallas { get; set; }
-        public cantidadpornumeros Cantidadpornumeros { get; set; }
+        public tallastextiles tallasTextiles { get; set; }
+        public numeroscalzado numerosCalzado { get; set; }
 
 
         public ObservableCollection<inventarios> ListaInventarios { get; set; }
@@ -51,8 +51,8 @@ namespace PSManagement.ViewModel
             else
             {
                 ArticuloCrud = (articulos)articuloCrud;
-                Cantidadportallas = ArticuloCrud.CANTIDADTALLA;
-                Cantidadpornumeros = ArticuloCrud.CANTIDADNUM;
+                tallasTextiles = ArticuloCrud.TALLASTEXTILES;
+                numerosCalzado = ArticuloCrud.NUMEROSCALZADO;
             }
         }
 
@@ -67,10 +67,10 @@ namespace PSManagement.ViewModel
             {
                 BBDDService.DeleteArticulo(ArticuloCrud);
 
-                if (Cantidadpornumeros != null)
-                    BBDDService.DeleteCantidadPorNumeros(Cantidadpornumeros);
+                if (numerosCalzado != null)
+                    BBDDService.DeleteNumerosCalzado(numerosCalzado);
                 else
-                    BBDDService.DeleteCantidadPorTallas(Cantidadportallas);
+                    BBDDService.DeleteTallasTextiles(tallasTextiles);
             }
             else
                 BBDDService.SaveChanges();
@@ -80,11 +80,11 @@ namespace PSManagement.ViewModel
         {
             if (TextilOCalzado)
             {
-                BBDDService.AddCantidadPorNumeros(Cantidadpornumeros);
+                BBDDService.AddNumerosCalzado(numerosCalzado);
             }
             else
             {
-                BBDDService.AddCantidadPorTallas(Cantidadportallas);
+                BBDDService.AddTallasTextiles(tallasTextiles);
             }
         }
 
@@ -98,9 +98,9 @@ namespace PSManagement.ViewModel
         public string EsTextilOCalzado()
         {
 
-            if (Cantidadportallas != null && Cantidadpornumeros == null)
+            if (tallasTextiles != null && numerosCalzado == null)
                 return "Textil";
-            else if (Cantidadportallas == null && Cantidadpornumeros != null)
+            else if (tallasTextiles == null && numerosCalzado != null)
                 return "Calzado";
             else
                 return "Nuevo";
@@ -109,15 +109,15 @@ namespace PSManagement.ViewModel
         public void TallasArticuloNuevo()
         {
             TextilOCalzado = false;
-            Cantidadpornumeros = null;
-            Cantidadportallas = new cantidadportallas() { ARTICULO = ArticuloCrud };
+            numerosCalzado = null;
+            tallasTextiles = new tallastextiles() { ARTICULO = ArticuloCrud, CodArticulo = ArticuloCrud.CodArticulo };
         }
 
         public void NumerosArticuloNuevo()
         {
             TextilOCalzado = true;
-            Cantidadportallas = null;
-            Cantidadpornumeros = new cantidadpornumeros() { ARTICULO = ArticuloCrud };
+            tallasTextiles = null;
+            numerosCalzado = new numeroscalzado() { ARTICULO = ArticuloCrud, CodArticulo = ArticuloCrud.CodArticulo };
         }
     }
 }

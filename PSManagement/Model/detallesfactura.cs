@@ -14,8 +14,8 @@ namespace PSManagement.Model
     
     public partial class detallesfactura
     {
-        public int IdFactura { get; set; }
-        public int IdArticulo { get; set; }
+        public int CodFactura { get; set; }
+        public string CodArticulo { get; set; }
         public int CantidadArticulo { get; set; }
     
         public virtual articulos ARTICULO { get; set; }

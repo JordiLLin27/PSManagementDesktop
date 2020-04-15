@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 
 namespace PSManagement.Model
 {
-    public partial class cantidadpornumeros
+    public partial class numeroscalzado
     {
         public int GetTotalItems()
         {
-            return N36 + N37 + N38 + N39 + N40 + N41 + N42 + N43 + N44 + N45 + N46 + N47;
+            return C36 + C37 + C38 + C39 + C40 + C41 + C42 + C43 + C44 + C45 + C46 + C47;
         }
     }
 
-    public partial class cantidadportallas
+    public partial class tallastextiles
     {
         public int GetTotalItems()
         {
-            return XS + S + M + L + XL;
+            return XXS + XS + S + M + L + XL + XXL;
         }
     }
 }

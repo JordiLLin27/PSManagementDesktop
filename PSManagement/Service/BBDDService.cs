@@ -21,8 +21,8 @@ namespace PSManagement.Service
             _context.colores.Load();
             _context.articulos.Load();
 
-            _context.cantidadpornumeros.Load();
-            _context.cantidadportallas.Load();
+            _context.numeroscalzado.Load();
+            _context.tallastextiles.Load();
 
             _context.facturas.Load();
             _context.detallesfactura.Load();
@@ -67,15 +67,15 @@ namespace PSManagement.Service
             return SaveChanges();
         }
 
-        public static int AddCantidadPorTallas(cantidadportallas cantidadTAdd)
+        public static int AddTallasTextiles(tallastextiles tallasTextilAdd)
         {
-            _context.cantidadportallas.Add(cantidadTAdd);
+            _context.tallastextiles.Add(tallasTextilAdd);
             return SaveChanges();
         }
 
-        public static int AddCantidadPorNumeros(cantidadpornumeros cantidadNAdd)
+        public static int AddNumerosCalzado(numeroscalzado numerosCalzAdd)
         {
-            _context.cantidadpornumeros.Add(cantidadNAdd);
+            _context.numeroscalzado.Add(numerosCalzAdd);
             return SaveChanges();
         }
 
@@ -102,14 +102,14 @@ namespace PSManagement.Service
             return _context.articulos.Local;
         }
 
-        public static ObservableCollection<cantidadpornumeros> GetCantidadpornumeros()
+        public static ObservableCollection<numeroscalzado> GetNumerosCalzado()
         {
-            return _context.cantidadpornumeros.Local;
+            return _context.numeroscalzado.Local;
         }
 
-        public static ObservableCollection<cantidadportallas> GetCantidadportallas()
+        public static ObservableCollection<tallastextiles> GetTallasTextiles()
         {
-            return _context.cantidadportallas.Local;
+            return _context.tallastextiles.Local;
         }
 
         public static ObservableCollection<facturas> GetFacturas()
@@ -117,10 +117,10 @@ namespace PSManagement.Service
             return _context.facturas.Local;
         }
 
-        public static ObservableCollection<detallesfactura> GetDetallesfactura(facturas facturaDetalles)
+        public static ObservableCollection<detallesfactura> GetDetallesfactura(facturas factura)
         {
             var query = from df in _context.detallesfactura
-                        where df.IdFactura == facturaDetalles.IdFactura
+                        where df.CodFactura == factura.IdFactura
                         select df;
 
             return new ObservableCollection<detallesfactura>(query.ToList());
@@ -130,7 +130,7 @@ namespace PSManagement.Service
         {
 
             var query = from art in _context.articulos
-                        where art.IdArticulo == articuloFind.IdArticulo
+                        where art.CodArticulo == articuloFind.CodArticulo
                         select art;
 
             return query.First();
@@ -183,15 +183,15 @@ namespace PSManagement.Service
             return SaveChanges();
         }
 
-        public static int DeleteCantidadPorTallas(cantidadportallas cantidadTDel)
+        public static int DeleteTallasTextiles(tallastextiles tallasTextilDel)
         {
-            _context.cantidadportallas.Remove(cantidadTDel);
+            _context.tallastextiles.Remove(tallasTextilDel);
             return SaveChanges();
         }
 
-        public static int DeleteCantidadPorNumeros(cantidadpornumeros cantidadNDel)
+        public static int DeleteNumerosCalzado(numeroscalzado numerosCalzDel)
         {
-            _context.cantidadpornumeros.Remove(cantidadNDel);
+            _context.numeroscalzado.Remove(numerosCalzDel);
             return SaveChanges();
         }
 

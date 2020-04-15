@@ -12,14 +12,21 @@ namespace PSManagement.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class cantidadportallas
+    public partial class numeroscalzado
     {
-        public int IdArticulo { get; set; }
-        public int XS { get; set; }
-        public int S { get; set; }
-        public int M { get; set; }
-        public int L { get; set; }
-        public int XL { get; set; }
+        public string CodArticulo { get; set; }
+        public int C36 { get; set; }
+        public int C37 { get; set; }
+        public int C38 { get; set; }
+        public int C39 { get; set; }
+        public int C40 { get; set; }
+        public int C41 { get; set; }
+        public int C42 { get; set; }
+        public int C43 { get; set; }
+        public int C44 { get; set; }
+        public int C45 { get; set; }
+        public int C46 { get; set; }
+        public int C47 { get; set; }
     
         public virtual articulos ARTICULO { get; set; }
     }

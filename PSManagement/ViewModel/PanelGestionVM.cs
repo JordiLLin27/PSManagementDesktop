@@ -12,16 +12,16 @@ namespace PSManagement.ViewModel
 {
     class PanelGestionVM : INotifyPropertyChanged
     {
-        public ObservableCollection<cantidadportallas> ListaTallasArticulos { get; set; }
-        public ObservableCollection<cantidadpornumeros> ListaNumerosArticulos { get; set; }
+        public ObservableCollection<tallastextiles> ListaTallasArticulos { get; set; }
+        public ObservableCollection<numeroscalzado> ListaNumerosArticulos { get; set; }
         public ObservableCollection<inventarios> ListaInventarios { get; set; }
 
         public inventarios InventarioSeleccionado { get; set; }
 
         public PanelGestionVM()
         {
-            ListaNumerosArticulos = BBDDService.GetCantidadpornumeros();
-            ListaTallasArticulos = BBDDService.GetCantidadportallas();
+            ListaNumerosArticulos = BBDDService.GetNumerosCalzado();
+            ListaTallasArticulos = BBDDService.GetTallasTextiles();
             ListaInventarios = BBDDService.GetInventarios();
         }
 

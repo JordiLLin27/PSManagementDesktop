@@ -26,12 +26,12 @@ namespace PSManagement.Model
         }
     
         public virtual DbSet<articulos> articulos { get; set; }
-        public virtual DbSet<cantidadpornumeros> cantidadpornumeros { get; set; }
-        public virtual DbSet<cantidadportallas> cantidadportallas { get; set; }
         public virtual DbSet<categorias> categorias { get; set; }
         public virtual DbSet<colores> colores { get; set; }
         public virtual DbSet<detallesfactura> detallesfactura { get; set; }
         public virtual DbSet<facturas> facturas { get; set; }
         public virtual DbSet<inventarios> inventarios { get; set; }
+        public virtual DbSet<numeroscalzado> numeroscalzado { get; set; }
+        public virtual DbSet<tallastextiles> tallastextiles { get; set; }
     }
 }

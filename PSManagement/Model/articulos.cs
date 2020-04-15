@@ -17,25 +17,25 @@ namespace PSManagement.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public articulos()
         {
-            this.ENFACTURA = new HashSet<detallesfactura>();
+            this.DETALLESFACTURA = new HashSet<detallesfactura>();
         }
     
-        public int IdArticulo { get; set; }
+        public string CodArticulo { get; set; }
         public int Inventario { get; set; }
-        public string Nombre { get; set; }
-        public string Modelo { get; set; }
         public int Categoria { get; set; }
         public int Color { get; set; }
+        public string Nombre { get; set; }
         public double PrecioUnitario { get; set; }
         public int StockMinimo { get; set; }
         public sbyte StockDisponible { get; set; }
+        public string UrlImagen { get; set; }
     
         public virtual categorias CATEGORIA { get; set; }
         public virtual colores COLOR { get; set; }
         public virtual inventarios INVENTARIO { get; set; }
-        public virtual cantidadpornumeros CANTIDADNUM { get; set; }
-        public virtual cantidadportallas CANTIDADTALLA { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<detallesfactura> ENFACTURA { get; set; }
+        public virtual ICollection<detallesfactura> DETALLESFACTURA { get; set; }
+        public virtual numeroscalzado NUMEROSCALZADO { get; set; }
+        public virtual tallastextiles TALLASTEXTILES { get; set; }
     }
 }

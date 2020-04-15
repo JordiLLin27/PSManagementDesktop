@@ -12,12 +12,12 @@ namespace PSManagement.Model
         public event PropertyChangedEventHandler PropertyChanged;
     }
 
-    public partial class cantidadpornumeros : INotifyPropertyChanged
+    public partial class numeroscalzado : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
     }
 
-    public partial class cantidadportallas : INotifyPropertyChanged
+    public partial class tallastextiles : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
     }

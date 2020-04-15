@@ -118,7 +118,7 @@
                         <materialDesign:DataGridTextColumn Header="Inventario" Binding="{Binding INVENTARIO.Descripcion}" Width="*"/>
                         <materialDesign:DataGridTextColumn Header="Categoría" Binding="{Binding CATEGORIA.Categoria}" Width="*"/>
                         <materialDesign:DataGridTextColumn Header="Color" Binding="{Binding COLOR.Color}" Width="*"/>
-                        <materialDesign:DataGridTextColumn Header="Modelo" Binding="{Binding Modelo}" Width="*"/>
+                        <materialDesign:DataGridTextColumn Header="Modelo" Binding="{Binding CodArticulo}" Width="*"/>
                         <materialDesign:DataGridTextColumn Header="Precio" Width="*" Binding="{Binding PrecioUnitario, UpdateSourceTrigger=PropertyChanged, StringFormat='#.00€'}"/>
                         <materialDesign:DataGridTextColumn Header="Stock Mínimo" Binding="{Binding StockMinimo}" Width="*"/>
                         <DataGridCheckBoxColumn Header="Venta disponible" Binding="{Binding StockDisponible}" Width="*" ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}" EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}"/>
@@ -139,6 +139,8 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -146,19 +148,23 @@
                     <RowDefinition Height="2*"/>
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">XS</TextBlock>
-                <TextBlock Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">S</TextBlock>
-                <TextBlock Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">M</TextBlock>
-                <TextBlock Grid.Column="3" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">L</TextBlock>
-                <TextBlock Grid.Column="4" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">XL</TextBlock>
+                <TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">XXS</TextBlock>
+                <TextBlock Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">XS</TextBlock>
+                <TextBlock Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">S</TextBlock>
+                <TextBlock Grid.Column="3" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">M</TextBlock>
+                <TextBlock Grid.Column="4" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">L</TextBlock>
+                <TextBlock Grid.Column="5" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">XL</TextBlock>
+                <TextBlock Grid.Column="6" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">XXL</TextBlock>
 
-                <Separator Grid.Row="1" Grid.ColumnSpan="5"/>
+                <Separator Grid.Row="1" Grid.ColumnSpan="7"/>
 
-                <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="XS"  Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADTALLA.XS, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
-                <TextBlock Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="S" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADTALLA.S, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
-                <TextBlock Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="M" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADTALLA.M, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
-                <TextBlock Grid.Column="3" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="L" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADTALLA.L, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
-                <TextBlock Grid.Column="4" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="XL" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADTALLA.XL, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
+                <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="XS"  Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.TALLASTEXTILES.XXS, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
+                <TextBlock Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="XS"  Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.TALLASTEXTILES.XS, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
+                <TextBlock Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="S" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.TALLASTEXTILES.S, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
+                <TextBlock Grid.Column="3" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="M" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.TALLASTEXTILES.M, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
+                <TextBlock Grid.Column="4" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="L" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.TALLASTEXTILES.L, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
+                <TextBlock Grid.Column="5" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="XL" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.TALLASTEXTILES.XL, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
+                <TextBlock Grid.Column="6" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="XL" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.TALLASTEXTILES.XXL, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
 
             </Grid>
 
@@ -203,18 +209,18 @@
 
                 <Separator Grid.Row="1" Grid.ColumnSpan="12"/>
 
-                <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N36" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N36, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
-                <TextBlock Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N37" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N37, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
-                <TextBlock Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N38" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N38, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
-                <TextBlock Grid.Column="3" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N39" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N39, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
-                <TextBlock Grid.Column="4" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N40" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N40, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
-                <TextBlock Grid.Column="5" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N41" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N41, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
-                <TextBlock Grid.Column="6" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N42" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N42, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
-                <TextBlock Grid.Column="7" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N43" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N43, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
-                <TextBlock Grid.Column="8" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N44" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N44, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
-                <TextBlock Grid.Column="9" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N45" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N45, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
-                <TextBlock Grid.Column="10" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N46" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N46, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
-                <TextBlock Grid.Column="11" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N47" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.CANTIDADNUM.N47, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
+                <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N36" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.NUMEROSCALZADO.N36, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
+                <TextBlock Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N37" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.NUMEROSCALZADO.N37, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
+                <TextBlock Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N38" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.NUMEROSCALZADO.N38, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
+                <TextBlock Grid.Column="3" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N39" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.NUMEROSCALZADO.N39, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
+                <TextBlock Grid.Column="4" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N40" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.NUMEROSCALZADO.N40, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
+                <TextBlock Grid.Column="5" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N41" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.NUMEROSCALZADO.N41, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
+                <TextBlock Grid.Column="6" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N42" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.NUMEROSCALZADO.N42, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
+                <TextBlock Grid.Column="7" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N43" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.NUMEROSCALZADO.N43, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
+                <TextBlock Grid.Column="8" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N44" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.NUMEROSCALZADO.N44, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
+                <TextBlock Grid.Column="9" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N45" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.NUMEROSCALZADO.N45, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
+                <TextBlock Grid.Column="10" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N46" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.NUMEROSCALZADO.N46, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
+                <TextBlock Grid.Column="11" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N47" Text="{Binding ElementName=TablaArticulosInventarioDataGrid, Path=SelectedItem.NUMEROSCALZADO.N47, NotifyOnTargetUpdated=True}" Binding.TargetUpdated="TextBlock_TargetUpdated"/>
 
             </Grid>
 

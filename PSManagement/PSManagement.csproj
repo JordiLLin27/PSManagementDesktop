@@ -17,6 +17,7 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -29,7 +30,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -126,12 +126,6 @@
     <Compile Include="Model\articulos.cs">
       <DependentUpon>ModeloTienda.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\cantidadpornumeros.cs">
-      <DependentUpon>ModeloTienda.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\cantidadportallas.cs">
-      <DependentUpon>ModeloTienda.tt</DependentUpon>
-    </Compile>
     <Compile Include="Model\categorias.cs">
       <DependentUpon>ModeloTienda.tt</DependentUpon>
     </Compile>
@@ -162,7 +156,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ModeloTienda.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Model\numeroscalzado.cs">
+      <DependentUpon>ModeloTienda.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\PropertyChangedModel.cs" />
+    <Compile Include="Model\tallastextiles.cs">
+      <DependentUpon>ModeloTienda.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\TotalTallasModel.cs" />
     <Compile Include="Service\BBDDService.cs" />
     <Compile Include="ViewModel\FormularioCrudArticuloVM.cs" />
@@ -275,7 +275,6 @@
   <ItemGroup>
     <Resource Include="Assets\shipping_shipment_product.ico" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
       <Visible>False</Visible>

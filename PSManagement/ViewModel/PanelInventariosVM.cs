@@ -32,8 +32,6 @@ namespace PSManagement.ViewModel
         public colores FiltroColorSeleccionado { get; set; }
         public string FiltroArticuloPorNombreOModelo { get; set; }
 
-        private int contFiltrosAceptados = 0;
-
         public PanelInventariosVM()
         {
             ListaArticulos = new CollectionViewSource { Source = BBDDService.GetArticulos(), IsLiveFilteringRequested = true };
@@ -113,7 +111,7 @@ namespace PSManagement.ViewModel
             }
             else
             {
-                if (!(string.IsNullOrEmpty(FiltroArticuloPorNombreOModelo)) && (item.Nombre.ToLower().Contains(FiltroArticuloPorNombreOModelo.Trim().ToLower()) || item.Modelo.ToLower().Contains(FiltroArticuloPorNombreOModelo.Trim().ToLower())))
+                if (!(string.IsNullOrEmpty(FiltroArticuloPorNombreOModelo)) && (item.Nombre.ToLower().Contains(FiltroArticuloPorNombreOModelo.Trim().ToLower()) || item.CodArticulo.ToLower().Contains(FiltroArticuloPorNombreOModelo.Trim().ToLower())))
                     e.Accepted = true;
                 else if (item.INVENTARIO == FiltroInventarioSeleccionado)
                     e.Accepted = true;

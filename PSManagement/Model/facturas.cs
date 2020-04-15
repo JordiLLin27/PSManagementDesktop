@@ -17,13 +17,14 @@ namespace PSManagement.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public facturas()
         {
-            this.DETALLES = new HashSet<detallesfactura>();
+            this.DETALLESFACTURA = new HashSet<detallesfactura>();
         }
     
         public int IdFactura { get; set; }
         public System.DateTime FechaCreacion { get; set; }
+        public decimal ImporteTotal { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<detallesfactura> DETALLES { get; set; }
+        public virtual ICollection<detallesfactura> DETALLESFACTURA { get; set; }
     }
 }
