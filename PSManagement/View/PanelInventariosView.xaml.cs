@@ -262,9 +262,11 @@ namespace PSManagement.View
             }
 
             FormularioCrudArticuloDialogView formularioCrudArticulo = (DataContext as PanelInventariosVM).ItemCrud_Execute(itemAction);
-            formularioCrudArticulo.ShowDialog();
-            ////////////////////////
 
+            formularioCrudArticulo.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+            formularioCrudArticulo.ShowInTaskbar = false;
+
+            formularioCrudArticulo.ShowDialog();
         }
 
         private void ItemCrudCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)

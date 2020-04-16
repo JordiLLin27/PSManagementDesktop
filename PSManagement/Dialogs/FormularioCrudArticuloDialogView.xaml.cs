@@ -1,4 +1,5 @@
-﻿using PSManagement.ViewModel;
+﻿using Microsoft.Win32;
+using PSManagement.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -62,17 +63,12 @@ namespace PSManagement.View
                 {
                     (this.DataContext as FormularioCrudArticuloVM).Save_Execute();
                     MessageBox.Show("Datos actualizados", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
-
                     this.Close();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Se ha producido un error:" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            finally
-            {
-                this.Close();
+                MessageBox.Show("Se ha producido un error: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -160,6 +156,34 @@ namespace PSManagement.View
         private void TextBox_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
             ((TextBox)sender).Text = "";
+        }
+
+        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(((TextBox)sender).Text))
+            {
+                ((TextBox)sender).Text = ((TextBox)sender).Text.Replace(',', '.');
+            }
+        }
+
+        private void OpenCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+
+            dialog.Filter = "Todos los archivos|*.*|Archivos de imagen JPG/JPEG|*.jpg|Archivos de imagen BMP|*.bmp|Archivos de imagen PNG|*.png";
+
+            dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+
+            if (dialog.ShowDialog() == true)
+            {
+                (DataContext as FormularioCrudArticuloVM).SeleccionarImagenArticulo(dialog.FileName);
+            }
+        }
+
+        private void OpenCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = (DataContext as FormularioCrudArticuloVM).itemAction == ItemCRUDAction.Insert_Item;
         }
     }
 }

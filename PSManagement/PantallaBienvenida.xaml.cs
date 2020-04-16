@@ -45,6 +45,12 @@ namespace PSManagement
         Delete_Item
     }
 
+    public enum PinConfig
+    {
+        Insert_Pin,
+        Update_Pin
+    }
+
     /// <summary>
     /// Lógica de interacción para MainWindow.xaml
     /// </summary>

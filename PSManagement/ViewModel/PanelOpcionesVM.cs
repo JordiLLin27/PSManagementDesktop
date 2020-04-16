@@ -10,6 +10,9 @@ namespace PSManagement.ViewModel
 {
     class PanelOpcionesVM : INotifyPropertyChanged
     {
+
+        public string PinIntroducido { get; set; }
+
         public PanelOpcionesVM()
         {
 
@@ -36,5 +39,15 @@ namespace PSManagement.ViewModel
         }
 
         //Más opciones de configuración
+
+        public bool CompruebaConexionBD()
+        {
+            return true;
+        }
+
+        public void CambiaPINSeguridad()
+        {
+
+        }
     }
 }

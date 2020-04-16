@@ -37,5 +37,25 @@ namespace PSManagement.View
         {
             (this.DataContext as PanelOpcionesVM).CambiaTema();
         }
+
+        private void CheckConnectionCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+
+        }
+
+        private void CheckConnectionCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+
+        }
+
+        private void SavePINCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+
+        }
+
+        private void SavePINCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+
+        }
     }
 }

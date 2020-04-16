@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PSManagement.View"
+             xmlns:com="clr-namespace:PSManagement.Commands"
              mc:Ignorable="d"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -12,20 +13,47 @@
              TextElement.FontSize="14"
              FontFamily="{materialDesign:MaterialDesignFont}"
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.CommandBindings>
+        <CommandBinding
+            Command="com:CustomCommands.CheckConnection"
+            Executed="CheckConnectionCommandBinding_Executed"
+            CanExecute="CheckConnectionCommandBinding_CanExecute"/>
+        <CommandBinding
+            Command="ApplicationCommands.Save"
+            Executed="SavePINCommandBinding_Executed"
+            CanExecute="SavePINCommandBinding_CanExecute"/>
+
+    </UserControl.CommandBindings>
 
     <Grid x:Name="PanelPrincipalGrid" Margin="50">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
-        <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center">
-            <TextBlock Text="Cambiar tema:  "></TextBlock>
-            <TextBlock Text="Claro  "></TextBlock>
-            <ToggleButton x:Name="CambiaTemaToggleButton" Style="{StaticResource MaterialDesignSwitchToggleButton}" ToolTip="Cambiar de tema" IsChecked="False" Click="CambiaTemaToggleButton_Click" />
-            <TextBlock Text="   Oscuro  "></TextBlock>
-        </StackPanel>
-        <StackPanel Grid.Row="1"></StackPanel>
+
+        <GroupBox Grid.Row="0" Header="Apariencia" Style="{DynamicResource MaterialDesignGroupBox}" materialDesign:ShadowAssist.ShadowDepth="Depth3" BorderThickness="0">
+            <StackPanel  Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="Cambiar tema:  "></TextBlock>
+                <TextBlock Text="Claro" Margin="10,0,10,0"/>
+                <ToggleButton x:Name="CambiaTemaToggleButton" Style="{StaticResource MaterialDesignSwitchToggleButton}" ToolTip="Cambiar de tema" IsChecked="False" Click="CambiaTemaToggleButton_Click" />
+                <TextBlock Text="Oscuro" Margin="10,0,0,0"/>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Grid.Row="1" Grid.RowSpan="2" Header="Sistema" Style="{DynamicResource MaterialDesignGroupBox}" materialDesign:ShadowAssist.ShadowDepth="Depth3" BorderThickness="0">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <Label Content="Comprobar Co_nexión a la base de datos:" VerticalAlignment="Center" Target="{Binding ElementName=ComprobarConexionButton}"/>
+                    <Button x:Name="ComprobarConexionButton" Content="Comprobar" Width="120" Grid.ColumnSpan="2" materialDesign:ButtonAssist.CornerRadius="10" Command="com:CustomCommands.CheckConnection" HorizontalAlignment="Left" Margin="15,0,0,0"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <Label Content="Cambiar el número PIN de seguridad:" VerticalAlignment="Center" Target="{Binding ElementName=ComprobarConexionButton}"/>
+                    <Button x:Name="ModificarPinButton" Content="Cambiar PIN" Width="120" Grid.ColumnSpan="2" materialDesign:ButtonAssist.CornerRadius="10" Command="com:CustomCommands.CheckConnection" HorizontalAlignment="Left" Margin="35,0,0,0"/>
+                </StackPanel>
+            </StackPanel>
+        </GroupBox>
     </Grid>
 </UserControl>

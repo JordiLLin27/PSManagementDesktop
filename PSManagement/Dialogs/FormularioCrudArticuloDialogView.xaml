@@ -14,12 +14,19 @@
         Height="800" Width="800" WindowState="Normal" WindowStyle="None" ResizeMode="NoResize" BorderThickness="7" BorderBrush="{DynamicResource SecondaryHueLightBrush}">
 
     <Window.CommandBindings>
-        <CommandBinding Command="ApplicationCommands.Save"
-                        Executed="SaveCommand_Executed">
-        </CommandBinding>
-        <CommandBinding Command="ApplicationCommands.Close"
-                        Executed="CloseCommand_Executed">
-        </CommandBinding>
+        <CommandBinding 
+            Command="ApplicationCommands.Save"
+            Executed="SaveCommand_Executed"/>
+
+        <CommandBinding 
+            Command="ApplicationCommands.Close"
+            Executed="CloseCommand_Executed"/>
+
+        <CommandBinding
+            Command="ApplicationCommands.Open"
+            Executed="OpenCommandBinding_Executed"
+            CanExecute="OpenCommandBinding_CanExecute"/>
+
     </Window.CommandBindings>
 
     <Window.Resources>
@@ -30,32 +37,59 @@
         </Style>
     </Window.Resources>
 
-    <GroupBox x:Name="VentanaCrudItemsGroupBox"   Style="{DynamicResource MaterialDesignGroupBox}" materialDesign:ColorZoneAssist.Mode="Accent">
+    <GroupBox x:Name="VentanaCrudItemsGroupBox" Style="{DynamicResource MaterialDesignGroupBox}" materialDesign:ColorZoneAssist.Mode="Accent">
         <ScrollViewer>
             <StackPanel Margin="10">
-                <Label Content="Nombre del artículo"/>
-                <TextBox Text="{Binding ArticuloCrud.Nombre}"/>
-                <Label Margin="0,10,0,0" Content="Modelo (Código del artículo)"/>
-                <TextBox Text="{Binding ArticuloCrud.CodArticulo}"/>
-                <Label Margin="0,10,0,0" Content="Inventario"/>
-                <ComboBox ItemsSource="{Binding ListaInventarios}" DisplayMemberPath="Descripcion" SelectedValue="{Binding ArticuloCrud.INVENTARIO}"/>
+                <TextBlock Text="FICHA DEL ARTÍCULO" HorizontalAlignment="Center" FontWeight="Bold" FontSize="20" Margin="20" TextDecorations="Underline"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                <Label Margin="0,10,0,0" Content="Categoría"/>
-                <ComboBox ItemsSource="{Binding ListaCategorias}" DisplayMemberPath="Categoria" SelectedValue="{Binding ArticuloCrud.CATEGORIA}"/>
+                    <Label Grid.Column="0" Grid.Row="0" Content="_Nombre del artículo" Target="{Binding ElementName=NombreArticuloTextBox}"/>
+                    <TextBox x:Name="NombreArticuloTextBox" Grid.Column="0" Grid.Row="1"  Text="{Binding ArticuloCrud.Nombre}" materialDesign:HintAssist.Hint="Campo obligatorio"/>
 
-                <Label Margin="0,10,0,0" Content="Color"/>
-                <ComboBox ItemsSource="{Binding ListaColores}" DisplayMemberPath="Color" SelectedValue="{Binding ArticuloCrud.COLOR}"/>
+                    <Label Grid.Column="0" Grid.Row="2" Margin="0,10,0,0" Content="_Modelo (Código del artículo)" Target="{Binding ElementName=CodigoArticuloTextBox}"/>
+                    <TextBox x:Name="CodigoArticuloTextBox" Grid.Column="0" Grid.Row="3" Text="{Binding ArticuloCrud.CodArticulo}" materialDesign:HintAssist.Hint="Campo obligatorio"/>
 
-                <Label Margin="0,10,0,0" Content="Precio unitario"/>
-                <TextBox Text="{Binding ArticuloCrud.PrecioUnitario, StringFormat='F'}" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                    <Label Grid.Column="0" Grid.Row="4" Margin="0,10,0,0" Content="_Precio unitario" Target="{Binding ElementName=PrecioUnitarioTextBox}"/>
+                    <TextBox x:Name="PrecioUnitarioTextBox" Grid.Column="0" Grid.Row="5" Text="{Binding ArticuloCrud.PrecioUnitario, StringFormat='F'}" GotKeyboardFocus="TextBox_GotKeyboardFocus" LostFocus="TextBox_LostFocus" materialDesign:HintAssist.Hint="Introduce un precio (Obligatorio)"/>
 
-                <Label Margin="0,10,0,0" Content="Stock Mínimo"/>
-                <TextBox Text="{Binding ArticuloCrud.StockMinimo}" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                    <Label Grid.Column="0" Grid.Row="6" Margin="0,10,0,0" Content="_Stock Mínimo" Target="{Binding ElementName=StockMinimoSlider}" Grid.RowSpan="2"/>
+                    <Slider x:Name="StockMinimoSlider"
+                        Grid.Column="0" Grid.Row="7" Minimum="0" Maximum="100" Style="{StaticResource MaterialDesignDiscreteSlider}" ToolTip="El stock mínimo indica la cantidad mínima de unidades de cada ítem que debe haber en el inventario." Value="{Binding ArticuloCrud.StockMinimo}"/>
+                   
 
-                <CheckBox Margin="0,10,0,20" IsChecked="{Binding ArticuloCrud.StockDisponible}" Content="Artículo disponible para su venta"/>
+                    <GroupBox x:Name="ImagenArticuloGroupBox" Grid.Column="1" Grid.RowSpan="7" Margin="5" Header="Imagen actual del artículo" MaxHeight="200">
+                        <Image x:Name="ImagenArticuloImage" Source="{Binding ArticuloCrud.UrlImagen}" Stretch="UniformToFill"/>
+                    </GroupBox>
+                    <Button x:Name="SeleccionImagenButton" Grid.Column="1" Grid.Row="8" Content="Se_leccionar imagen del producto" Margin="5"  Command="ApplicationCommands.Open"/>
+                </Grid>
 
-                <StackPanel x:Name="SeleccionTallasStackPanel" Orientation="Horizontal" Margin="5">
-                    <Label Content="Tallas textiles"/>
+                <Label Margin="0,10,0,0" Content="_Inventario"/>
+                <ComboBox ItemsSource="{Binding ListaInventarios}" DisplayMemberPath="Descripcion" SelectedValue="{Binding ArticuloCrud.INVENTARIO}" materialDesign:HintAssist.Hint="Selecciona un inventario"/>
+
+                <Label Margin="0,10,0,0" Content="_Categoría"/>
+                <ComboBox ItemsSource="{Binding ListaCategorias}" DisplayMemberPath="Categoria" SelectedValue="{Binding ArticuloCrud.CATEGORIA}" materialDesign:HintAssist.Hint="Selecciona una categoría"/>
+
+                <Label Margin="0,10,0,0" Content="C_olor"/>
+                <ComboBox ItemsSource="{Binding ListaColores}" DisplayMemberPath="Color" SelectedValue="{Binding ArticuloCrud.COLOR}" materialDesign:HintAssist.Hint="Selecciona un color"/>
+
+                <CheckBox Margin="0,20,0,20" IsChecked="{Binding ArticuloCrud.StockDisponible}" Content="Artículo _disponible para su venta" ToolTip="Indica si el producto está disponible para su venta en el momento de su registro en el inventario."/>
+
+                <StackPanel x:Name="SeleccionTallasStackPanel" Orientation="Horizontal" Margin="15,0,0,15">
+                    <Label Content="Tallas textiles" />
                     <ToggleButton x:Name="SeleccionTallasToggleButton" Style="{StaticResource MaterialDesignSwitchToggleButton}" IsChecked="False" ToolTip="Selecciona tallas textiles o de calzado" Checked="SeleccionTallasToggleButton_Checked" Unchecked="SeleccionTallasToggleButton_Unchecked"  />
                     <Label Content="Tallas calzado"/>
 
@@ -90,14 +124,14 @@
                                     <TextBlock Grid.Column="5" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">XL</TextBlock>
                                     <TextBlock Grid.Column="6" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">XXL</TextBlock>
 
-                                    <Separator Grid.Row="1" Grid.ColumnSpan="5"/>
-                                    <TextBox Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="XXS" Text="{Binding Cantidadportallas.XXS, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
-                                    <TextBox Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="XS" Text="{Binding Cantidadportallas.XS, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
-                                    <TextBox Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="S" Text="{Binding Cantidadportallas.S, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
-                                    <TextBox Grid.Column="3" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="M" Text="{Binding Cantidadportallas.M, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
-                                    <TextBox Grid.Column="4" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="L" Text="{Binding Cantidadportallas.L, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
-                                    <TextBox Grid.Column="5" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="XL" Text="{Binding Cantidadportallas.XL, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
-                                    <TextBox Grid.Column="6" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="XXL" Text="{Binding Cantidadportallas.XXL, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <Separator Grid.Row="1" Grid.ColumnSpan="7"/>
+                                    <TextBox Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="XXS" Text="{Binding TallasTextiles.XXS, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="XS" Text="{Binding TallasTextiles.XS, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="S" Text="{Binding TallasTextiles.S, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="3" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="M" Text="{Binding TallasTextiles.M, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="4" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="L" Text="{Binding TallasTextiles.L, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="5" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="XL" Text="{Binding TallasTextiles.XL, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="6" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="XXL" Text="{Binding TallasTextiles.XXL, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
 
 
                                 </Grid>
@@ -145,18 +179,18 @@
 
                                     <Separator Grid.Row="1" Grid.ColumnSpan="12"/>
 
-                                    <TextBox Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N36" Text="{Binding Cantidadpornumeros.N36, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
-                                    <TextBox Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N37" Text="{Binding Cantidadpornumeros.N37, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
-                                    <TextBox Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N38" Text="{Binding Cantidadpornumeros.N38, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
-                                    <TextBox Grid.Column="3" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N39" Text="{Binding Cantidadpornumeros.N39, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
-                                    <TextBox Grid.Column="4" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N40" Text="{Binding Cantidadpornumeros.N40, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
-                                    <TextBox Grid.Column="5" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N41" Text="{Binding Cantidadpornumeros.N41, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
-                                    <TextBox Grid.Column="6" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N42" Text="{Binding Cantidadpornumeros.N42, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
-                                    <TextBox Grid.Column="7" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N43" Text="{Binding Cantidadpornumeros.N43, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
-                                    <TextBox Grid.Column="8" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N44" Text="{Binding Cantidadpornumeros.N44, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
-                                    <TextBox Grid.Column="9" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N45" Text="{Binding Cantidadpornumeros.N45, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
-                                    <TextBox Grid.Column="10" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N46" Text="{Binding Cantidadpornumeros.N46, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
-                                    <TextBox Grid.Column="11" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N47" Text="{Binding Cantidadpornumeros.N47, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N36" Text="{Binding NumerosCalzado.N36, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N37" Text="{Binding NumerosCalzado.N37, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N38" Text="{Binding NumerosCalzado.N38, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="3" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N39" Text="{Binding NumerosCalzado.N39, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="4" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N40" Text="{Binding NumerosCalzado.N40, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="5" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N41" Text="{Binding NumerosCalzado.N41, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="6" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N42" Text="{Binding NumerosCalzado.N42, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="7" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N43" Text="{Binding NumerosCalzado.N43, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="8" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N44" Text="{Binding NumerosCalzado.N44, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="9" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N45" Text="{Binding NumerosCalzado.N45, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="10" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N46" Text="{Binding NumerosCalzado.N46, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="11" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N47" Text="{Binding NumerosCalzado.N47, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
                                 </Grid>
                             </StackPanel>
                         </Expander>
@@ -164,8 +198,8 @@
                 </materialDesign:Card>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
-                    <Button x:Name="AceptarButton" Command="ApplicationCommands.Save" Margin="0,0,10,0"/>
-                    <Button x:Name="CancelarButton" Command="ApplicationCommands.Close" Content="Cancelar" Margin="15" Style="{StaticResource MaterialDesignRaisedAccentButton}"/>
+                    <Button x:Name="AceptarButton" Command="ApplicationCommands.Save" Margin="0,0,10,0" IsDefault="True"/>
+                    <Button x:Name="CancelarButton" Command="ApplicationCommands.Close" Content="Cancelar" Margin="15" Style="{StaticResource MaterialDesignRaisedAccentButton}" IsCancel="True"/>
                 </StackPanel >
             </StackPanel>
         </ScrollViewer>

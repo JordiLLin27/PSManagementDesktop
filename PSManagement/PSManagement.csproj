@@ -123,6 +123,9 @@
     <Compile Include="Dialogs\ExitDialog.xaml.cs">
       <DependentUpon>ExitDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\PinDialog.xaml.cs">
+      <DependentUpon>PinDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\articulos.cs">
       <DependentUpon>ModeloTienda.tt</DependentUpon>
     </Compile>
@@ -194,6 +197,10 @@
       <DependentUpon>PanelVentasView.xaml</DependentUpon>
     </Compile>
     <Page Include="Dialogs\ExitDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\PinDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -93,7 +93,7 @@
                             <TextBlock Text="Filtrar" Margin="5,0,0,0"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="LimpiarFiltrosButton" Content="Borrar Filtros" Margin="10" Width="130" Command="com:CustomCommands.CleanFilter" IsCancel="True"/>
+                    <Button x:Name="LimpiarFiltrosButton" Content="Borrar Filtros" Margin="10" Width="130" Command="com:CustomCommands.CleanFilter" IsCancel="True" Style="{StaticResource MaterialDesignRaisedAccentButton}"/>
                 </StackPanel>
 
                 <GroupBox DockPanel.Dock="Right" Header="Modificar Tabla" Margin="5" Width="200" materialDesign:ColorZoneAssist.Mode="Accent">

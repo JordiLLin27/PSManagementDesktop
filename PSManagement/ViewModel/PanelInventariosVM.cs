@@ -149,9 +149,7 @@ namespace PSManagement.ViewModel
             else
                 formularioCrudArticulo = new FormularioCrudArticuloDialogView(action, ArticuloSeleccionado);
 
-            //poner en la vista
-            formularioCrudArticulo.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
-            formularioCrudArticulo.ShowInTaskbar = false;
+            
 
             return formularioCrudArticulo;
         }

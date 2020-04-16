@@ -100,6 +100,13 @@ namespace PSManagement.Commands
                 "CleanFilter",
                 typeof(CustomCommands)
             );
+
+        public static readonly RoutedUICommand CheckConnection = new RoutedUICommand
+           (
+               "CheckConnection",
+               "CheckConnection",
+               typeof(CustomCommands)
+           );
     }
 
 }

@@ -16,8 +16,8 @@ namespace PSManagement.ViewModel
 
         public articulos ArticuloCrud { get; set; }
 
-        public tallastextiles tallasTextiles { get; set; }
-        public numeroscalzado numerosCalzado { get; set; }
+        public tallastextiles TallasTextiles { get; set; }
+        public numeroscalzado NumerosCalzado { get; set; }
 
 
         public ObservableCollection<inventarios> ListaInventarios { get; set; }
@@ -51,8 +51,8 @@ namespace PSManagement.ViewModel
             else
             {
                 ArticuloCrud = (articulos)articuloCrud;
-                tallasTextiles = ArticuloCrud.TALLASTEXTILES;
-                numerosCalzado = ArticuloCrud.NUMEROSCALZADO;
+                TallasTextiles = ArticuloCrud.TALLASTEXTILES;
+                NumerosCalzado = ArticuloCrud.NUMEROSCALZADO;
             }
         }
 
@@ -66,29 +66,27 @@ namespace PSManagement.ViewModel
             else if (itemAction == ItemCRUDAction.Delete_Item)
             {
                 BBDDService.DeleteArticulo(ArticuloCrud);
-
-                if (numerosCalzado != null)
-                    BBDDService.DeleteNumerosCalzado(numerosCalzado);
-                else
-                    BBDDService.DeleteTallasTextiles(tallasTextiles);
             }
             else
-                BBDDService.SaveChanges();
+                ActualizarInfo();
         }
 
         public void RegistrarTallas()
         {
             if (TextilOCalzado)
             {
-                BBDDService.AddNumerosCalzado(numerosCalzado);
+                BBDDService.AddNumerosCalzado(NumerosCalzado);
             }
             else
             {
-                BBDDService.AddTallasTextiles(tallasTextiles);
+                BBDDService.AddTallasTextiles(TallasTextiles);
             }
         }
 
-
+        public void ActualizarInfo()
+        {
+            BBDDService.SaveChanges();
+        }
 
         public bool MinimoAlcanzado(int cantidad)
         {
@@ -98,9 +96,9 @@ namespace PSManagement.ViewModel
         public string EsTextilOCalzado()
         {
 
-            if (tallasTextiles != null && numerosCalzado == null)
+            if (TallasTextiles != null && NumerosCalzado == null)
                 return "Textil";
-            else if (tallasTextiles == null && numerosCalzado != null)
+            else if (TallasTextiles == null && NumerosCalzado != null)
                 return "Calzado";
             else
                 return "Nuevo";
@@ -109,15 +107,21 @@ namespace PSManagement.ViewModel
         public void TallasArticuloNuevo()
         {
             TextilOCalzado = false;
-            numerosCalzado = null;
-            tallasTextiles = new tallastextiles() { ARTICULO = ArticuloCrud, CodArticulo = ArticuloCrud.CodArticulo };
+            NumerosCalzado = null;
+            TallasTextiles = new tallastextiles() { ARTICULO = ArticuloCrud, CodArticulo = ArticuloCrud.CodArticulo };
         }
 
         public void NumerosArticuloNuevo()
         {
             TextilOCalzado = true;
-            tallasTextiles = null;
-            numerosCalzado = new numeroscalzado() { ARTICULO = ArticuloCrud, CodArticulo = ArticuloCrud.CodArticulo };
+            TallasTextiles = null;
+            NumerosCalzado = new numeroscalzado() { ARTICULO = ArticuloCrud, CodArticulo = ArticuloCrud.CodArticulo };
+        }
+
+        public void SeleccionarImagenArticulo(string rutaImagen)
+        {
+            //PROVISIONAL
+            ArticuloCrud.UrlImagen = rutaImagen;
         }
     }
 }
