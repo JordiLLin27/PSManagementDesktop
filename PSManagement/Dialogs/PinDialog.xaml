@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PSManagement.Dialogs"
+        xmlns:com="clr-namespace:PSManagement.Commands"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -23,14 +24,16 @@
             Executed="SavePinCommandBinding_Executed"
             CanExecute="SavePinCommandBinding_CanExecute"/>
 
+        <CommandBinding
+            Command="com:CustomCommands.UpdatePIN"
+            Executed="UpdatePINCommandBinding_Executed"
+            CanExecute="UpdatePINCommandBinding_CanExecute"/>
+
     </Window.CommandBindings>
 
     <StackPanel x:Name="PanelPrincipalStackPanel" HorizontalAlignment="Center" VerticalAlignment="Center">
 
-        <TextBlock TextWrapping="Wrap">
-            <Run Text="Introduce el código PIN de seguridad:"/>    
-            <Run Text="(Por defecto 0000)"/>
-        </TextBlock>
+        <TextBlock x:Name="PinTituloTextBlock"  TextWrapping="Wrap" Text="Introduce el código PIN de seguridad:" TextAlignment="Center"/>
 
         <Grid x:Name="TablaNumerosPinGrid" HorizontalAlignment="Center" VerticalAlignment="Center">
 
@@ -41,15 +44,33 @@
                 <ColumnDefinition Width="40"/>
             </Grid.ColumnDefinitions>
 
-            <TextBox x:Name="PrimerNumPinTextBox" Grid.Column="0" Margin="10" TextAlignment="Center" MaxLength="1"/>
-            <TextBox x:Name="SegundoNumPinTextBox" Grid.Column="1" Margin="10" TextAlignment="Center" MaxLength="1"/>
-            <TextBox x:Name="TercerNumPinTextBox" Grid.Column="2" Margin="10" TextAlignment="Center" MaxLength="1"/>
-            <TextBox x:Name="CuartoNumPinTextBox" Grid.Column="3" Margin="10" TextAlignment="Center" MaxLength="1"/>
+            <TextBox x:Name="PrimerNumPinTextBox" Grid.Column="0" Margin="10" TextAlignment="Center" MaxLength="1" TabIndex="1" Text="{Binding PrimerDigito}" TextChanged="NumPinTextBox_TextChanged" GotKeyboardFocus="PinTextBox_GotKeyboardFocus"/>
+            <TextBox x:Name="SegundoNumPinTextBox" Grid.Column="1" Margin="10" TextAlignment="Center" MaxLength="1" TabIndex="2" Text="{Binding SegundoDigito}" TextChanged="NumPinTextBox_TextChanged" GotKeyboardFocus="PinTextBox_GotKeyboardFocus"/>
+            <TextBox x:Name="TercerNumPinTextBox" Grid.Column="2" Margin="10" TextAlignment="Center" MaxLength="1" TabIndex="3" Text="{Binding TercerDigito}" TextChanged="NumPinTextBox_TextChanged" GotKeyboardFocus="PinTextBox_GotKeyboardFocus"/>
+            <TextBox x:Name="CuartoNumPinTextBox" Grid.Column="3" Margin="10" TextAlignment="Center" MaxLength="1" TabIndex="4" Text="{Binding CuartoDigito}" TextChanged="NumPinTextBox_TextChanged" GotKeyboardFocus="PinTextBox_GotKeyboardFocus"/>
+
+        </Grid>
+
+        <TextBlock x:Name="NuevoPinTituloTextBlock" TextWrapping="Wrap" Text="Introduce el nuevo código PIN:" TextAlignment="Center" Visibility="Collapsed"/>
+
+        <Grid x:Name="TablaUpdatePinGrid" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="40"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox x:Name="UpdatePrimerNumPinTextBox" Grid.Column="0" Margin="10" TextAlignment="Center" MaxLength="1" TabIndex="5" Text="{Binding PrimerDigitoUpdate}" TextChanged="NumPinTextBox_TextChanged" GotKeyboardFocus="PinTextBox_GotKeyboardFocus"/>
+            <TextBox x:Name="UpdateSegundoNumPinTextBox" Grid.Column="1" Margin="10" TextAlignment="Center" MaxLength="1" TabIndex="6" Text="{Binding SegundoDigitoUpdate}" TextChanged="NumPinTextBox_TextChanged" GotKeyboardFocus="PinTextBox_GotKeyboardFocus"/>
+            <TextBox x:Name="UpdateTercerNumPinTextBox" Grid.Column="2" Margin="10" TextAlignment="Center" MaxLength="1" TabIndex="7" Text="{Binding TercerDigitoUpdate}" TextChanged="NumPinTextBox_TextChanged" GotKeyboardFocus="PinTextBox_GotKeyboardFocus"/>
+            <TextBox x:Name="UpdateCuartoNumPinTextBox" Grid.Column="3" Margin="10" TextAlignment="Center" MaxLength="1" TabIndex="8" Text="{Binding CuartoDigitoUpdate}" TextChanged="NumPinTextBox_TextChanged" GotKeyboardFocus="PinTextBox_GotKeyboardFocus"/>
 
         </Grid>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button x:Name="AceptarButton" Content="Aceptar" IsDefault="True" Margin="5"/>
-            <Button x:Name="CancelarButton" Content="Cancelar" IsCancel="True" Margin="5" Style="{StaticResource MaterialDesignRaisedAccentButton}"/>
+            <Button x:Name="AceptarButton" Content="Aceptar" IsDefault="True" Margin="5" Command="ApplicationCommands.Save" IsEnabledChanged="AceptarButton_IsEnabledChanged"/>
+            <Button x:Name="CancelarButton" Content="Cancelar" IsCancel="True" Margin="5" Style="{StaticResource MaterialDesignRaisedAccentButton}" Click="CancelarButton_Click"/>
         </StackPanel>
     </StackPanel>
 </Window>

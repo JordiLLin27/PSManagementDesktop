@@ -168,11 +168,11 @@ namespace PSManagement.View
 
         private void OpenCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            OpenFileDialog dialog = new OpenFileDialog();
-
-            dialog.Filter = "Todos los archivos|*.*|Archivos de imagen JPG/JPEG|*.jpg|Archivos de imagen BMP|*.bmp|Archivos de imagen PNG|*.png";
-
-            dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            OpenFileDialog dialog = new OpenFileDialog
+            {
+                Filter = "Todos los archivos|*.*|Archivos de imagen JPG/JPEG|*.jpg|Archivos de imagen BMP|*.bmp|Archivos de imagen PNG|*.png",
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+            };
 
 
             if (dialog.ShowDialog() == true)

@@ -149,7 +149,7 @@ namespace PSManagement.ViewModel
             else
                 formularioCrudArticulo = new FormularioCrudArticuloDialogView(action, ArticuloSeleccionado);
 
-            
+            //Pedir pin
 
             return formularioCrudArticulo;
         }

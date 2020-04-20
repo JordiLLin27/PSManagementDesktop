@@ -72,7 +72,9 @@
                    
 
                     <GroupBox x:Name="ImagenArticuloGroupBox" Grid.Column="1" Grid.RowSpan="7" Margin="5" Header="Imagen actual del artículo" MaxHeight="200">
+                        
                         <Image x:Name="ImagenArticuloImage" Source="{Binding ArticuloCrud.UrlImagen}" Stretch="UniformToFill"/>
+                        
                     </GroupBox>
                     <Button x:Name="SeleccionImagenButton" Grid.Column="1" Grid.Row="8" Content="Se_leccionar imagen del producto" Margin="5"  Command="ApplicationCommands.Open"/>
                 </Grid>

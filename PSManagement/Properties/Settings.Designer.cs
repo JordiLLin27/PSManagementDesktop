@@ -46,5 +46,33 @@ namespace PSManagement.Properties {
                 this["PinSeguridad"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("psmanagementblob")]
+        public string AccountName {
+            get {
+                return ((string)(this["AccountName"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("PfqlaWAOyd3A9CQRVKIGBWyc/aSj5BQ0V2N6sSJQ+TQ8W2ACl5SUGdzC49fRKYPSoMw5lgVenM2Bo5JGY" +
+            "oVqow==")]
+        public string KeyValue {
+            get {
+                return ((string)(this["KeyValue"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("imagenesitems")]
+        public string ContainerName {
+            get {
+                return ((string)(this["ContainerName"]));
+            }
+        }
     }
 }

@@ -83,16 +83,26 @@ namespace PSManagement.Commands
            );
 
 
-        public static readonly RoutedUICommand Refresh = new RoutedUICommand
+        public static readonly RoutedUICommand LimpiarInventarioCrud = new RoutedUICommand
             (
-                "Refresh",
-                "Refresh",
-                typeof(CustomCommands),
-                new InputGestureCollection()
-                {
-                    new KeyGesture(Key.F5)
-                }
+                "LimpiarInventarioCrud",
+                "LimpiarInventarioCrud",
+                typeof(CustomCommands)
             );
+
+        public static readonly RoutedUICommand LimpiarCategoriaCrud = new RoutedUICommand
+           (
+               "LimpiarCategoriaCrud",
+               "LimpiarCategoriaCrud",
+               typeof(CustomCommands)
+           );
+
+        public static readonly RoutedUICommand LimpiarColorCrud = new RoutedUICommand
+           (
+               "LimpiarColorCrud",
+               "LimpiarColorCrud",
+               typeof(CustomCommands)
+           );
 
         public static readonly RoutedUICommand CleanFilter = new RoutedUICommand
             (
@@ -105,6 +115,13 @@ namespace PSManagement.Commands
            (
                "CheckConnection",
                "CheckConnection",
+               typeof(CustomCommands)
+           );
+
+        public static readonly RoutedUICommand UpdatePIN = new RoutedUICommand
+           (
+               "UpdatePIN",
+               "UpdatePIN",
                typeof(CustomCommands)
            );
     }

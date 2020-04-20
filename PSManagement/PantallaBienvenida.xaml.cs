@@ -60,10 +60,7 @@ namespace PSManagement
         public MainWindow()
         {
             InitializeComponent();
-            timer = new DispatcherTimer
-            {
-                Interval = TimeSpan.FromSeconds(3)
-            };
+            timer = new DispatcherTimer();
             timer.Tick += Timer_Tick;
             timer.Start();
         }

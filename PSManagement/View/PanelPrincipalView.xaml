@@ -61,14 +61,14 @@
 
     <DockPanel>
         <Menu DockPanel.Dock="Top">
-            <MenuItem Header="S_istema">
+            <MenuItem Header="S_istema" TabIndex="6">
                 <MenuItem Header="_Salir" InputGestureText="Alt + F4"   Command="comands:CustomCommands.Exit">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon Kind="ExitToApp"/>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="_Ayuda">
+            <MenuItem Header="_Ayuda" TabIndex="7">
                 <MenuItem Header="_Manual" InputGestureText="F1">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon Kind="Help"/>
@@ -88,19 +88,19 @@
 
             <DockPanel x:Name="PanelBotonesAccionesStackPanel" DockPanel.Dock="Top">
 
-                <Button x:Name="VentasButton" DockPanel.Dock="Top"
+                <Button x:Name="VentasButton" DockPanel.Dock="Top" TabIndex="1"
                         Margin="5" Foreground="White" Height="50" Width="200" FontSize="24" materialDesign:ButtonAssist.CornerRadius="25"
                         Content="Ventas"
                         Command="comands:CustomCommands.Sales"/>
 
-                <Button x:Name="GestionButton" DockPanel.Dock="Top"
+                <Button x:Name="GestionButton" DockPanel.Dock="Top" TabIndex="2"
                         Margin="5" Foreground="White" Height="50" Width="200" FontSize="24" materialDesign:ButtonAssist.CornerRadius="25"
                         Content="Gestión"
                         Command="comands:CustomCommands.Manage"/>
 
 
-                <Button x:Name="InventarioButton" DockPanel.Dock="Top" Margin="5" Foreground="White" Height="50" Width="200" FontSize="24" 
-                        materialDesign:ButtonAssist.CornerRadius="25"
+                <Button x:Name="InventarioButton" DockPanel.Dock="Top" TabIndex="3"
+                        Margin="5" Foreground="White" Height="50" Width="200" FontSize="24" materialDesign:ButtonAssist.CornerRadius="25"
                         Content="Inventario"
                         Command="comands:CustomCommands.Inventory"/>
 
@@ -108,13 +108,13 @@
 
             <DockPanel x:Name="PanelBotonesOpcionesDockPanel" DockPanel.Dock="Bottom" VerticalAlignment="Bottom">
 
-                <Button x:Name="SalirButton" DockPanel.Dock="Bottom" 
+                <Button x:Name="SalirButton" DockPanel.Dock="Bottom" TabIndex="5"
                         Style="{StaticResource MaterialDesignRaisedAccentButton}" materialDesign:ButtonAssist.CornerRadius="25"
                         Margin="5" Foreground="White" Height="50" Width="200" FontSize="24"
                         Content="Salir"
                         Command="comands:CustomCommands.Exit"/>
 
-                <Button x:Name="ConfiguracionButton" DockPanel.Dock="Bottom" 
+                <Button x:Name="ConfiguracionButton" DockPanel.Dock="Bottom" TabIndex="4"
                         Style="{StaticResource MaterialDesignRaisedAccentButton}" materialDesign:ButtonAssist.CornerRadius="25"
                         Margin="5" Foreground="White" Height="50" Width="200" FontSize="24" 
                         Content="Configuración"

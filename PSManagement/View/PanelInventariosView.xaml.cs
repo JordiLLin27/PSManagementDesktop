@@ -108,22 +108,43 @@ namespace PSManagement.View
 
         private void InventoryCrudCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
+            if (InventariosTabControl != null)
+            {
+                switch (invAction)
+                {
+                    case InventoryCRUDAction.Insert_Inventario:
+                        e.CanExecute = (!string.IsNullOrEmpty(NombreInventarioAddTextBox.Text));
+                        break;
+
+                    case InventoryCRUDAction.Update_Inventario:
+                        e.CanExecute = ((this.DataContext as PanelInventariosVM).InventarioSeleccionado != null) && (!string.IsNullOrEmpty(EditarNombreInventarioTextBox.Text));
+                        break;
+
+                    case InventoryCRUDAction.Delete_Inventario:
+                        e.CanExecute = (this.DataContext as PanelInventariosVM).InventarioSeleccionado != null;
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        }
+
+        private void LimpiarInventarioCrudCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
             switch (invAction)
             {
                 case InventoryCRUDAction.Insert_Inventario:
-                    e.CanExecute = (NombreInventarioAddTextBox.Text != "");
+                    NombreInventarioAddTextBox.Text = "";
                     break;
-
                 case InventoryCRUDAction.Update_Inventario:
-                    e.CanExecute = ((this.DataContext as PanelInventariosVM).InventarioSeleccionado != null) && (EditarNombreInventarioTextBox.Text != "");
+                    EditarNombreInventarioTextBox.Text = "";
+                    (DataContext as PanelInventariosVM).InventarioSeleccionado = null;
                     break;
-
                 case InventoryCRUDAction.Delete_Inventario:
-                    e.CanExecute = (this.DataContext as PanelInventariosVM).InventarioSeleccionado != null;
+                    (DataContext as PanelInventariosVM).InventarioSeleccionado = null;
                     break;
-
                 default:
-                    MessageBox.Show("Error en la operación", "Error en la operación", MessageBoxButton.OK, MessageBoxImage.Error);
                     break;
             }
         }
@@ -163,21 +184,44 @@ namespace PSManagement.View
 
         private void CategoryCrudCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
+            if (CategoriasTabControl != null)
+            {
+                switch (categoryAction)
+                {
+                    case CategoryCRUDAction.Insert_Categoria:
+                        e.CanExecute = (!string.IsNullOrEmpty(NombreCategoriaAddTextBox.Text));
+                        break;
+                    case CategoryCRUDAction.Update_Categoria:
+                        e.CanExecute = ((this.DataContext as PanelInventariosVM).CategoriaSeleccionada != null && (!string.IsNullOrEmpty(EditarNombreCategoriaTextBox.Text)));
+                        break;
+                    case CategoryCRUDAction.Delete_Categoria:
+                        e.CanExecute = ((this.DataContext as PanelInventariosVM).CategoriaSeleccionada != null);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        private void LimpiarCategoriaCrudCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
             switch (categoryAction)
             {
                 case CategoryCRUDAction.Insert_Categoria:
-                    e.CanExecute = (NombreCategoriaAddTextBox.Text != "");
+                    NombreCategoriaAddTextBox.Text = "";
                     break;
                 case CategoryCRUDAction.Update_Categoria:
-                    e.CanExecute = ((this.DataContext as PanelInventariosVM).CategoriaSeleccionada != null && (EditarNombreCategoriaTextBox.Text != ""));
+                    EditarNombreCategoriaTextBox.Text = "";
+                    (DataContext as PanelInventariosVM).CategoriaSeleccionada = null;
                     break;
                 case CategoryCRUDAction.Delete_Categoria:
-                    e.CanExecute = ((this.DataContext as PanelInventariosVM).CategoriaSeleccionada != null);
+                    (DataContext as PanelInventariosVM).CategoriaSeleccionada = null;
                     break;
                 default:
                     break;
             }
         }
+
         #endregion GroupBox_Categorias
 
         #region GroupBox_Colores
@@ -214,16 +258,38 @@ namespace PSManagement.View
 
         private void ColorCrudCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
+            if (ColoresTabControl != null)
+            {
+                switch (colorAction)
+                {
+                    case ColorCRUDAction.Insert_Color:
+                        e.CanExecute = (!string.IsNullOrEmpty(NombreColorAddTextBox.Text));
+                        break;
+                    case ColorCRUDAction.Update_Color:
+                        e.CanExecute = ((this.DataContext as PanelInventariosVM).ColorSeleccionado != null && (!string.IsNullOrEmpty(EditarNombreColorTextBox.Text)));
+                        break;
+                    case ColorCRUDAction.Delete_Color:
+                        e.CanExecute = ((this.DataContext as PanelInventariosVM).ColorSeleccionado != null);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        private void LimpiarColorCrudCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
             switch (colorAction)
             {
                 case ColorCRUDAction.Insert_Color:
-                    e.CanExecute = (NombreColorAddTextBox.Text != "");
+                    NombreColorAddTextBox.Text = "";
                     break;
                 case ColorCRUDAction.Update_Color:
-                    e.CanExecute = ((this.DataContext as PanelInventariosVM).ColorSeleccionado != null && EditarNombreColorTextBox.Text != "");
+                    EditarNombreColorTextBox.Text = "";
+                    (DataContext as PanelInventariosVM).ColorSeleccionado = null;
                     break;
                 case ColorCRUDAction.Delete_Color:
-                    e.CanExecute = ((this.DataContext as PanelInventariosVM).ColorSeleccionado != null);
+                    (DataContext as PanelInventariosVM).ColorSeleccionado = null;
                     break;
                 default:
                     break;
@@ -263,10 +329,13 @@ namespace PSManagement.View
 
             FormularioCrudArticuloDialogView formularioCrudArticulo = (DataContext as PanelInventariosVM).ItemCrud_Execute(itemAction);
 
-            formularioCrudArticulo.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
-            formularioCrudArticulo.ShowInTaskbar = false;
+            if (formularioCrudArticulo != null)
+            {
+                formularioCrudArticulo.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                formularioCrudArticulo.ShowInTaskbar = false;
 
-            formularioCrudArticulo.ShowDialog();
+                formularioCrudArticulo.ShowDialog();
+            }
         }
 
         private void ItemCrudCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -275,6 +344,7 @@ namespace PSManagement.View
         }
 
         #region Filtrado_de_datos
+
         //Comando para filtrar
         private void FilterCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {

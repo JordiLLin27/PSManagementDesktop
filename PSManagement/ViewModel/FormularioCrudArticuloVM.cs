@@ -120,8 +120,13 @@ namespace PSManagement.ViewModel
 
         public void SeleccionarImagenArticulo(string rutaImagen)
         {
-            //PROVISIONAL
-            ArticuloCrud.UrlImagen = rutaImagen;
+            
+            string[] rutaSplit = rutaImagen.Split('\\');
+            string nombreImgURL = rutaSplit[rutaSplit.Length - 1];
+            string blobStorageRuta = BlobStorage.GuardarImagen(rutaImagen, nombreImgURL);
+            ArticuloCrud.UrlImagen = blobStorageRuta;
+            
+            //ArticuloCrud.UrlImagen = rutaImagen;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MaterialDesignThemes.Wpf;
+using PSManagement.Dialogs;
 using PSManagement.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -50,12 +51,18 @@ namespace PSManagement.View
 
         private void SavePINCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            PinDialog dialogoPin = new PinDialog(PinConfig.Update_Pin)
+            {
+                WindowStartupLocation = WindowStartupLocation.CenterScreen,
+                ShowInTaskbar = false
+            };
 
+            dialogoPin.ShowDialog();
         }
 
         private void SavePINCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-
+            e.CanExecute = true;
         }
     }
 }

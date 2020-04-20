@@ -8,5 +8,14 @@
     <Setting Name="PinSeguridad" Type="System.String" Scope="User">
       <Value Profile="(Default)">0000</Value>
     </Setting>
+    <Setting Name="AccountName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">psmanagementblob</Value>
+    </Setting>
+    <Setting Name="KeyValue" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">PfqlaWAOyd3A9CQRVKIGBWyc/aSj5BQ0V2N6sSJQ+TQ8W2ACl5SUGdzC49fRKYPSoMw5lgVenM2Bo5JGYoVqow==</Value>
+    </Setting>
+    <Setting Name="ContainerName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">imagenesitems</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
