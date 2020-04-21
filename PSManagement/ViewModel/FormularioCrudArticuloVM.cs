@@ -60,12 +60,7 @@ namespace PSManagement.ViewModel
         {
             if (itemAction == ItemCRUDAction.Insert_Item)
             {
-                ArticuloCrud.CodArticulo = ArticuloCrud.CodArticulo.ToUpper();
-
-                if (string.IsNullOrEmpty(ArticuloCrud.UrlImagen))
-                {
-                    ArticuloCrud.UrlImagen = @"\Assets\no-image-available.png";
-                }
+                NormalizarArticulo();
 
                 BBDDService.AddArticulo(ArticuloCrud);
                 RegistrarTallas();
@@ -75,7 +70,21 @@ namespace PSManagement.ViewModel
                 BBDDService.DeleteArticulo(ArticuloCrud);
             }
             else
+            {
+                NormalizarArticulo();
                 ActualizarInfo();
+            }
+
+        }
+
+        public void NormalizarArticulo()
+        {
+            ArticuloCrud.CodArticulo = ArticuloCrud.CodArticulo.ToUpper();
+
+            if (string.IsNullOrEmpty(ArticuloCrud.UrlImagen))
+            {
+                ArticuloCrud.UrlImagen = @"\Assets\no-image-available.png";
+            }
         }
 
         public void RegistrarTallas()

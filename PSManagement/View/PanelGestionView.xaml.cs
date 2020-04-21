@@ -26,6 +26,8 @@ namespace PSManagement.View
         {
             this.DataContext = new PanelGestionVM();
             InitializeComponent();
+
+            
         }
 
        

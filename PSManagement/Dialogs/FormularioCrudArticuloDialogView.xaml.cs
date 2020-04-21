@@ -171,9 +171,10 @@ namespace PSManagement.View
             OpenFileDialog dialog = new OpenFileDialog
             {
                 Filter = "Todos los archivos|*.*|Archivos de imagen JPG/JPEG|*.jpg|Archivos de imagen BMP|*.bmp|Archivos de imagen PNG|*.png",
-                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+                FilterIndex = 1,
+                RestoreDirectory = true
             };
-
 
             if (dialog.ShowDialog() == true)
             {
@@ -183,7 +184,7 @@ namespace PSManagement.View
 
         private void OpenCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = (DataContext as FormularioCrudArticuloVM).itemAction == ItemCRUDAction.Insert_Item;
+            e.CanExecute = (DataContext as FormularioCrudArticuloVM).itemAction == ItemCRUDAction.Insert_Item || (DataContext as FormularioCrudArticuloVM).itemAction == ItemCRUDAction.Update_Item;
         }
     }
 }

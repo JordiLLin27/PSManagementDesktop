@@ -19,42 +19,99 @@
 
             <Label Target="{Binding ElementName=SeleccionInventarioComboBox}" Content="Seleccionar inventario" Margin="10"/>
             <ComboBox x:Name="SeleccionInventarioComboBox" ItemsSource="{Binding ListaInventarios}" DisplayMemberPath="Descripcion" Margin="10" Width="300"/>
+            <Button Content="Filtrar" Margin="10"/>
+            <Button Content="Quitar filtro" Margin="10"/>
         </StackPanel>
 
-        <StackPanel>
-            <GroupBox Header="Artículos por tallas" Style="{DynamicResource MaterialDesignGroupBox}" materialDesign:ShadowAssist.ShadowDepth="Depth3" BorderThickness="0">
-                <DataGrid x:Name="TablaTallasArticulos" AutoGenerateColumns="False" 
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <GroupBox Grid.Row="0" Header="Artículos por tallas" Style="{DynamicResource MaterialDesignGroupBox}" materialDesign:ShadowAssist.ShadowDepth="Depth3" BorderThickness="0">
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Content="Guardar stock" Margin="10"/>
+                        <Button Content="Deshacer cambios" Margin="10"/>
+                    </StackPanel>
+
+                    <DataGrid x:Name="TablaTallasArticulos" AutoGenerateColumns="False" MaxWidth="1696"
                   CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False"
                   CanUserReorderColumns="False"
                   SelectionMode="Single" SelectionUnit="Cell"
                   ItemsSource="{Binding ListaTallasArticulos.View}" SelectedItem="{Binding TallasArticuloSeleccionado}">
 
-                    <DataGrid.Columns>
-                        <materialDesign:DataGridTextColumn Header="Artículo" Binding="{Binding ARTICULO.CodArticulo}" Width="*"/>
-                        <!--Mostrar Imagen grande, nombre en negrita, codigo articulo en letra más pequeña-->
-                        <materialDesign:DataGridTextColumn Header="XXS" Binding="{Binding XXS}" Width="*"/>
-                        <materialDesign:DataGridTextColumn Header="XS" Binding="{Binding XS}" Width="*"/>
-                        <materialDesign:DataGridTextColumn Header="S" Binding="{Binding S}" Width="*"/>
-                        <materialDesign:DataGridTextColumn Header="M" Binding="{Binding M}" Width="*"/>
-                        <materialDesign:DataGridTextColumn Header="L" Binding="{Binding L}" Width="*"/>
-                        <materialDesign:DataGridTextColumn Header="XL" Binding="{Binding XL}" Width="*"/>
-                        <materialDesign:DataGridTextColumn Header="XXL" Binding="{Binding XXL}" Width="*"/>
-                        <materialDesign:DataGridTextColumn Header="Total" Binding="{Binding GetTotalItems}" Width="*"/>
-                    </DataGrid.Columns>
-
-                </DataGrid>
+                        <DataGrid.Columns>
+                            <!--Mostrar Imagen grande, nombre en negrita, codigo articulo en letra más pequeña-->
+                            <DataGridTemplateColumn Width="2*" Header="Artículo">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <Image Source="{Binding ARTICULO.UrlImagen}" Height="100" Width="100" HorizontalAlignment="Center"/>
+                                            <TextBlock Text="{Binding ARTICULO.Nombre}" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                            <TextBlock Text="{Binding ARTICULO.CodArticulo}" FontSize="10" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <materialDesign:DataGridTextColumn Header="XXS" Binding="{Binding XXS}" Width="*" TextBlock.TextAlignment="Right"/>
+                            <materialDesign:DataGridTextColumn Header="XS" Binding="{Binding XS}" Width="*"/>
+                            <materialDesign:DataGridTextColumn Header="S" Binding="{Binding S}" Width="*"/>
+                            <materialDesign:DataGridTextColumn Header="M" Binding="{Binding M}" Width="*"/>
+                            <materialDesign:DataGridTextColumn Header="L" Binding="{Binding L}" Width="*"/>
+                            <materialDesign:DataGridTextColumn Header="XL" Binding="{Binding XL}" Width="*"/>
+                            <materialDesign:DataGridTextColumn Header="XXL" Binding="{Binding XXL}" Width="*"/>
+                            <materialDesign:DataGridTextColumn Header="Total" Binding="{Binding GetTotalItems}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
             </GroupBox>
 
-            <GroupBox>
-                <DataGrid x:Name="TablaNumerosArticulos"  AutoGenerateColumns="False"
-                  ItemsSource="{Binding ListaNumerosArticulos}" SelectedItem="{Binding NumerosArticuloSeleccionado}">
+            <GroupBox Grid.Row="1" Header="Artículos por números" Style="{DynamicResource MaterialDesignGroupBox}" materialDesign:ShadowAssist.ShadowDepth="Depth3" BorderThickness="0">
 
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Content="Guardar stock" Margin="10"/>
+                        <Button Content="Deshacer cambios" Margin="10"/>
+                    </StackPanel>
 
+                    <DataGrid x:Name="TablaNumerosArticulos" 
+                  AutoGenerateColumns="False" 
+                  CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False"
+                  CanUserReorderColumns="False"
+                  SelectionMode="Single" SelectionUnit="Cell"
+                  ItemsSource="{Binding ListaNumerosArticulos.View}" SelectedItem="{Binding NumerosArticuloSeleccionado}">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Width="2*" Header="Artículo">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <Image Source="{Binding ARTICULO.UrlImagen}" Height="100" Width="100" HorizontalAlignment="Center"/>
+                                            <TextBlock Text="{Binding ARTICULO.Nombre}" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                            <TextBlock Text="{Binding ARTICULO.CodArticulo}" FontSize="10" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <materialDesign:DataGridTextColumn Header="Número 36" Binding="{Binding C36}" Width="*"/>
+                            <materialDesign:DataGridTextColumn Header="Número 37" Binding="{Binding C37}" Width="*"/>
+                            <materialDesign:DataGridTextColumn Header="Número 38" Binding="{Binding C38}" Width="*"/>
+                            <materialDesign:DataGridTextColumn Header="Número 39" Binding="{Binding C39}" Width="*"/>
+                            <materialDesign:DataGridTextColumn Header="Número 40" Binding="{Binding C40}" Width="*"/>
+                            <materialDesign:DataGridTextColumn Header="Número 41" Binding="{Binding C41}" Width="*"/>
+                            <materialDesign:DataGridTextColumn Header="Número 42" Binding="{Binding C42}" Width="*"/>
+                            <materialDesign:DataGridTextColumn Header="Número 43" Binding="{Binding C43}" Width="*"/>
+                            <materialDesign:DataGridTextColumn Header="Número 44" Binding="{Binding C44}" Width="*"/>
+                            <materialDesign:DataGridTextColumn Header="Número 45" Binding="{Binding C45}" Width="*"/>
+                            <materialDesign:DataGridTextColumn Header="Número 46" Binding="{Binding C46}" Width="*"/>
+                            <materialDesign:DataGridTextColumn Header="Número 47" Binding="{Binding C47}" Width="*"/>
+                            <materialDesign:DataGridTextColumn Header="Total" Binding="{Binding C47}" Width="*"/>
 
-
-                </DataGrid>
-
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
             </GroupBox>
-        </StackPanel>
+        </Grid>
     </DockPanel>
 </UserControl>
