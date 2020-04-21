@@ -18,19 +18,43 @@
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
 
             <Label Target="{Binding ElementName=SeleccionInventarioComboBox}" Content="Seleccionar inventario" Margin="10"/>
-
             <ComboBox x:Name="SeleccionInventarioComboBox" ItemsSource="{Binding ListaInventarios}" DisplayMemberPath="Descripcion" Margin="10" Width="300"/>
-            
         </StackPanel>
 
-        <TextBlock Text="{Binding ElementName=SeleccionInventarioComboBox, Path=SelectedItem.FechaCreacion}" Width="300" Foreground="Black"/>
+        <StackPanel>
+            <GroupBox Header="Artículos por tallas" Style="{DynamicResource MaterialDesignGroupBox}" materialDesign:ShadowAssist.ShadowDepth="Depth3" BorderThickness="0">
+                <DataGrid x:Name="TablaTallasArticulos" AutoGenerateColumns="False" 
+                  CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False"
+                  CanUserReorderColumns="False"
+                  SelectionMode="Single" SelectionUnit="Cell"
+                  ItemsSource="{Binding ListaTallasArticulos.View}" SelectedItem="{Binding TallasArticuloSeleccionado}">
 
-        <!--
-        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding}" Selected="{Binding}">
+                    <DataGrid.Columns>
+                        <materialDesign:DataGridTextColumn Header="Artículo" Binding="{Binding ARTICULO.CodArticulo}" Width="*"/>
+                        <!--Mostrar Imagen grande, nombre en negrita, codigo articulo en letra más pequeña-->
+                        <materialDesign:DataGridTextColumn Header="XXS" Binding="{Binding XXS}" Width="*"/>
+                        <materialDesign:DataGridTextColumn Header="XS" Binding="{Binding XS}" Width="*"/>
+                        <materialDesign:DataGridTextColumn Header="S" Binding="{Binding S}" Width="*"/>
+                        <materialDesign:DataGridTextColumn Header="M" Binding="{Binding M}" Width="*"/>
+                        <materialDesign:DataGridTextColumn Header="L" Binding="{Binding L}" Width="*"/>
+                        <materialDesign:DataGridTextColumn Header="XL" Binding="{Binding XL}" Width="*"/>
+                        <materialDesign:DataGridTextColumn Header="XXL" Binding="{Binding XXL}" Width="*"/>
+                        <materialDesign:DataGridTextColumn Header="Total" Binding="{Binding GetTotalItems}" Width="*"/>
+                    </DataGrid.Columns>
 
-        </DataGrid>
-        -->
+                </DataGrid>
+            </GroupBox>
 
+            <GroupBox>
+                <DataGrid x:Name="TablaNumerosArticulos"  AutoGenerateColumns="False"
+                  ItemsSource="{Binding ListaNumerosArticulos}" SelectedItem="{Binding NumerosArticuloSeleccionado}">
+
+
+
+
+                </DataGrid>
+
+            </GroupBox>
+        </StackPanel>
     </DockPanel>
-
 </UserControl>

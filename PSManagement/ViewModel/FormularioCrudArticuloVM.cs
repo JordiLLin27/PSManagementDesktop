@@ -60,6 +60,13 @@ namespace PSManagement.ViewModel
         {
             if (itemAction == ItemCRUDAction.Insert_Item)
             {
+                ArticuloCrud.CodArticulo = ArticuloCrud.CodArticulo.ToUpper();
+
+                if (string.IsNullOrEmpty(ArticuloCrud.UrlImagen))
+                {
+                    ArticuloCrud.UrlImagen = @"\Assets\no-image-available.png";
+                }
+
                 BBDDService.AddArticulo(ArticuloCrud);
                 RegistrarTallas();
             }
@@ -120,12 +127,12 @@ namespace PSManagement.ViewModel
 
         public void SeleccionarImagenArticulo(string rutaImagen)
         {
-            
+
             string[] rutaSplit = rutaImagen.Split('\\');
             string nombreImgURL = rutaSplit[rutaSplit.Length - 1];
             string blobStorageRuta = BlobStorage.GuardarImagen(rutaImagen, nombreImgURL);
             ArticuloCrud.UrlImagen = blobStorageRuta;
-            
+
             //ArticuloCrud.UrlImagen = rutaImagen;
         }
     }

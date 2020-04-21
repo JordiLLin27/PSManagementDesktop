@@ -7,25 +7,28 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 
 namespace PSManagement.ViewModel
 {
     class PanelGestionVM : INotifyPropertyChanged
     {
-        public ObservableCollection<tallastextiles> ListaTallasArticulos { get; set; }
-        public ObservableCollection<numeroscalzado> ListaNumerosArticulos { get; set; }
+        public CollectionViewSource ListaTallasArticulos { get; set; }
+        public CollectionViewSource ListaNumerosArticulos { get; set; }
         public ObservableCollection<inventarios> ListaInventarios { get; set; }
 
         public inventarios InventarioSeleccionado { get; set; }
+        public numeroscalzado NumerosArticuloSeleccionado { get; set; }
+        public tallastextiles TallasArticuloSeleccionado { get; set; }
 
         public PanelGestionVM()
         {
-            ListaNumerosArticulos = BBDDService.GetNumerosCalzado();
-            ListaTallasArticulos = BBDDService.GetTallasTextiles();
+            ListaTallasArticulos = new CollectionViewSource() { Source = BBDDService.GetNumerosCalzado(), IsLiveFilteringRequested = true };
+            ListaTallasArticulos = new CollectionViewSource() { Source = BBDDService.GetTallasTextiles(), IsLiveFilteringRequested = true };
             ListaInventarios = BBDDService.GetInventarios();
         }
 
-        
+
 
 
         public event PropertyChangedEventHandler PropertyChanged;
