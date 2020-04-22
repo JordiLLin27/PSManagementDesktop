@@ -124,6 +124,13 @@ namespace PSManagement.Commands
                "UpdatePIN",
                typeof(CustomCommands)
            );
+
+        public static readonly RoutedUICommand Load = new RoutedUICommand
+          (
+              "Load",
+              "Load",
+              typeof(CustomCommands)
+          );
     }
 
 }

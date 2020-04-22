@@ -22,6 +22,7 @@ namespace PSManagement.Model
         public int L { get; set; }
         public int XL { get; set; }
         public int XXL { get; set; }
+        public int TotalCantidadArticulo { get; set; }
     
         public virtual articulos ARTICULO { get; set; }
     }

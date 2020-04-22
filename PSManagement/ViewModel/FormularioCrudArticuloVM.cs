@@ -91,10 +91,12 @@ namespace PSManagement.ViewModel
         {
             if (TextilOCalzado)
             {
+                NumerosCalzado.TotalCantidadArticulo = NumerosCalzado.GetTotalItems();
                 BBDDService.AddNumerosCalzado(NumerosCalzado);
             }
             else
             {
+                TallasTextiles.TotalCantidadArticulo = TallasTextiles.GetTotalItems();
                 BBDDService.AddTallasTextiles(TallasTextiles);
             }
         }
@@ -136,13 +138,10 @@ namespace PSManagement.ViewModel
 
         public void SeleccionarImagenArticulo(string rutaImagen)
         {
-
             string[] rutaSplit = rutaImagen.Split('\\');
             string nombreImgURL = rutaSplit[rutaSplit.Length - 1];
             string blobStorageRuta = BlobStorage.GuardarImagen(rutaImagen, nombreImgURL);
             ArticuloCrud.UrlImagen = blobStorageRuta;
-
-            //ArticuloCrud.UrlImagen = rutaImagen;
         }
     }
 }

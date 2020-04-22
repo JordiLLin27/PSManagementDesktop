@@ -90,7 +90,7 @@ namespace PSManagement.Dialogs
 
         private void CancelarButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            this.DialogResult = false;
         }
 
         private void NumPinTextBox_TextChanged(object sender, TextChangedEventArgs e)

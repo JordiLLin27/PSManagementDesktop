@@ -27,6 +27,7 @@ namespace PSManagement.Model
         public int C45 { get; set; }
         public int C46 { get; set; }
         public int C47 { get; set; }
+        public int TotalCantidadArticulo { get; set; }
     
         public virtual articulos ARTICULO { get; set; }
     }

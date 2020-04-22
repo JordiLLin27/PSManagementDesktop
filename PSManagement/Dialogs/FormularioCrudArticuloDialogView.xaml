@@ -92,7 +92,8 @@
 
                 <StackPanel x:Name="SeleccionTallasStackPanel" Orientation="Horizontal" Margin="15,0,0,15">
                     <Label Content="Tallas textiles" />
-                    <ToggleButton x:Name="SeleccionTallasToggleButton" Style="{StaticResource MaterialDesignSwitchToggleButton}" IsChecked="False" ToolTip="Selecciona tallas textiles o de calzado" Checked="SeleccionTallasToggleButton_Checked" Unchecked="SeleccionTallasToggleButton_Unchecked"  />
+                    <ToggleButton x:Name="SeleccionTallasToggleButton" Style="{StaticResource MaterialDesignSwitchToggleButton}" IsChecked="False" ToolTip="Selecciona tallas textiles o de calzado"
+                                  Checked="SeleccionTallasToggleButton_Checked" Unchecked="SeleccionTallasToggleButton_Unchecked"  />
                     <Label Content="Tallas calzado"/>
 
                 </StackPanel>
@@ -101,7 +102,7 @@
                     <StackPanel>
                         <Expander x:Name="TablaIntroducirTallasTextilExpander" HorizontalAlignment="Stretch" Header="Tallas Textil">
                             <StackPanel Orientation="Vertical" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Margin="24,8,24,16">
-                                <TextBlock Text="Introduce la cantidad de tallas" />
+                                <TextBlock Text="Introduce la cantidad de tallas por unidades" />
                                 <Grid Opacity=".78">
 
                                     <Grid.ColumnDefinitions>
@@ -143,7 +144,7 @@
                         <Border Background="{DynamicResource MaterialDesignDivider}" Height="1" HorizontalAlignment="Stretch" SnapsToDevicePixels="True" />
                         <Expander x:Name="TablaIntroducirTallasCalzadoExpander" HorizontalAlignment="Stretch" Header="Tallas Calzado" Visibility="Collapsed">
                             <StackPanel Orientation="Vertical" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Margin="24,8,24,16">
-                                <TextBlock Text="Introduce la cantidad de tallas" />
+                                <TextBlock Text="Introduce la cantidad de tallas por pares" />
                                 <Grid Opacity=".78">
 
                                     <Grid.ColumnDefinitions>
@@ -181,18 +182,18 @@
 
                                     <Separator Grid.Row="1" Grid.ColumnSpan="12"/>
 
-                                    <TextBox Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N36" Text="{Binding NumerosCalzado.N36, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
-                                    <TextBox Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N37" Text="{Binding NumerosCalzado.N37, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
-                                    <TextBox Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N38" Text="{Binding NumerosCalzado.N38, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
-                                    <TextBox Grid.Column="3" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N39" Text="{Binding NumerosCalzado.N39, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
-                                    <TextBox Grid.Column="4" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N40" Text="{Binding NumerosCalzado.N40, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
-                                    <TextBox Grid.Column="5" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N41" Text="{Binding NumerosCalzado.N41, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
-                                    <TextBox Grid.Column="6" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N42" Text="{Binding NumerosCalzado.N42, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
-                                    <TextBox Grid.Column="7" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N43" Text="{Binding NumerosCalzado.N43, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
-                                    <TextBox Grid.Column="8" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N44" Text="{Binding NumerosCalzado.N44, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
-                                    <TextBox Grid.Column="9" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N45" Text="{Binding NumerosCalzado.N45, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
-                                    <TextBox Grid.Column="10" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N46" Text="{Binding NumerosCalzado.N46, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
-                                    <TextBox Grid.Column="11" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N47" Text="{Binding NumerosCalzado.N47, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N36" Text="{Binding NumerosCalzado.C36, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N37" Text="{Binding NumerosCalzado.C37, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N38" Text="{Binding NumerosCalzado.C38, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="3" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N39" Text="{Binding NumerosCalzado.C39, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="4" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N40" Text="{Binding NumerosCalzado.C40, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="5" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N41" Text="{Binding NumerosCalzado.C41, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="6" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N42" Text="{Binding NumerosCalzado.C42, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="7" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N43" Text="{Binding NumerosCalzado.C43, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="8" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N44" Text="{Binding NumerosCalzado.C44, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="9" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N45" Text="{Binding NumerosCalzado.C45, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="10" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N46" Text="{Binding NumerosCalzado.C46, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                                    <TextBox Grid.Column="11" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="N47" Text="{Binding NumerosCalzado.C47, Mode=TwoWay}" Style="{StaticResource TextBoxTablas}" TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
                                 </Grid>
                             </StackPanel>
                         </Expander>
