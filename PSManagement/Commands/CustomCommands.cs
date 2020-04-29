@@ -131,6 +131,24 @@ namespace PSManagement.Commands
               "Load",
               typeof(CustomCommands)
           );
+
+        public static readonly RoutedUICommand OpenNumPad = new RoutedUICommand
+          (
+              "OpenNumPad",
+              "OpenNumPad",
+              typeof(CustomCommands)
+          );
+
+        public static readonly RoutedUICommand UnDoChanges = new RoutedUICommand
+          (
+              "UnDoChanges",
+              "UnDoChanges",
+              typeof(CustomCommands),
+              new InputGestureCollection()
+              {
+                  new KeyGesture(Key.Z, ModifierKeys.Control)
+              }
+          );
     }
 
 }

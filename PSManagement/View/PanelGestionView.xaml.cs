@@ -45,7 +45,7 @@ namespace PSManagement.View
 
         private void CleanFiltersCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = (DataContext as PanelGestionVM).FindCanExecute();
+            e.CanExecute = (DataContext as PanelGestionVM).CleanFilterCanExecuted();
         }
 
         #region ZONA_TALLAS_TEXTILES
@@ -113,6 +113,20 @@ namespace PSManagement.View
             }
             else
                 MessageBox.Show("No se ha producido ningún cambio", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+
+        private void UnDoChangesCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            (DataContext as PanelGestionVM).UnDoChangesExecuted();
+            MessageBox.Show("Cambios revertidos", "Información", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+        }
+
+        private void DataGridCell_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (((DataGridCell)sender).Column.Header.ToString() != "Total")
+                (DataContext as PanelGestionVM).DataGridCell_MouseDoubleClick(((DataGridCell)sender).DataContext, ((DataGridCell)sender).Column.Header.ToString());
+            else
+                e.Handled = true;
         }
     }
 }

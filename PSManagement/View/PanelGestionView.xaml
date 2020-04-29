@@ -29,9 +29,32 @@
             Executed="CleanFiltersCommandBinding_Executed"
             CanExecute="CleanFiltersCommandBinding_CanExecute"/>
 
+        <CommandBinding
+            Command="com:CustomCommands.UnDoChanges"
+            Executed="UnDoChangesCommandBinding_Executed"/>
+
     </UserControl.CommandBindings>
 
-    <Grid x:Name="PanelGestionPrincipalGrid">
+    <UserControl.Resources>
+
+        <Style TargetType="{x:Type TextBlock}" x:Key="celdas">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+
+        <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+
+        <Style TargetType="{x:Type DataGridCell}">
+            <EventSetter Event="MouseDoubleClick" Handler="DataGridCell_MouseDoubleClick"/>
+        </Style>
+
+    </UserControl.Resources>
+
+    <Grid x:Name="PanelGestionPrincipalGrid" MaxHeight="978">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="70"/>
@@ -47,20 +70,21 @@
                 <ColumnDefinition Width="310"/>
             </Grid.ColumnDefinitions>
 
-
-
             <StackPanel Grid.Column="0" Grid.ColumnSpan="2"  Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="4,10,32,10" Height="50" Width="1350">
                 <Label Target="{Binding ElementName=FiltroPorNombreOModeloTextBox}" Content="Seleccionar inventario" Margin="10"/>
-                <TextBox x:Name="FiltroPorNombreOModeloTextBox" materialDesign:HintAssist.Hint="Escribe el nombre o modelo del ítem a buscar" Margin="10" Width="380"/>
+                <TextBox x:Name="FiltroPorNombreOModeloTextBox" materialDesign:HintAssist.Hint="Escribe el nombre o modelo del ítem a buscar" Margin="10" Width="380" Text="{Binding FiltroTextBox, UpdateSourceTrigger=PropertyChanged}"/>
+
                 <Label Target="{Binding ElementName=SeleccionInventarioComboBox}" Content="Seleccionar inventario" Margin="10"/>
-                <ComboBox x:Name="SeleccionInventarioComboBox" ItemsSource="{Binding ListaInventarios}" materialDesign:HintAssist.Hint="Todos" DisplayMemberPath="Descripcion" Margin="10" Width="300"/>
+                <ComboBox x:Name="SeleccionInventarioComboBox" ItemsSource="{Binding ListaInventarios}" SelectedItem="{Binding InventarioSeleccionado}" materialDesign:HintAssist.Hint="Todos" DisplayMemberPath="Descripcion" Margin="10" Width="300"/>
+
                 <Button Content="Filtrar" Margin="10" Command="ApplicationCommands.Find"/>
-                <Button Content="Quitar filtro" Margin="10"/>
+                <Button Content="Quitar filtro" Margin="10" Command="com:CustomCommands.CleanFilter"/>
             </StackPanel>
 
-
-            <Button Grid.Column="2" Content="Guardar Stock" Margin="10" Height="50"  Command="ApplicationCommands.Save"/>
-
+            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                <Button  Content="Guardar Stock" Margin="10" Height="50"  Command="ApplicationCommands.Save"/>
+                <Button  Content="Deshacer cambios" Margin="10" Height="50" Command="com:CustomCommands.UnDoChanges" Style="{StaticResource MaterialDesignRaisedAccentButton}"/>
+            </StackPanel>
 
         </Grid>
 
@@ -79,11 +103,12 @@
                 <DataGrid x:Name="TablaTallasArticulos" 
                             AutoGenerateColumns="False" MaxWidth="1696"
                             CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False"
-                            CanUserReorderColumns="False" IsSynchronizedWithCurrentItem="False"
+                            CanUserReorderColumns="False" IsSynchronizedWithCurrentItem="False" IsReadOnly="True"
                             SelectionMode="Single" SelectionUnit="Cell" SelectedCellsChanged="TablaTallasArticulos_SelectedCellsChanged"
-                            ItemsSource="{Binding ListaTallasArticulos.View, UpdateSourceTrigger=PropertyChanged}" >
+                            ItemsSource="{Binding ListaTallasArticulos.View, UpdateSourceTrigger=PropertyChanged}">
+
                     <DataGrid.Columns>
-                        <DataGridTemplateColumn Width="2*" Header="Artículo" IsReadOnly="True">
+                        <DataGridTemplateColumn Width="1.5*" Header="Artículo" IsReadOnly="True">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -94,14 +119,14 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <materialDesign:DataGridTextColumn Header="XXS" Binding="{Binding XXS, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
-                        <materialDesign:DataGridTextColumn Header="XS" Binding="{Binding XS, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
-                        <materialDesign:DataGridTextColumn Header="S" Binding="{Binding S, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
-                        <materialDesign:DataGridTextColumn Header="M" Binding="{Binding M, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
-                        <materialDesign:DataGridTextColumn Header="L" Binding="{Binding L, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
-                        <materialDesign:DataGridTextColumn Header="XL" Binding="{Binding XL, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
-                        <materialDesign:DataGridTextColumn Header="XXL" Binding="{Binding XXL, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
-                        <materialDesign:DataGridTextColumn Header="Total" Binding="{Binding TotalCantidadArticulo, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                        <materialDesign:DataGridTextColumn Header="XXS" Binding="{Binding XXS, UpdateSourceTrigger=PropertyChanged}" TextBlock.TextAlignment="Center" Width="*" ElementStyle="{StaticResource celdas}" />
+                        <materialDesign:DataGridTextColumn Header="XS" Binding="{Binding XS, UpdateSourceTrigger=PropertyChanged}" Width="*" ElementStyle="{StaticResource celdas}"/>
+                        <materialDesign:DataGridTextColumn Header="S" Binding="{Binding S, UpdateSourceTrigger=PropertyChanged}" Width="*" ElementStyle="{StaticResource celdas}"/>
+                        <materialDesign:DataGridTextColumn Header="M" Binding="{Binding M, UpdateSourceTrigger=PropertyChanged}" Width="*" ElementStyle="{StaticResource celdas}"/>
+                        <materialDesign:DataGridTextColumn Header="L" Binding="{Binding L, UpdateSourceTrigger=PropertyChanged}" Width="*" ElementStyle="{StaticResource celdas}"/>
+                        <materialDesign:DataGridTextColumn Header="XL" Binding="{Binding XL, UpdateSourceTrigger=PropertyChanged}" Width="*" ElementStyle="{StaticResource celdas}"/>
+                        <materialDesign:DataGridTextColumn Header="XXL" Binding="{Binding XXL, UpdateSourceTrigger=PropertyChanged}" Width="*" ElementStyle="{StaticResource celdas}"/>
+                        <materialDesign:DataGridTextColumn Header="Total" Binding="{Binding TotalCantidadArticulo, UpdateSourceTrigger=PropertyChanged}" Width="*" IsReadOnly="True" ElementStyle="{StaticResource celdas}"/>
                     </DataGrid.Columns>
 
                 </DataGrid>
@@ -121,11 +146,12 @@
                 </StackPanel>
 
                 <DataGrid x:Name="TablaNumerosArticulos" 
-                  AutoGenerateColumns="False" 
+                  AutoGenerateColumns="False" MaxWidth="1696"
                   CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False"
-                  CanUserReorderColumns="False" IsSynchronizedWithCurrentItem="False"
+                  CanUserReorderColumns="False" IsSynchronizedWithCurrentItem="False" IsReadOnly="True"
                   SelectionMode="Single" SelectionUnit="Cell" SelectedCellsChanged="TablaNumerosArticulos_SelectedCellsChanged"
                   ItemsSource="{Binding ListaNumerosArticulos.View, UpdateSourceTrigger=PropertyChanged}">
+
                     <DataGrid.Columns>
                         <DataGridTemplateColumn Width="2*" Header="Artículo" IsReadOnly="True">
                             <DataGridTemplateColumn.CellTemplate>
@@ -138,20 +164,21 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <materialDesign:DataGridTextColumn Header="Número 36" Binding="{Binding C36, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
-                        <materialDesign:DataGridTextColumn Header="Número 37" Binding="{Binding C37, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
-                        <materialDesign:DataGridTextColumn Header="Número 38" Binding="{Binding C38, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
-                        <materialDesign:DataGridTextColumn Header="Número 39" Binding="{Binding C39, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
-                        <materialDesign:DataGridTextColumn Header="Número 40" Binding="{Binding C40, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
-                        <materialDesign:DataGridTextColumn Header="Número 41" Binding="{Binding C41, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
-                        <materialDesign:DataGridTextColumn Header="Número 42" Binding="{Binding C42, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
-                        <materialDesign:DataGridTextColumn Header="Número 43" Binding="{Binding C43, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
-                        <materialDesign:DataGridTextColumn Header="Número 44" Binding="{Binding C44, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
-                        <materialDesign:DataGridTextColumn Header="Número 45" Binding="{Binding C45, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
-                        <materialDesign:DataGridTextColumn Header="Número 46" Binding="{Binding C46, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
-                        <materialDesign:DataGridTextColumn Header="Número 47" Binding="{Binding C47, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
-                        <materialDesign:DataGridTextColumn Header="Total" Binding="{Binding TotalCantidadArticulo, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                        <materialDesign:DataGridTextColumn Header="Número 36" Binding="{Binding C36, UpdateSourceTrigger=PropertyChanged}" Width="*" ElementStyle="{StaticResource celdas}"/>
+                        <materialDesign:DataGridTextColumn Header="Número 37" Binding="{Binding C37, UpdateSourceTrigger=PropertyChanged}" Width="*" ElementStyle="{StaticResource celdas}"/>
+                        <materialDesign:DataGridTextColumn Header="Número 38" Binding="{Binding C38, UpdateSourceTrigger=PropertyChanged}" Width="*" ElementStyle="{StaticResource celdas}"/>
+                        <materialDesign:DataGridTextColumn Header="Número 39" Binding="{Binding C39, UpdateSourceTrigger=PropertyChanged}" Width="*" ElementStyle="{StaticResource celdas}"/>
+                        <materialDesign:DataGridTextColumn Header="Número 40" Binding="{Binding C40, UpdateSourceTrigger=PropertyChanged}" Width="*" ElementStyle="{StaticResource celdas}"/>
+                        <materialDesign:DataGridTextColumn Header="Número 41" Binding="{Binding C41, UpdateSourceTrigger=PropertyChanged}" Width="*" ElementStyle="{StaticResource celdas}"/>
+                        <materialDesign:DataGridTextColumn Header="Número 42" Binding="{Binding C42, UpdateSourceTrigger=PropertyChanged}" Width="*" ElementStyle="{StaticResource celdas}"/>
+                        <materialDesign:DataGridTextColumn Header="Número 43" Binding="{Binding C43, UpdateSourceTrigger=PropertyChanged}" Width="*" ElementStyle="{StaticResource celdas}"/>
+                        <materialDesign:DataGridTextColumn Header="Número 44" Binding="{Binding C44, UpdateSourceTrigger=PropertyChanged}" Width="*" ElementStyle="{StaticResource celdas}"/>
+                        <materialDesign:DataGridTextColumn Header="Número 45" Binding="{Binding C45, UpdateSourceTrigger=PropertyChanged}" Width="*" ElementStyle="{StaticResource celdas}"/>
+                        <materialDesign:DataGridTextColumn Header="Número 46" Binding="{Binding C46, UpdateSourceTrigger=PropertyChanged}" Width="*" ElementStyle="{StaticResource celdas}"/>
+                        <materialDesign:DataGridTextColumn Header="Número 47" Binding="{Binding C47, UpdateSourceTrigger=PropertyChanged}" Width="*" ElementStyle="{StaticResource celdas}"/>
+                        <materialDesign:DataGridTextColumn Header="Total" Binding="{Binding TotalCantidadArticulo, UpdateSourceTrigger=PropertyChanged}" Width="*" IsReadOnly="True" ElementStyle="{StaticResource celdas}"/>
                     </DataGrid.Columns>
+
                 </DataGrid>
             </Grid>
         </GroupBox>

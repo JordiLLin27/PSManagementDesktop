@@ -35,25 +35,116 @@ namespace PSManagement.ViewModel
             ListaTallasArticulos = new CollectionViewSource() { Source = BBDDService.GetTallasTextiles(), IsLiveFilteringRequested = true };
             ListaInventarios = BBDDService.GetInventarios();
 
-            ListaNumerosArticulos.Filter += FilterTablas;
-            ListaTallasArticulos.Filter += FilterTablas;
+            ListaNumerosArticulos.Filter += FilterTablaNumeros;
+            ListaTallasArticulos.Filter += FilterTablaTallas;
         }
 
         internal void CleanFIlters()
         {
             InventarioSeleccionado = null;
             FiltroTextBox = "";
+            FindExecuted();
         }
 
-        private void FilterTablas(object sender, FilterEventArgs e)
+        private void FilterTablaTallas(object sender, FilterEventArgs e)
         {
+            tallastextiles articulo = (tallastextiles)e.Item;
+
             if (string.IsNullOrEmpty(FiltroTextBox) && InventarioSeleccionado == null)
             {
                 e.Accepted = true;
             }
+            else
+            {
+                if (string.IsNullOrEmpty(FiltroTextBox) && InventarioSeleccionado != null)
+                {
+                    if (articulo.ARTICULO.INVENTARIO.Equals(InventarioSeleccionado))
+                    {
+                        e.Accepted = true;
+                    }
+                    else
+                        e.Accepted = false;
+                }
+                else if (!string.IsNullOrEmpty(FiltroTextBox) && InventarioSeleccionado == null)
+                {
+                    if (articulo.ARTICULO.Nombre.ToLower().Contains(FiltroTextBox.ToLower()) || articulo.ARTICULO.CodArticulo.ToLower().Contains(FiltroTextBox.ToLower()))
+                    {
+                        e.Accepted = true;
+                    }
+                    else
+                        e.Accepted = false;
+                }
+                else if ((!string.IsNullOrEmpty(FiltroTextBox) && InventarioSeleccionado != null))
+                {
+                    if (articulo.ARTICULO.INVENTARIO.Equals(InventarioSeleccionado) && (articulo.ARTICULO.Nombre.ToLower().Contains(FiltroTextBox.ToLower()) || articulo.CodArticulo.ToLower().Contains(FiltroTextBox.ToLower())))
+                    {
+                        e.Accepted = true;
+                    }
+                    else
+                        e.Accepted = false;
+                }
+
+            }
+        }
+
+        private void FilterTablaNumeros(object sender, FilterEventArgs e)
+        {
+            numeroscalzado articulo = (numeroscalzado)e.Item;
+
+            if (string.IsNullOrEmpty(FiltroTextBox) && InventarioSeleccionado == null)
+            {
+                e.Accepted = true;
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(FiltroTextBox) && InventarioSeleccionado != null)
+                {
+                    if (articulo.ARTICULO.INVENTARIO.Equals(InventarioSeleccionado))
+                    {
+                        e.Accepted = true;
+                    }
+                    else
+                        e.Accepted = false;
+                }
+                else if (!string.IsNullOrEmpty(FiltroTextBox) && InventarioSeleccionado == null)
+                {
+                    if (articulo.ARTICULO.Nombre.ToLower().Contains(FiltroTextBox.ToLower()) || articulo.ARTICULO.CodArticulo.ToLower().Contains(FiltroTextBox.ToLower()))
+                    {
+                        e.Accepted = true;
+                    }
+                    else
+                        e.Accepted = false;
+                }
+                else if ((!string.IsNullOrEmpty(FiltroTextBox) && InventarioSeleccionado != null))
+                {
+                    if (articulo.ARTICULO.INVENTARIO.Equals(InventarioSeleccionado) && (articulo.ARTICULO.Nombre.ToLower().Contains(FiltroTextBox.ToLower()) || articulo.CodArticulo.ToLower().Contains(FiltroTextBox.ToLower())))
+                    {
+                        e.Accepted = true;
+                    }
+                    else
+                        e.Accepted = false;
+                }
+
+            }
+        }
+
+        internal bool DataGridCell_MouseDoubleClick(object articulo, string talla)
+        {
+            PanelNumericoDialog numPad = new PanelNumericoDialog(articulo, talla) { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
+            return (numPad.ShowDialog() == true ? true : false);
+        }
+
+        internal void UnDoChangesExecuted()
+        {
+            BBDDService.RevertChanges();
         }
 
         internal bool FindCanExecute()
+        {
+            return (!string.IsNullOrEmpty(FiltroTextBox) || InventarioSeleccionado != null);
+        }
+
+        internal bool CleanFilterCanExecuted()
         {
             return (!string.IsNullOrEmpty(FiltroTextBox) || InventarioSeleccionado != null);
         }
@@ -88,7 +179,52 @@ namespace PSManagement.ViewModel
             TallaActualSeleccionada = nuevaTallaSeleccionada;
         }
 
-        internal void AumentaTalla()
+        internal bool CompruebaStockMinimo()
+        {
+            if (TallasArticuloSeleccionado != null)
+            {
+                int tallaComprobar = -1;
+
+                switch (TallaActualSeleccionada)
+                {
+                    case "XXS":
+                        tallaComprobar = TallasArticuloSeleccionado.XXS;
+                        break;
+
+                    case "XS":
+                        tallaComprobar = TallasArticuloSeleccionado.XS;
+                        break;
+
+                    case "S":
+                        tallaComprobar = TallasArticuloSeleccionado.S;
+                        break;
+
+                    case "M":
+                        tallaComprobar = TallasArticuloSeleccionado.M;
+                        break;
+
+                    case "L":
+                        tallaComprobar = TallasArticuloSeleccionado.L;
+                        break;
+
+                    case "XL":
+                        tallaComprobar = TallasArticuloSeleccionado.XL;
+                        break;
+
+                    case "XXL":
+                        tallaComprobar = TallasArticuloSeleccionado.XXL;
+                        break;
+
+                    default:
+                        break;
+                }
+
+                return (tallaComprobar < TallasArticuloSeleccionado.ARTICULO.StockMinimo);
+            }
+            return false;
+        }
+
+        internal bool AumentaTalla()
         {
             if (TallasArticuloSeleccionado != null)
             {
@@ -126,11 +262,13 @@ namespace PSManagement.ViewModel
                         break;
                 }
 
-                ActualizaTotalTallas();
+                ActualizaTotalTallasItemSeleccionado();
+                return CompruebaStockMinimo();
             }
+            return false;
         }
 
-        internal void DisminuyeTalla()
+        internal bool DisminuyeTalla()
         {
             if (TallasArticuloSeleccionado != null)
             {
@@ -167,11 +305,13 @@ namespace PSManagement.ViewModel
                     default:
                         break;
                 }
-                ActualizaTotalTallas();
+                ActualizaTotalTallasItemSeleccionado();
+                return CompruebaStockMinimo();
             }
+            return false;
         }
 
-        private void ActualizaTotalTallas()
+        private void ActualizaTotalTallasItemSeleccionado()
         {
             TallasArticuloSeleccionado.TotalCantidadArticulo = TallasArticuloSeleccionado.GetTotalItems();
         }
@@ -245,7 +385,7 @@ namespace PSManagement.ViewModel
                     default:
                         break;
                 }
-                ActualizarTotalNumeros();
+                ActualizarTotalNumerosItemSeleccionado();
             }
         }
 
@@ -306,11 +446,11 @@ namespace PSManagement.ViewModel
                     default:
                         break;
                 }
-                ActualizarTotalNumeros();
+                ActualizarTotalNumerosItemSeleccionado();
             }
         }
 
-        private void ActualizarTotalNumeros()
+        private void ActualizarTotalNumerosItemSeleccionado()
         {
             this.NumerosArticuloSeleccionado.TotalCantidadArticulo = this.NumerosArticuloSeleccionado.GetTotalItems();
         }

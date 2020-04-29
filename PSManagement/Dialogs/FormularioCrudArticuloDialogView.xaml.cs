@@ -38,7 +38,6 @@ namespace PSManagement.View
             else if (action == ItemCRUDAction.Update_Item)
             {
                 VentanaCrudItemsGroupBox.Header = "Modificar artículo";
-                SeleccionTallasStackPanel.Visibility = Visibility.Collapsed;
                 CompruebaExpanders();
                 AceptarButton.Content = "Modificar artículo";
                 mensajeOpcion = "modificar";
@@ -46,7 +45,6 @@ namespace PSManagement.View
             else if (action == ItemCRUDAction.Delete_Item)
             {
                 VentanaCrudItemsGroupBox.Header = "Eliminar artículo";
-                SeleccionTallasStackPanel.Visibility = Visibility.Collapsed;
                 CompruebaExpanders();
                 AceptarButton.Content = "Eliminar artículo";
                 mensajeOpcion = "eliminar";
@@ -61,8 +59,20 @@ namespace PSManagement.View
             {
                 if (MessageBox.Show("¿Seguro que quieres " + mensajeOpcion + " este ítem?", "Información", MessageBoxButton.OKCancel, MessageBoxImage.Information) == MessageBoxResult.OK)
                 {
-                    (this.DataContext as FormularioCrudArticuloVM).Save_Execute();
-                    MessageBox.Show("Datos actualizados", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                    if ((DataContext as FormularioCrudArticuloVM).GetAction() != ItemCRUDAction.Insert_Item)
+                    {
+                        if ((DataContext as FormularioCrudArticuloVM).PidePin())
+                        {
+                            (this.DataContext as FormularioCrudArticuloVM).Save_Execute();
+                            MessageBox.Show("Datos actualizados", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+                    }
+                    else
+                    {
+                        (this.DataContext as FormularioCrudArticuloVM).Save_Execute();
+                        MessageBox.Show("Datos actualizados", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+
                     this.Close();
                 }
             }
@@ -74,6 +84,7 @@ namespace PSManagement.View
 
         private void CloseCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            (DataContext as FormularioCrudArticuloVM).CloseExecuted();
             this.Close();
         }
 
@@ -103,10 +114,12 @@ namespace PSManagement.View
             if ((DataContext as FormularioCrudArticuloVM).EsTextilOCalzado().Contains("Textil"))
             {
                 HideExpanderCalzado();
+                ShowExpanderTextil();
             }
             else if ((DataContext as FormularioCrudArticuloVM).EsTextilOCalzado().Contains("Calzado"))
             {
                 HideExpanderTextil();
+                ShowExpanderCalzado();
             }
         }
 
@@ -132,13 +145,6 @@ namespace PSManagement.View
             TablaIntroducirTallasTextilExpander.Visibility = Visibility.Visible;
         }
 
-
-        private void TextBox_TextChanged_ControlFormatoNumerico(object sender, TextChangedEventArgs e)
-        {
-
-            e.Handled = true;
-        }
-
         private void SeleccionTallasToggleButton_Checked(object sender, RoutedEventArgs e)
         {
             HideExpanderTextil();
@@ -156,11 +162,13 @@ namespace PSManagement.View
         private void TextBox_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
             ((TextBox)sender).Text = "";
+            if (((TextBox)sender).Tag.ToString() != "Precio")
+                (DataContext as FormularioCrudArticuloVM).SetTextBoxActual((TextBox)sender);
         }
 
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(((TextBox)sender).Text))
+            if (!string.IsNullOrEmpty(((TextBox)sender).Text) && ((TextBox)sender).Tag.ToString() == "Precio")
             {
                 ((TextBox)sender).Text = ((TextBox)sender).Text.Replace(',', '.');
             }
@@ -185,6 +193,16 @@ namespace PSManagement.View
         private void OpenCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = (DataContext as FormularioCrudArticuloVM).itemAction == ItemCRUDAction.Insert_Item || (DataContext as FormularioCrudArticuloVM).itemAction == ItemCRUDAction.Update_Item;
+        }
+
+        private void OpenNumPadCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            (DataContext as FormularioCrudArticuloVM).OpenNumPadExecuted();
+        }
+
+        private void OpenNumPadCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = (DataContext as FormularioCrudArticuloVM).OpenNumPadCanExecute();
         }
     }
 }

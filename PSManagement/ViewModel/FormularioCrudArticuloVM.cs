@@ -1,4 +1,5 @@
-﻿using PSManagement.Model;
+﻿using PSManagement.Dialogs;
+using PSManagement.Model;
 using PSManagement.Service;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace PSManagement.ViewModel
 {
@@ -28,6 +30,7 @@ namespace PSManagement.ViewModel
         public categorias CategoriaSeleccionada { get; set; }
         public colores ColorSeleccionado { get; set; }
 
+        public TextBox TextBoxSeleccionadoActual { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -46,7 +49,6 @@ namespace PSManagement.ViewModel
             {
                 ArticuloCrud = new articulos();
                 TallasArticuloNuevo();
-
             }
             else
             {
@@ -61,12 +63,12 @@ namespace PSManagement.ViewModel
             if (itemAction == ItemCRUDAction.Insert_Item)
             {
                 NormalizarArticulo();
-
                 BBDDService.AddArticulo(ArticuloCrud);
                 RegistrarTallas();
             }
             else if (itemAction == ItemCRUDAction.Delete_Item)
             {
+                BlobStorage.EliminarImagen(ArticuloCrud.UrlImagen);
                 BBDDService.DeleteArticulo(ArticuloCrud);
             }
             else
@@ -74,7 +76,6 @@ namespace PSManagement.ViewModel
                 NormalizarArticulo();
                 ActualizarInfo();
             }
-
         }
 
         public void NormalizarArticulo()
@@ -111,6 +112,11 @@ namespace PSManagement.ViewModel
             return cantidad <= ArticuloCrud.StockMinimo;
         }
 
+        internal void CloseExecuted()
+        {
+            BBDDService.RevertChanges();
+        }
+
         public string EsTextilOCalzado()
         {
 
@@ -142,6 +148,42 @@ namespace PSManagement.ViewModel
             string nombreImgURL = rutaSplit[rutaSplit.Length - 1];
             string blobStorageRuta = BlobStorage.GuardarImagen(rutaImagen, nombreImgURL);
             ArticuloCrud.UrlImagen = blobStorageRuta;
+        }
+
+        internal bool PidePin()
+        {
+            PinDialog pinDialog = new PinDialog(PinConfig.Insert_Pin) { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
+
+            return pinDialog.ShowDialog() == true ? true : false;
+        }
+
+        internal ItemCRUDAction GetAction() { return itemAction; }
+
+        internal bool OpenNumPadExecuted()
+        {
+            PanelNumericoDialog numPad;
+            if (TallasTextiles != null && NumerosCalzado == null)
+            {
+                numPad = new PanelNumericoDialog(TallasTextiles, TextBoxSeleccionadoActual.Tag.ToString()) { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
+                return (numPad.ShowDialog() == true ? true : false);
+            }
+            else if (TallasTextiles == null && NumerosCalzado != null)
+            {
+                numPad = new PanelNumericoDialog(NumerosCalzado, TextBoxSeleccionadoActual.Tag.ToString()) { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
+                return (numPad.ShowDialog() == true ? true : false);
+            }
+            else
+                return false;
+        }
+
+        internal void SetTextBoxActual(TextBox sender)
+        {
+            TextBoxSeleccionadoActual = sender;
+        }
+
+        internal bool OpenNumPadCanExecute()
+        {
+            return TextBoxSeleccionadoActual != null;
         }
     }
 }

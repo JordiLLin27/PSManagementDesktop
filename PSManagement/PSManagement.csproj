@@ -132,6 +132,9 @@
     <Compile Include="Dialogs\ExitDialog.xaml.cs">
       <DependentUpon>ExitDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\PanelNumericoDialog.xaml.cs">
+      <DependentUpon>PanelNumericoDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\PinDialog.xaml.cs">
       <DependentUpon>PinDialog.xaml</DependentUpon>
     </Compile>
@@ -175,13 +178,14 @@
     <Compile Include="Model\tallastextiles.cs">
       <DependentUpon>ModeloTienda.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\TotalTallasModel.cs" />
+    <Compile Include="Model\OperacionesTallasYNumeros.cs" />
     <Compile Include="Service\BBDDService.cs" />
     <Compile Include="Service\BlobStorage.cs" />
     <Compile Include="ViewModel\FormularioCrudArticuloVM.cs" />
     <Compile Include="ViewModel\PanelGestionVM.cs" />
     <Compile Include="ViewModel\PanelIntroduccionVM.cs" />
     <Compile Include="ViewModel\PanelInventariosVM.cs" />
+    <Compile Include="ViewModel\PanelNumericoDialogVM.cs" />
     <Compile Include="ViewModel\PanelOpcionesVM.cs" />
     <Compile Include="ViewModel\PanelPrincipalVM.cs" />
     <Compile Include="ViewModel\PanelVentasVM.cs" />
@@ -208,6 +212,10 @@
       <DependentUpon>PanelVentasView.xaml</DependentUpon>
     </Compile>
     <Page Include="Dialogs\ExitDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\PanelNumericoDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
