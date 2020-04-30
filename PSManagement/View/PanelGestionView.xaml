@@ -12,7 +12,7 @@
              Background="{DynamicResource MaterialDesignPaper}"
              TextElement.FontWeight="Medium"
              TextElement.FontSize="18"
-             FontFamily="{materialDesign:MaterialDesignFont}" MaxHeight="978">
+             FontFamily="{materialDesign:MaterialDesignFont}" MaxHeight="978" MaxWidth="1696">
 
     <UserControl.CommandBindings>
         <CommandBinding
@@ -54,52 +54,53 @@
 
     </UserControl.Resources>
 
-    <Grid x:Name="PanelGestionPrincipalGrid" MaxHeight="978">
+    <Grid x:Name="PanelGestionPrincipalGrid" MaxHeight="895" MinHeight="895">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="70"/>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="3*"/>
+            <RowDefinition Height="2.5*"/>
+            <RowDefinition Height="2.5*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
+        <Grid x:Name="ZonaBotonesFiltrosGrid" Grid.Row="0">
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="673*"/>
-                <ColumnDefinition Width="713*"/>
-                <ColumnDefinition Width="310"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2.5*"/>
+                <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.Column="0" Grid.ColumnSpan="2"  Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="4,10,32,10" Height="50" Width="1350">
-                <Label Target="{Binding ElementName=FiltroPorNombreOModeloTextBox}" Content="Seleccionar inventario" Margin="10"/>
+            <StackPanel Grid.Column="0" Grid.ColumnSpan="2"  Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="4,10,32,10" Height="50" Width="Auto">
+                <Label Target="{Binding ElementName=FiltroPorNombreOModeloTextBox}" Content="Filtro Nombre / Modelo" Margin="10"/>
                 <TextBox x:Name="FiltroPorNombreOModeloTextBox" materialDesign:HintAssist.Hint="Escribe el nombre o modelo del ítem a buscar" Margin="10" Width="380" Text="{Binding FiltroTextBox, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <Label Target="{Binding ElementName=SeleccionInventarioComboBox}" Content="Seleccionar inventario" Margin="10"/>
                 <ComboBox x:Name="SeleccionInventarioComboBox" ItemsSource="{Binding ListaInventarios}" SelectedItem="{Binding InventarioSeleccionado}" materialDesign:HintAssist.Hint="Todos" DisplayMemberPath="Descripcion" Margin="10" Width="300"/>
 
-                <Button Content="Filtrar" Margin="10" Command="ApplicationCommands.Find"/>
+                <Button Content="Filtrar" Margin="10" Command="ApplicationCommands.Find" IsDefault="True"/>
                 <Button Content="Quitar filtro" Margin="10" Command="com:CustomCommands.CleanFilter"/>
             </StackPanel>
 
-            <StackPanel Grid.Column="2" Orientation="Horizontal">
+            <StackPanel Grid.Column="2" Orientation="Horizontal" Width="Auto">
                 <Button  Content="Guardar Stock" Margin="10" Height="50"  Command="ApplicationCommands.Save"/>
                 <Button  Content="Deshacer cambios" Margin="10" Height="50" Command="com:CustomCommands.UnDoChanges" Style="{StaticResource MaterialDesignRaisedAccentButton}"/>
             </StackPanel>
 
         </Grid>
 
-        <GroupBox Grid.Row="1" Header="Artículos por tallas" Style="{DynamicResource MaterialDesignGroupBox}" materialDesign:ShadowAssist.ShadowDepth="Depth3" BorderThickness="0">
+        <GroupBox x:Name="ZonaTextilGroupBox" Grid.Row="1" Header="Artículos por tallas" Style="{DynamicResource MaterialDesignGroupBox}" materialDesign:ShadowAssist.ShadowDepth="Depth3" BorderThickness="0">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3*"/>
                     <RowDefinition Height="60"/>
+                    <RowDefinition Height="0.05*"/>
                 </Grid.RowDefinitions>
 
                 <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
                     <Button x:Name="AumentarTallaButton" Content="+" Margin="10" Width="150" Height="45" TextBlock.FontWeight="Bold" TextBlock.FontSize="30" materialDesign:ButtonAssist.CornerRadius="25 25 0 0" Click="AumentarTallaButton_Click"/>
                     <Button x:Name="DisminuirTallaButton" Content="-" Margin="10" Width="150" Height="45" TextBlock.FontWeight="Bold" TextBlock.FontSize="30" materialDesign:ButtonAssist.CornerRadius="25 25 0 0" Click="DisminuirTallaButton_Click"/>
                 </StackPanel>
-
+                <Separator Grid.Row="2"/>
                 <DataGrid x:Name="TablaTallasArticulos" 
                             AutoGenerateColumns="False" MaxWidth="1696"
                             CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False"
@@ -119,31 +120,34 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <materialDesign:DataGridTextColumn Header="XXS" Binding="{Binding XXS, UpdateSourceTrigger=PropertyChanged}" TextBlock.TextAlignment="Center" Width="*" ElementStyle="{StaticResource celdas}" />
-                        <materialDesign:DataGridTextColumn Header="XS" Binding="{Binding XS, UpdateSourceTrigger=PropertyChanged}" Width="*" ElementStyle="{StaticResource celdas}"/>
-                        <materialDesign:DataGridTextColumn Header="S" Binding="{Binding S, UpdateSourceTrigger=PropertyChanged}" Width="*" ElementStyle="{StaticResource celdas}"/>
-                        <materialDesign:DataGridTextColumn Header="M" Binding="{Binding M, UpdateSourceTrigger=PropertyChanged}" Width="*" ElementStyle="{StaticResource celdas}"/>
-                        <materialDesign:DataGridTextColumn Header="L" Binding="{Binding L, UpdateSourceTrigger=PropertyChanged}" Width="*" ElementStyle="{StaticResource celdas}"/>
-                        <materialDesign:DataGridTextColumn Header="XL" Binding="{Binding XL, UpdateSourceTrigger=PropertyChanged}" Width="*" ElementStyle="{StaticResource celdas}"/>
-                        <materialDesign:DataGridTextColumn Header="XXL" Binding="{Binding XXL, UpdateSourceTrigger=PropertyChanged}" Width="*" ElementStyle="{StaticResource celdas}"/>
-                        <materialDesign:DataGridTextColumn Header="Total" Binding="{Binding TotalCantidadArticulo, UpdateSourceTrigger=PropertyChanged}" Width="*" IsReadOnly="True" ElementStyle="{StaticResource celdas}"/>
+                        <materialDesign:DataGridTextColumn Header="XXS" Binding="{Binding XXS, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" TextBlock.TextAlignment="Center" Width="*" ElementStyle="{StaticResource celdas}" />
+                        <materialDesign:DataGridTextColumn Header="XS" Binding="{Binding XS, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" Width="*" ElementStyle="{StaticResource celdas}"/>
+                        <materialDesign:DataGridTextColumn Header="S" Binding="{Binding S, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" Width="*" ElementStyle="{StaticResource celdas}"/>
+                        <materialDesign:DataGridTextColumn Header="M" Binding="{Binding M, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" Width="*" ElementStyle="{StaticResource celdas}"/>
+                        <materialDesign:DataGridTextColumn Header="L" Binding="{Binding L, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" Width="*" ElementStyle="{StaticResource celdas}"/>
+                        <materialDesign:DataGridTextColumn Header="XL" Binding="{Binding XL, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" Width="*" ElementStyle="{StaticResource celdas}"/>
+                        <materialDesign:DataGridTextColumn Header="XXL" Binding="{Binding XXL, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" Width="*" ElementStyle="{StaticResource celdas}"/>
+                        <materialDesign:DataGridTextColumn Header="Total" Binding="{Binding TotalCantidadArticulo, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" Width="*" IsReadOnly="True" ElementStyle="{StaticResource celdas}"/>
                     </DataGrid.Columns>
 
                 </DataGrid>
             </Grid>
         </GroupBox>
 
-        <GroupBox Grid.Row="2" Header="Artículos por números" Style="{DynamicResource MaterialDesignGroupBox}" materialDesign:ShadowAssist.ShadowDepth="Depth3" BorderThickness="0">
+        <GroupBox x:Name="ZonaCalzadoGroupBox" Grid.Row="2" Header="Artículos por números" Style="{DynamicResource MaterialDesignGroupBox}" materialDesign:ShadowAssist.ShadowDepth="Depth3" BorderThickness="0">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3*"/>
                     <RowDefinition Height="60"/>
+                    <RowDefinition Height="0.05*"/>
                 </Grid.RowDefinitions>
 
                 <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
                     <Button x:Name="AumentaNumerosCalzadoButton" Content="+" Margin="10" Width="150" Height="45" TextBlock.FontWeight="Bold" TextBlock.FontSize="30" materialDesign:ButtonAssist.CornerRadius="25 25 0 0" Click="AumentaNumerosCalzadoButton_Click"/>
                     <Button x:Name="DisminuyeNumerosCalzadoButton" Content="-" Margin="10" Width="150" Height="45" TextBlock.FontWeight="Bold" TextBlock.FontSize="30" materialDesign:ButtonAssist.CornerRadius="25 25 0 0" Click="DisminuyeNumerosCalzadoButton_Click"/>
                 </StackPanel>
+
+                <Separator Grid.Row="2"/>
 
                 <DataGrid x:Name="TablaNumerosArticulos" 
                   AutoGenerateColumns="False" MaxWidth="1696"
@@ -164,19 +168,19 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <materialDesign:DataGridTextColumn Header="Número 36" Binding="{Binding C36, UpdateSourceTrigger=PropertyChanged}" Width="*" ElementStyle="{StaticResource celdas}"/>
-                        <materialDesign:DataGridTextColumn Header="Número 37" Binding="{Binding C37, UpdateSourceTrigger=PropertyChanged}" Width="*" ElementStyle="{StaticResource celdas}"/>
-                        <materialDesign:DataGridTextColumn Header="Número 38" Binding="{Binding C38, UpdateSourceTrigger=PropertyChanged}" Width="*" ElementStyle="{StaticResource celdas}"/>
-                        <materialDesign:DataGridTextColumn Header="Número 39" Binding="{Binding C39, UpdateSourceTrigger=PropertyChanged}" Width="*" ElementStyle="{StaticResource celdas}"/>
-                        <materialDesign:DataGridTextColumn Header="Número 40" Binding="{Binding C40, UpdateSourceTrigger=PropertyChanged}" Width="*" ElementStyle="{StaticResource celdas}"/>
-                        <materialDesign:DataGridTextColumn Header="Número 41" Binding="{Binding C41, UpdateSourceTrigger=PropertyChanged}" Width="*" ElementStyle="{StaticResource celdas}"/>
-                        <materialDesign:DataGridTextColumn Header="Número 42" Binding="{Binding C42, UpdateSourceTrigger=PropertyChanged}" Width="*" ElementStyle="{StaticResource celdas}"/>
-                        <materialDesign:DataGridTextColumn Header="Número 43" Binding="{Binding C43, UpdateSourceTrigger=PropertyChanged}" Width="*" ElementStyle="{StaticResource celdas}"/>
-                        <materialDesign:DataGridTextColumn Header="Número 44" Binding="{Binding C44, UpdateSourceTrigger=PropertyChanged}" Width="*" ElementStyle="{StaticResource celdas}"/>
-                        <materialDesign:DataGridTextColumn Header="Número 45" Binding="{Binding C45, UpdateSourceTrigger=PropertyChanged}" Width="*" ElementStyle="{StaticResource celdas}"/>
-                        <materialDesign:DataGridTextColumn Header="Número 46" Binding="{Binding C46, UpdateSourceTrigger=PropertyChanged}" Width="*" ElementStyle="{StaticResource celdas}"/>
-                        <materialDesign:DataGridTextColumn Header="Número 47" Binding="{Binding C47, UpdateSourceTrigger=PropertyChanged}" Width="*" ElementStyle="{StaticResource celdas}"/>
-                        <materialDesign:DataGridTextColumn Header="Total" Binding="{Binding TotalCantidadArticulo, UpdateSourceTrigger=PropertyChanged}" Width="*" IsReadOnly="True" ElementStyle="{StaticResource celdas}"/>
+                        <materialDesign:DataGridTextColumn Header="Número 36" Binding="{Binding C36, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" Width="*" ElementStyle="{StaticResource celdas}"/>
+                        <materialDesign:DataGridTextColumn Header="Número 37" Binding="{Binding C37, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" Width="*" ElementStyle="{StaticResource celdas}"/>
+                        <materialDesign:DataGridTextColumn Header="Número 38" Binding="{Binding C38, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" Width="*" ElementStyle="{StaticResource celdas}"/>
+                        <materialDesign:DataGridTextColumn Header="Número 39" Binding="{Binding C39, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" Width="*" ElementStyle="{StaticResource celdas}"/>
+                        <materialDesign:DataGridTextColumn Header="Número 40" Binding="{Binding C40, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" Width="*" ElementStyle="{StaticResource celdas}"/>
+                        <materialDesign:DataGridTextColumn Header="Número 41" Binding="{Binding C41, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" Width="*" ElementStyle="{StaticResource celdas}"/>
+                        <materialDesign:DataGridTextColumn Header="Número 42" Binding="{Binding C42, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" Width="*" ElementStyle="{StaticResource celdas}"/>
+                        <materialDesign:DataGridTextColumn Header="Número 43" Binding="{Binding C43, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" Width="*" ElementStyle="{StaticResource celdas}"/>
+                        <materialDesign:DataGridTextColumn Header="Número 44" Binding="{Binding C44, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" Width="*" ElementStyle="{StaticResource celdas}"/>
+                        <materialDesign:DataGridTextColumn Header="Número 45" Binding="{Binding C45, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" Width="*" ElementStyle="{StaticResource celdas}"/>
+                        <materialDesign:DataGridTextColumn Header="Número 46" Binding="{Binding C46, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" Width="*" ElementStyle="{StaticResource celdas}"/>
+                        <materialDesign:DataGridTextColumn Header="Número 47" Binding="{Binding C47, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" Width="*" ElementStyle="{StaticResource celdas}"/>
+                        <materialDesign:DataGridTextColumn Header="Total" Binding="{Binding TotalCantidadArticulo, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" Width="*" IsReadOnly="True" ElementStyle="{StaticResource celdas}"/>
                     </DataGrid.Columns>
 
                 </DataGrid>

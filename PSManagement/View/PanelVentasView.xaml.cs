@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PSManagement.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,7 +23,41 @@ namespace PSManagement.View
     {
         public PanelVentasView()
         {
+            DataContext = new PanelVentasVM();
             InitializeComponent();
+        }
+
+        private void CleanFiltersCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            (DataContext as PanelVentasVM).CleanFiltersExecuted();
+        }
+
+        private void CleanFiltersCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = (DataContext as PanelVentasVM).FindCanExecute();
+        }
+
+        private void FindCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            try
+            {
+                (DataContext as PanelVentasVM).FindExecuted();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("No hay elementos para filtrar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+        }
+
+        private void FindCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = (DataContext as PanelVentasVM).FindCanExecute();
+        }
+
+        private void ListaCategoriasListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            (DataContext as PanelVentasVM).CargaArticulosCategoriaSeleccionada();
         }
     }
 }

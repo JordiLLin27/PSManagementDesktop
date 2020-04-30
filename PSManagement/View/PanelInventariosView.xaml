@@ -12,7 +12,7 @@
              Background="{DynamicResource MaterialDesignPaper}"
              TextElement.FontWeight="Medium"
              TextElement.FontSize="18"
-             FontFamily="{materialDesign:MaterialDesignFont}" MaxHeight="978">
+             FontFamily="{materialDesign:MaterialDesignFont}" MaxHeight="978" MaxWidth="1696">
 
     <!--Recursos-->
     <UserControl.Resources>

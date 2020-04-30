@@ -7,6 +7,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 
 namespace PSManagement.Service
 {
@@ -135,6 +136,19 @@ namespace PSManagement.Service
                         select art;
 
             return query.First();
+        }
+
+        public static CollectionViewSource GetArticulosPorCategoria(int idCategoria)
+        {
+            CollectionViewSource collection = new CollectionViewSource();
+
+            var query = from art in _context.articulos
+                        where art.Categoria == idCategoria
+                        select art;
+
+            collection.Source = query.ToList();
+
+            return collection;
         }
 
         //*******

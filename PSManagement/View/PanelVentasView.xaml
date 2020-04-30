@@ -4,15 +4,115 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PSManagement.View"
+             xmlns:com="clr-namespace:PSManagement.Commands"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
+             d:DesignHeight="978" d:DesignWidth="1696"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              Background="{DynamicResource MaterialDesignPaper}"
              TextElement.FontWeight="Medium"
              TextElement.FontSize="14"
-             FontFamily="{materialDesign:MaterialDesignFont}">
-    <Grid>
-        
-    </Grid>
+             FontFamily="{materialDesign:MaterialDesignFont}" MaxHeight="978" MaxWidth="1696">
+
+    <UserControl.CommandBindings>
+        <CommandBinding
+            Command="ApplicationCommands.Find"
+            Executed="FindCommandBinding_Executed"
+            CanExecute="FindCommandBinding_CanExecute"
+            />
+        <CommandBinding
+            Command="com:CustomCommands.CleanFilter"
+            Executed="CleanFiltersCommandBinding_Executed"
+            CanExecute="CleanFiltersCommandBinding_CanExecute"/>
+    </UserControl.CommandBindings>
+
+    <DockPanel x:Name="PanelPrincipalDockPanel" MinHeight="910">
+
+        <Border DockPanel.Dock="Right" BorderThickness="2" BorderBrush="LightBlue" MinWidth="400">
+            <DockPanel x:Name="RegistroVentaDockPanel" >
+                <StackPanel DockPanel.Dock="Top"  Orientation="Horizontal">
+                    <TextBlock FontSize="30" Margin="15">Venta actual:</TextBlock>
+                    <Button x:Name="CancelarVentaButton" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Cancelar Venta" Margin="50,0,0,0"/>
+                </StackPanel>
+                <Button x:Name="ConfirmarCompraButton" DockPanel.Dock="Bottom" Margin="10" Height="70">
+                    <Button.Content>
+                        <TextBlock FontSize="25" HorizontalAlignment="Left" Foreground="White">
+                            <Run Text="Precio Total: "/>
+                            <Run Text="{Binding PrecioTotal}"/>
+                            <Run Text=" €"/>
+                        </TextBlock>
+                    </Button.Content>
+                </Button>
+                <ListBox x:Name="ListaFacturaListBox">
+
+                </ListBox>
+            </DockPanel>
+        </Border>
+
+
+        <Border DockPanel.Dock="Bottom" BorderBrush="LightBlue" BorderThickness="1">
+            <StackPanel x:Name="SelectorCategoriasStackPanel" Orientation="Horizontal">
+                <ListBox x:Name="ListaCategoriasListBox" ItemsSource="{Binding ListaCategorias}" SelectedItem="{Binding CategoriaSeleccionada}" SelectionChanged="ListaCategoriasListBox_SelectionChanged" SelectionMode="Single">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"></StackPanel>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border Height="120" Width="120" CornerRadius="10,5,10,5" Background="{DynamicResource PrimaryHueMidBrush }">
+                                <TextBlock TextWrapping="WrapWithOverflow" Text="{Binding Categoria}" FontSize="20" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+        </Border>
+
+        <Border DockPanel.Dock="Top" BorderBrush="LightBlue" BorderThickness="1" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock x:Name="CategoriaActualSeleccionadaTextBlock" Text="{Binding CategoriaSeleccionada.Categoria}" TextAlignment="Center" VerticalAlignment="Center" FontSize="25"></TextBlock>
+
+                <StackPanel x:Name="FiltrosStackPanel" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Label Target="{Binding ElementName=FiltroPorNombreOModeloTextBox}" Content="Buscar por nombre / modelo" FontSize="20" Margin="15"/>
+                    <TextBox x:Name="FiltroPorNombreOModeloTextBox" Margin="15" Width="300" Text="{Binding FiltroTextBox, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Button Content="Filtrar" Margin="10" Command="ApplicationCommands.Find" IsDefault="True"/>
+                    <Button Content="Quitar filtro" Margin="10" Command="com:CustomCommands.CleanFilter" IsCancel="True"/>
+                </StackPanel>
+
+            </Grid>
+        </Border>
+
+        <Border BorderBrush="LightBlue" BorderThickness="1">
+            <ListBox x:Name="ListaArticulosSeleccionadosListBox" 
+                     ItemsSource="{Binding ListaArticulosSeleccionados.View, UpdateSourceTrigger=PropertyChanged}"
+                     SelectedItem="{Binding ArticuloSeleccionado, UpdateSourceTrigger=PropertyChanged}">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="Teal" BorderThickness="1" Height="150" Width="150" CornerRadius="10,5,10,5" Margin="5">
+                            <StackPanel HorizontalAlignment="Center" Height="120" Width="120">
+                                <Image Source="{Binding UrlImagen}" Height="100" Width="100"/>
+                                <TextBlock Text="{Binding Nombre}" TextAlignment="Center" TextWrapping="WrapWithOverflow"/>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.GroupStyle>
+                    
+                </ListBox.GroupStyle>
+            </ListBox>
+        </Border>
+
+    </DockPanel>
 </UserControl>

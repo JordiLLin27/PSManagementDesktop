@@ -123,7 +123,7 @@ namespace PSManagement.View
 
         private void DataGridCell_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (((DataGridCell)sender).Column.Header.ToString() != "Total")
+            if (((DataGridCell)sender).Column.Header.ToString() != "Total" && ((DataGridCell)sender).Column.Header.ToString() != "Artículo")
                 (DataContext as PanelGestionVM).DataGridCell_MouseDoubleClick(((DataGridCell)sender).DataContext, ((DataGridCell)sender).Column.Header.ToString());
             else
                 e.Handled = true;
