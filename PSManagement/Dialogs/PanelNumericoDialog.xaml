@@ -11,7 +11,7 @@
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="{materialDesign:MaterialDesignFont}"
-        Height="460" Width="300" WindowState="Normal" WindowStyle="None" ResizeMode="NoResize" BorderThickness="7" BorderBrush="{DynamicResource SecondaryHueLightBrush}">
+        Height="460" Width="300" WindowState="Normal" WindowStyle="None" ResizeMode="NoResize" BorderThickness="7" BorderBrush="{DynamicResource SecondaryHueLightBrush}" KeyDown="Window_KeyDown">
 
     <Grid x:Name="PrincipalGrid" Margin="5">
         <Grid.RowDefinitions>
@@ -52,13 +52,13 @@
             </Viewbox>
         </Button>
 
-        <Button x:Name="CancelarButton" Grid.Row="2" Grid.Column="4" Margin="5" Tag="Cancel" Height="Auto" BorderBrush="IndianRed" Background="IndianRed" ToolTip="Salir del panel numérico" Click="CancelarButton_Click">
+        <Button x:Name="CancelarButton" Grid.Row="2" Grid.Column="4" Margin="5" Tag="Cancel" Height="Auto" BorderBrush="IndianRed" Background="IndianRed" ToolTip="Salir del panel numérico" IsCancel="True" Click="CancelarButton_Click">
             <Viewbox>
                 <materialDesign:PackIcon Kind="CloseBoxOutline"/>
             </Viewbox>
         </Button>
 
-        <Button x:Name="IntroButton" Grid.Row="3" Grid.Column="3" Grid.RowSpan="2" Margin="5" Tag="Enter" Height="Auto" Style="{StaticResource MaterialDesignRaisedAccentButton}" Click="IntroButton_Click">
+        <Button x:Name="IntroButton" Grid.Row="3" Grid.Column="3" Grid.RowSpan="2" Margin="5" Tag="Enter" Height="Auto" Style="{StaticResource MaterialDesignRaisedAccentButton}" Click="IntroButton_Click" IsDefault="True">
             <Viewbox>
                 <TextBlock>Intro</TextBlock>
             </Viewbox>

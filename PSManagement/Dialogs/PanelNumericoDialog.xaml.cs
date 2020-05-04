@@ -78,7 +78,14 @@ namespace PSManagement.Dialogs
 
         private void IntroButton_Click(object sender, RoutedEventArgs e)
         {
-            DialogResult = (DataContext as PanelNumericoDialogVM).SetTallasONumeros(int.Parse(ResultadoTextBlock.Text));
+            try
+            {
+                DialogResult = (DataContext as PanelNumericoDialogVM).SetTallasONumeros(int.Parse(ResultadoTextBlock.Text));
+            }
+            catch (OverflowException)
+            {
+                MessageBox.Show("Has intentado introducir un número muy grande", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void CancelarButton_Click(object sender, RoutedEventArgs e)
@@ -87,6 +94,77 @@ namespace PSManagement.Dialogs
         }
 
         private void BackSpaceButton_Click(object sender, RoutedEventArgs e)
+        {
+            BackSpace();
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            string teclaPulsada = "";
+            if (ResultadoTextBlock.Text == "0" && e.Key != Key.Back)
+                ResultadoTextBlock.Text = "";
+            switch (e.Key)
+            {
+
+                case Key.D0:
+                case Key.NumPad0:
+                    teclaPulsada = "0";
+                    if (ResultadoTextBlock.Text == "0")
+                        e.Handled = true;
+                    break;
+                case Key.D1:
+                case Key.NumPad1:
+                    teclaPulsada = "1";
+                    break;
+                case Key.D2:
+                case Key.NumPad2:
+                    teclaPulsada = "2";
+                    break;
+                case Key.D3:
+                case Key.NumPad3:
+                    teclaPulsada = "3";
+                    break;
+                case Key.D4:
+                case Key.NumPad4:
+                    teclaPulsada = "4";
+                    break;
+                case Key.D5:
+                case Key.NumPad5:
+                    teclaPulsada = "5";
+                    break;
+                case Key.D6:
+                case Key.NumPad6:
+                    teclaPulsada = "6";
+                    break;
+                case Key.D7:
+                case Key.NumPad7:
+                    teclaPulsada = "7";
+                    break;
+                case Key.D8:
+                case Key.NumPad8:
+                    teclaPulsada = "8";
+                    break;
+                case Key.D9:
+                case Key.NumPad9:
+                    teclaPulsada = "9";
+                    break;
+
+                case Key.Back:
+                    BackSpace();
+                    break;
+
+                default:
+                    e.Handled = true;
+                    break;
+            }
+
+
+
+            if (!string.IsNullOrEmpty(teclaPulsada))
+                ResultadoTextBlock.Text += teclaPulsada;
+        }
+
+        private void BackSpace()
         {
             if (ResultadoTextBlock.Text.Length == 1)
                 ResultadoTextBlock.Text = "0";

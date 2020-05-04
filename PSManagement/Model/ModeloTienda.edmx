@@ -37,9 +37,11 @@
           <Key>
             <PropertyRef Name="CodFactura" />
             <PropertyRef Name="CodArticulo" />
+            <PropertyRef Name="TallaONum" />
           </Key>
           <Property Name="CodFactura" Type="int" Nullable="false" />
           <Property Name="CodArticulo" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="TallaONum" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="CantidadArticulo" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="facturas">
@@ -265,12 +267,14 @@
           <Key>
             <PropertyRef Name="CodFactura" />
             <PropertyRef Name="CodArticulo" />
+            <PropertyRef Name="TallaONum" />
           </Key>
           <Property Name="CodFactura" Type="Int32" Nullable="false" />
           <Property Name="CodArticulo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CantidadArticulo" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ARTICULO" Relationship="Self.fk_detalles_articulo" FromRole="detallesfactura" ToRole="articulos" />
           <NavigationProperty Name="FACTURA" Relationship="Self.fk_detalles_factura" FromRole="detallesfactura" ToRole="facturas" />
+          <Property Name="TallaONum" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="facturas">
           <Key>
@@ -495,6 +499,7 @@
           <EntitySetMapping Name="detallesfactura">
             <EntityTypeMapping TypeName="bdtiendaModel.detallesfactura">
               <MappingFragment StoreEntitySet="detallesfactura">
+                <ScalarProperty Name="TallaONum" ColumnName="TallaONum" />
                 <ScalarProperty Name="CodFactura" ColumnName="CodFactura" />
                 <ScalarProperty Name="CodArticulo" ColumnName="CodArticulo" />
                 <ScalarProperty Name="CantidadArticulo" ColumnName="CantidadArticulo" />

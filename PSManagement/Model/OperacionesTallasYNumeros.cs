@@ -123,6 +123,122 @@ namespace PSManagement.Model
                 return false;
             }
         }
+
+        public void SumaNumero(string numero)
+        {
+            switch (numero)
+            {
+                case "Número 36":
+                    C36++;
+                    break;
+
+                case "Número 37":
+                    C37++;
+                    break;
+
+                case "Número 38":
+                    C38++;
+                    break;
+
+                case "Número 39":
+                    C39++;
+                    break;
+
+                case "Número 40":
+                    C40++;
+                    break;
+
+                case "Número 41":
+                    C41++;
+                    break;
+
+                case "Número 42":
+                    C42++;
+                    break;
+
+                case "Número 43":
+                    C43++;
+                    break;
+
+                case "Número 44":
+                    C44++;
+                    break;
+
+                case "Número 45":
+                    C45++;
+                    break;
+
+                case "Número 46":
+                    C46++;
+                    break;
+
+                case "Número 47":
+                    C47++;
+                    break;
+
+                default:
+                    break;
+            }
+            this.TotalCantidadArticulo = GetTotalItems();
+        }
+
+        public void RestaNumero(string numero)
+        {
+            switch (numero)
+            {
+                case "Número 36":
+                    C36--;
+                    break;
+
+                case "Número 37":
+                    C37--;
+                    break;
+
+                case "Número 38":
+                    C38--;
+                    break;
+
+                case "Número 39":
+                    C39--;
+                    break;
+
+                case "Número 40":
+                    C40--;
+                    break;
+
+                case "Número 41":
+                    C41--;
+                    break;
+
+                case "Número 42":
+                    C42--;
+                    break;
+
+                case "Número 43":
+                    C43--;
+                    break;
+
+                case "Número 44":
+                    C44--;
+                    break;
+
+                case "Número 45":
+                    C45--;
+                    break;
+
+                case "Número 46":
+                    C46--;
+                    break;
+
+                case "Número 47":
+                    C47--;
+                    break;
+
+                default:
+                    break;
+            }
+            this.TotalCantidadArticulo = GetTotalItems();
+        }
     }
 
     public partial class tallastextiles
@@ -136,25 +252,25 @@ namespace PSManagement.Model
         {
             switch (talla)
             {
-                case "XXS":
+                case "Talla XXS":
                     return XXS;
 
-                case "XS":
+                case "Talla XS":
                     return XS;
 
-                case "S":
+                case "Talla S":
                     return S;
 
-                case "M":
+                case "Talla M":
                     return M;
 
-                case "L":
+                case "Talla L":
                     return L;
 
-                case "XL":
+                case "Talla XL":
                     return XL;
 
-                case "XXL":
+                case "Talla XXL":
                     return XXL;
 
                 default:
@@ -168,36 +284,36 @@ namespace PSManagement.Model
             {
                 switch (talla)
                 {
-                    case "XXS":
+                    case "Talla XXS":
                         this.XXS = cantidad;
                         break;
 
-                    case "XS":
+                    case "Talla XS":
                         this.XS = cantidad;
                         break;
 
-                    case "S":
+                    case "Talla S":
                         this.S = cantidad;
                         break;
 
-                    case "M":
+                    case "Talla M":
                         this.M = cantidad;
                         break;
 
-                    case "L":
+                    case "Talla L":
                         this.L = cantidad;
                         break;
 
-                    case "XL":
+                    case "Talla XL":
                         this.XL = cantidad;
                         break;
 
-                    case "XXL":
+                    case "Talla XXL":
                         this.XXL = cantidad;
                         break;
 
                     default:
-                        break;
+                        return false;
                 }
                 this.TotalCantidadArticulo = GetTotalItems();
                 return true;
@@ -207,5 +323,82 @@ namespace PSManagement.Model
                 return false;
             }
         }
+
+        public void SumaTalla(string talla)
+        {
+            switch (talla)
+            {
+                case "Talla XXS":
+                    XXS++;
+                    break;
+
+                case "Talla XS":
+                    XS++;
+                    break;
+
+                case "Talla S":
+                    S++;
+                    break;
+
+                case "Talla M":
+                    M++;
+                    break;
+
+                case "Talla L":
+                    L++;
+                    break;
+
+                case "Talla XL":
+                    XL++;
+                    break;
+
+                case "Talla XXL":
+                    XXL++;
+                    break;
+
+                default:
+                    break;
+            }
+            this.TotalCantidadArticulo = GetTotalItems();
+        }
+
+        public void RestaTalla(string talla)
+        {
+            switch (talla)
+            {
+                case "Talla XXS":
+                    XXS--;
+                    break;
+
+                case "Talla XS":
+                    XS--;
+                    break;
+
+                case "Talla S":
+                    S--;
+                    break;
+
+                case "Talla M":
+                    M--;
+                    break;
+
+                case "Talla L":
+                    L--;
+                    break;
+
+                case "Talla XL":
+                    XL--;
+                    break;
+
+                case "Talla XXL":
+                    XXL--;
+                    break;
+
+                default:
+                    break;
+            }
+            this.TotalCantidadArticulo = GetTotalItems();
+        }
+
     }
 }

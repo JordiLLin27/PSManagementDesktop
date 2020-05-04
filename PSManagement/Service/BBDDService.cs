@@ -143,13 +143,80 @@ namespace PSManagement.Service
             CollectionViewSource collection = new CollectionViewSource();
 
             var query = from art in _context.articulos
-                        where art.Categoria == idCategoria
+                        where art.Categoria == idCategoria &&
+                        (art.TALLASTEXTILES.TotalCantidadArticulo > 0 || art.NUMEROSCALZADO.TotalCantidadArticulo > 0)
                         select art;
 
             collection.Source = query.ToList();
 
             return collection;
         }
+
+        private static bool TieneTallas(articulos articulo)
+        {
+            if (articulo.TALLASTEXTILES != null)
+            {
+                if (articulo.TALLASTEXTILES.TotalCantidadArticulo <= 0)
+                {
+                    return false;
+
+                }
+                else
+                    return true;
+            }
+            else if (articulo.NUMEROSCALZADO != null)
+            {
+                if (articulo.NUMEROSCALZADO.TotalCantidadArticulo <= 0)
+                {
+                    return false;
+                }
+                else
+                    return true;
+            }
+            else return false;
+        }
+
+        public static tallastextiles GetArticuloTallasTextiles(articulos articuloBuscar)
+        {
+            var query = from tallas in _context.tallastextiles
+                        where tallas.ARTICULO.CodArticulo == articuloBuscar.CodArticulo
+                        select tallas;
+
+            if (query.Count() == 0)
+                return null;
+            else
+                return query.First();
+        }
+
+        public static numeroscalzado GetArticuloNumerosCalzado(articulos articuloBuscar)
+        {
+            var query = from numeros in _context.numeroscalzado
+                        where numeros.ARTICULO.CodArticulo == articuloBuscar.CodArticulo
+                        select numeros;
+
+            if (query.Count() == 0)
+                return null;
+            else
+                return query.First();
+        }
+
+        public static int GetIdFactura()
+        {
+            var query = from fact in _context.facturas
+                        select fact;
+
+            if (query.Count() > 0)
+                return query.ToList().Last().IdFactura;
+            else
+                return 0;
+        }
+
+        /*
+        public static detallesfactura GetDetallesFactura(int idFactura, string CodArt, string talla)
+        {
+            
+        }
+        */
 
         //*******
         // UPDATE
@@ -210,6 +277,10 @@ namespace PSManagement.Service
             return SaveChanges();
         }
 
+
+        //*******
+        // Auxiliares
+        //*******
         public static void RevertChanges()
         {
             foreach (DbEntityEntry entry in _context.ChangeTracker.Entries())
@@ -236,6 +307,18 @@ namespace PSManagement.Service
                     default: break;
                 }
             }
+        }
+
+        public static bool ExisteDetallesArticuloEnFactura(string talla)
+        {
+            var query = from detalles in _context.detallesfactura
+                        where detalles.TallaONum.ToLower().Contains(talla.ToLower())
+                        select detalles;
+
+            if (query.ToList().Count > 0)
+                return true;
+            else
+                return false;
         }
     }
 }

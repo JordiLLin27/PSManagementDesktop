@@ -1,13 +1,14 @@
 ﻿using PSManagement.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace PSManagement.ViewModel
 {
-    class PanelNumericoDialogVM
+    class PanelNumericoDialogVM : INotifyPropertyChanged
     {
         public numeroscalzado Numeroscalzado { get; set; }
         public tallastextiles Tallastextiles { get; set; }
@@ -22,6 +23,8 @@ namespace PSManagement.ViewModel
 
             this.TallaONum = tallaONumSeleccionado;
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         internal bool SetTallasONumeros(int cantidad)
         {

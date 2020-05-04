@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace PSManagement.ViewModel
 {
-    class PinDialogVM
+    class PinDialogVM : INotifyPropertyChanged
     {
         public string PrimerDigito { get; set; }
         public string SegundoDigito { get; set; }
@@ -25,6 +26,8 @@ namespace PSManagement.ViewModel
         public PinDialogVM()
         {
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public bool CompruebaPIN()
         {

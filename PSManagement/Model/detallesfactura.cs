@@ -17,6 +17,7 @@ namespace PSManagement.Model
         public int CodFactura { get; set; }
         public string CodArticulo { get; set; }
         public int CantidadArticulo { get; set; }
+        public string TallaONum { get; set; }
     
         public virtual articulos ARTICULO { get; set; }
         public virtual facturas FACTURA { get; set; }

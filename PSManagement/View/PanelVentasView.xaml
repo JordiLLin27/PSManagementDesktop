@@ -18,13 +18,29 @@
         <CommandBinding
             Command="ApplicationCommands.Find"
             Executed="FindCommandBinding_Executed"
-            CanExecute="FindCommandBinding_CanExecute"
-            />
+            CanExecute="FindCommandBinding_CanExecute"/>
+
+        <CommandBinding
+            Command="ApplicationCommands.Delete"
+            Executed="DeleteCommandBinding_Executed"
+            CanExecute="DeleteCommandBinding_CanExecute"/>
+
         <CommandBinding
             Command="com:CustomCommands.CleanFilter"
             Executed="CleanFiltersCommandBinding_Executed"
             CanExecute="CleanFiltersCommandBinding_CanExecute"/>
+
+        <CommandBinding
+            Command="com:CustomCommands.Sell"
+            Executed="SellCommandBinding_Executed"
+            CanExecute="SellCommandBinding_CanExecute"/>
     </UserControl.CommandBindings>
+
+    <UserControl.Resources>
+        <Style TargetType="ListBoxItem">
+            <EventSetter Event="MouseDoubleClick" Handler="ListBoxItem_MouseDoubleClick"/>
+        </Style>
+    </UserControl.Resources>
 
     <DockPanel x:Name="PanelPrincipalDockPanel" MinHeight="910">
 
@@ -32,9 +48,9 @@
             <DockPanel x:Name="RegistroVentaDockPanel" >
                 <StackPanel DockPanel.Dock="Top"  Orientation="Horizontal">
                     <TextBlock FontSize="30" Margin="15">Venta actual:</TextBlock>
-                    <Button x:Name="CancelarVentaButton" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Cancelar Venta" Margin="50,0,0,0"/>
+                    <Button x:Name="CancelarVentaButton" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Cancelar Venta" Margin="50,0,0,0" Command="ApplicationCommands.Delete"/>
                 </StackPanel>
-                <Button x:Name="ConfirmarCompraButton" DockPanel.Dock="Bottom" Margin="10" Height="70">
+                <Button x:Name="ConfirmarCompraButton" DockPanel.Dock="Bottom" Margin="10" Height="70" Command="com:CustomCommands.Sell">
                     <Button.Content>
                         <TextBlock FontSize="25" HorizontalAlignment="Left" Foreground="White">
                             <Run Text="Precio Total: "/>
@@ -43,30 +59,64 @@
                         </TextBlock>
                     </Button.Content>
                 </Button>
-                <ListBox x:Name="ListaFacturaListBox">
+                <ListBox x:Name="ListaFacturaListBox" ItemsSource="{Binding DetallesArticulosFactura}" SelectedItem="{Binding DetallesFacturaSeleccionado}" MaxWidth="390">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical" Margin="10"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <materialDesign:Card Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" Padding="8" UniformCornerRadius="6" >
+                                <Grid MinWidth="340" MaxWidth="340">
 
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1.5*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+
+
+
+                                    <TextBlock Grid.Column="0" Text="{Binding ARTICULO.Nombre}" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding TallaONum}" Margin="5" VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Column="2" Margin="5" VerticalAlignment="Center">
+                                        <Run Text="x"/>
+                                        <Run Text="{Binding CantidadArticulo}"/>
+                                    </TextBlock>
+                                    <TextBlock Grid.Column="3" Text="{Binding ARTICULO.PrecioUnitario, StringFormat='#.00€'}" Margin="5" VerticalAlignment="Center"/>
+                                    <Button Grid.Column="4" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource PrimaryHueLightBrush}" BorderThickness="0" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right">
+                                        <Button.Content>
+                                            <materialDesign:PackIcon Kind="TrashCan"/>
+                                        </Button.Content>
+                                    </Button>
+                                </Grid>
+                            </materialDesign:Card>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
                 </ListBox>
             </DockPanel>
         </Border>
 
 
         <Border DockPanel.Dock="Bottom" BorderBrush="LightBlue" BorderThickness="1">
-            <StackPanel x:Name="SelectorCategoriasStackPanel" Orientation="Horizontal">
-                <ListBox x:Name="ListaCategoriasListBox" ItemsSource="{Binding ListaCategorias}" SelectedItem="{Binding CategoriaSeleccionada}" SelectionChanged="ListaCategoriasListBox_SelectionChanged" SelectionMode="Single">
-                    <ListBox.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel Orientation="Horizontal"></StackPanel>
-                        </ItemsPanelTemplate>
-                    </ListBox.ItemsPanel>
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Border Height="120" Width="120" CornerRadius="10,5,10,5" Background="{DynamicResource PrimaryHueMidBrush }">
-                                <TextBlock TextWrapping="WrapWithOverflow" Text="{Binding Categoria}" FontSize="20" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Border>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </StackPanel>
+            <ListBox x:Name="ListaCategoriasListBox" ItemsSource="{Binding ListaCategorias}" SelectedItem="{Binding CategoriaSeleccionada}" SelectionChanged="ListaCategoriasListBox_SelectionChanged" SelectionMode="Single">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"></StackPanel>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border Height="120" Width="120" CornerRadius="10,5,10,5" Background="{DynamicResource PrimaryHueMidBrush }">
+                            <TextBlock TextWrapping="WrapWithOverflow" Text="{Binding Categoria}" FontSize="20" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </Border>
 
         <Border DockPanel.Dock="Top" BorderBrush="LightBlue" BorderThickness="1" >
@@ -80,8 +130,8 @@
                 <TextBlock x:Name="CategoriaActualSeleccionadaTextBlock" Text="{Binding CategoriaSeleccionada.Categoria}" TextAlignment="Center" VerticalAlignment="Center" FontSize="25"></TextBlock>
 
                 <StackPanel x:Name="FiltrosStackPanel" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Label Target="{Binding ElementName=FiltroPorNombreOModeloTextBox}" Content="Buscar por nombre / modelo" FontSize="20" Margin="15"/>
-                    <TextBox x:Name="FiltroPorNombreOModeloTextBox" Margin="15" Width="300" Text="{Binding FiltroTextBox, UpdateSourceTrigger=PropertyChanged}"/>
+                    <ComboBox x:Name="SeleccionarColorFiltroComboBox" ItemsSource="{Binding ListaColores}" SelectedItem="{Binding ColorSeleccionado}" DisplayMemberPath="Color" materialDesign:HintAssist.Hint="Selecciona un color" Width="300" Margin="5"/>
+                    <TextBox x:Name="FiltroPorNombreOModeloTextBox" Margin="15" Width="300" Text="{Binding FiltroTextBox, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Buscar por nombre / modelo"/>
                     <Button Content="Filtrar" Margin="10" Command="ApplicationCommands.Find" IsDefault="True"/>
                     <Button Content="Quitar filtro" Margin="10" Command="com:CustomCommands.CleanFilter" IsCancel="True"/>
                 </StackPanel>
@@ -89,10 +139,10 @@
             </Grid>
         </Border>
 
-        <Border BorderBrush="LightBlue" BorderThickness="1">
+        <Border BorderBrush="LightBlue" BorderThickness="1" MaxHeight="706">
             <ListBox x:Name="ListaArticulosSeleccionadosListBox" 
                      ItemsSource="{Binding ListaArticulosSeleccionados.View, UpdateSourceTrigger=PropertyChanged}"
-                     SelectedItem="{Binding ArticuloSeleccionado, UpdateSourceTrigger=PropertyChanged}">
+                     SelectedItem="{Binding ArticuloSeleccionado}" SelectionMode="Single">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel Orientation="Horizontal"/>
@@ -100,7 +150,7 @@
                 </ListBox.ItemsPanel>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Border BorderBrush="Teal" BorderThickness="1" Height="150" Width="150" CornerRadius="10,5,10,5" Margin="5">
+                        <Border BorderBrush="{DynamicResource SecondaryHueLightBrush}" BorderThickness="1" Height="150" Width="150" CornerRadius="10,5,10,5" Margin="5">
                             <StackPanel HorizontalAlignment="Center" Height="120" Width="120">
                                 <Image Source="{Binding UrlImagen}" Height="100" Width="100"/>
                                 <TextBlock Text="{Binding Nombre}" TextAlignment="Center" TextWrapping="WrapWithOverflow"/>
@@ -108,9 +158,6 @@
                         </Border>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
-                <ListBox.GroupStyle>
-                    
-                </ListBox.GroupStyle>
             </ListBox>
         </Border>
 

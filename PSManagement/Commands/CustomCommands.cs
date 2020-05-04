@@ -149,6 +149,20 @@ namespace PSManagement.Commands
                   new KeyGesture(Key.Z, ModifierKeys.Control)
               }
           );
+
+        public static readonly RoutedUICommand SelectSize = new RoutedUICommand
+          (
+              "SelectSize",
+              "SelectSize",
+              typeof(CustomCommands)
+          );
+
+        public static readonly RoutedUICommand Sell = new RoutedUICommand
+          (
+              "Sell",
+              "Sell",
+              typeof(CustomCommands)
+          );
     }
 
 }

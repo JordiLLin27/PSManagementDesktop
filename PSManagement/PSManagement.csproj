@@ -138,6 +138,9 @@
     <Compile Include="Dialogs\PinDialog.xaml.cs">
       <DependentUpon>PinDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\SelectorTallasDialog.xaml.cs">
+      <DependentUpon>SelectorTallasDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\articulos.cs">
       <DependentUpon>ModeloTienda.tt</DependentUpon>
     </Compile>
@@ -193,6 +196,7 @@
       <DependentUpon>FormularioCrudArticuloDialogView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\PinDialogVM.cs" />
+    <Compile Include="ViewModel\SelectorTallasDialogVM.cs" />
     <Compile Include="View\PanelGestionView.xaml.cs">
       <DependentUpon>PanelGestionView.xaml</DependentUpon>
     </Compile>
@@ -220,6 +224,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\PinDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\SelectorTallasDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
