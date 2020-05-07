@@ -25,7 +25,7 @@ namespace PSManagement.Model
         public int Categoria { get; set; }
         public int Color { get; set; }
         public string Nombre { get; set; }
-        public double PrecioUnitario { get; set; }
+        public float PrecioUnitario { get; set; }
         public int StockMinimo { get; set; }
         public sbyte StockDisponible { get; set; }
         public string UrlImagen { get; set; }

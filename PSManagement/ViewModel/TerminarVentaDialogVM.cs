@@ -28,7 +28,17 @@ namespace PSManagement.ViewModel
 
         internal bool SaveCanExecute()
         {
-            return CantidadAbonadaCliente > 0 && CantidadAbonadaCliente >= FacturaFinal.ImporteTotalConIva;
+            if (!string.IsNullOrEmpty(FacturaFinal.TipoDePago))
+            {
+                if (FacturaFinal.TipoDePago.Equals("Efectivo"))
+                {
+                    return CantidadAbonadaCliente > 0 && CantidadAbonadaCliente >= FacturaFinal.ImporteTotalConIva;
+                }
+                else
+                    return true;
+            }
+            else
+                return false;
         }
 
         public void CalcularCambio()
@@ -59,10 +69,7 @@ namespace PSManagement.ViewModel
                 FacturaFinal.FechaCreacion = DateTime.Now;
                 FacturaFinal.ImporteTotalSinIVa = PrecioSinIVa();
 
-                FacturaFinal.ImporteTotalConIva = Math.Round(FacturaFinal.ImporteTotalConIva, 2);
-                FacturaFinal.ImporteTotalSinIVa = Math.Round(FacturaFinal.ImporteTotalSinIVa, 2);
 
-                ImprimirFactura();
                 BBDDService.AddFactura(FacturaFinal);
 
                 foreach (detallesfactura item in DetallesFactura)
@@ -70,6 +77,8 @@ namespace PSManagement.ViewModel
                     item.CodFactura = FacturaFinal.IdFactura;
                     BBDDService.AddDetallesAFactura(item);
                 }
+
+                ImprimirFactura();
                 return true;
             }
             catch (Exception)
@@ -88,22 +97,22 @@ namespace PSManagement.ViewModel
 
             foreach (detallesfactura item in DetallesFactura)
             {
-                cadena.Append(item.ARTICULO.Nombre + "\t\t\t\tuds: " + item.CantidadArticulo + "\t\t" + Math.Round(item.ARTICULO.PrecioUnitario, 2) + "€\n");
+                cadena.Append(item.ARTICULO.Nombre + "\t\t" + item.TallaONum + "\t\tuds: " + item.CantidadArticulo + "\t\t" + Math.Round(item.ARTICULO.PrecioUnitario, 2) + "€\n");
             }
             cadena.Append("---------------------------------------------------\n" +
-                "\t\t\tImporte total sin IVA: " + FacturaFinal.ImporteTotalSinIVa + " €\n\t\t\t" + "IVA: " + VatApiService.RescatarIva() + "%\n\t\t\tImporte total con iva: " + FacturaFinal.ImporteTotalConIva + " €");
+                "\t\t\tImporte total sin IVA: " + Math.Round(FacturaFinal.ImporteTotalSinIVa, 2) + " €\n\t\t\t" + "IVA: " + VatApiService.RescatarIva() + "%\n\t\t\tImporte total con iva: " + Math.Round(FacturaFinal.ImporteTotalConIva, 2) + " €");
 
-            Properties.Settings.Default.RutaFacturasDefault += @"\factura" + FacturaFinal.IdFactura + FacturaFinal.FechaCreacion.ToShortDateString().Replace("/", "") + ".txt";
+            Properties.Settings.Default.RutaFacturasDefault += @"\factura" + FacturaFinal.IdFactura + DateTime.Now.ToShortDateString().Replace("/", "") + DateTime.Now.ToShortTimeString().Replace(":", "") + ".txt";
             File.WriteAllText(Properties.Settings.Default.RutaFacturasDefault, cadena.ToString(), Encoding.UTF8);
         }
 
-        private double PrecioSinIVa()
+        private float PrecioSinIVa()
         {
             int iva = VatApiService.RescatarIva();
 
-            double porcentajeIva = (double)iva / 100;
+            float porcentajeIva = (float)iva / 100;
 
-            double precioSinIva = FacturaFinal.ImporteTotalConIva - (porcentajeIva * FacturaFinal.ImporteTotalConIva);
+            float precioSinIva = FacturaFinal.ImporteTotalConIva - (porcentajeIva * FacturaFinal.ImporteTotalConIva);
 
             return precioSinIva;
         }

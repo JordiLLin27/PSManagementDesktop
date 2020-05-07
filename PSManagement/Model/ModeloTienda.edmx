@@ -14,7 +14,7 @@
           <Property Name="Categoria" Type="int" Nullable="false" />
           <Property Name="Color" Type="int" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="PrecioUnitario" Type="double" Nullable="false" />
+          <Property Name="PrecioUnitario" Type="float" Nullable="false" />
           <Property Name="StockMinimo" Type="int" Nullable="false" />
           <Property Name="StockDisponible" Type="tinyint" Nullable="false" />
           <Property Name="UrlImagen" Type="longtext" />
@@ -60,8 +60,8 @@
           </Key>
           <Property Name="IdFactura" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FechaCreacion" Type="datetime" Precision="0" Nullable="false" />
-          <Property Name="ImporteTotalSinIVa" Type="double" Nullable="false" />
-          <Property Name="ImporteTotalConIva" Type="double" Nullable="false" />
+          <Property Name="ImporteTotalSinIVa" Type="float" Nullable="false" />
+          <Property Name="ImporteTotalConIva" Type="float" Nullable="false" />
           <Property Name="TipoDePago" Type="enum" Nullable="false" />
         </EntityType>
         <EntityType Name="inventarios">
@@ -240,33 +240,13 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="bdtiendaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="articulos">
-          <Key>
-            <PropertyRef Name="CodArticulo" />
-          </Key>
-          <Property Name="CodArticulo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Inventario" Type="Int32" Nullable="false" />
-          <Property Name="Categoria" Type="Int32" Nullable="false" />
-          <Property Name="Color" Type="Int32" Nullable="false" />
-          <Property Name="Nombre" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="PrecioUnitario" Type="Double" Nullable="false" />
-          <Property Name="StockMinimo" Type="Int32" Nullable="false" />
-          <Property Name="StockDisponible" Type="SByte" Nullable="false" />
-          <Property Name="UrlImagen" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="CATEGORIA" Relationship="Self.fk_articulos_categorias" FromRole="articulos" ToRole="categorias" />
-          <NavigationProperty Name="COLOR" Relationship="Self.fk_articulos_colores" FromRole="articulos" ToRole="colores" />
-          <NavigationProperty Name="INVENTARIO" Relationship="Self.fk_articulos_inventarios" FromRole="articulos" ToRole="inventarios" />
-          <NavigationProperty Name="DETALLESFACTURA" Relationship="Self.fk_detalles_articulo" FromRole="articulos" ToRole="detallesfactura" />
-          <NavigationProperty Name="NUMEROSCALZADO" Relationship="Self.fk_numeroscalzado_articulo" FromRole="articulos" ToRole="numeroscalzado" />
-          <NavigationProperty Name="TALLASTEXTILES" Relationship="Self.fk_tallas_articulos" FromRole="articulos" ToRole="tallastextiles" />
-        </EntityType>
         <EntityType Name="categorias">
           <Key>
             <PropertyRef Name="IdCategoria" />
           </Key>
           <Property Name="IdCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Categoria" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="ARTICULOS" Relationship="Self.fk_articulos_categorias" FromRole="categorias" ToRole="articulos" />
+          <NavigationProperty Name="ARTICULOS" Relationship="bdtiendaModel.fk_articulos_categorias" FromRole="categorias" ToRole="articulos" />
         </EntityType>
         <EntityType Name="colores">
           <Key>
@@ -274,7 +254,7 @@
           </Key>
           <Property Name="IdColor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Color" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="ARTICULOS" Relationship="Self.fk_articulos_colores" FromRole="colores" ToRole="articulos" />
+          <NavigationProperty Name="ARTICULOS" Relationship="bdtiendaModel.fk_articulos_colores" FromRole="colores" ToRole="articulos" />
         </EntityType>
         <EntityType Name="detallesfactura">
           <Key>
@@ -285,9 +265,9 @@
           <Property Name="CodFactura" Type="Int32" Nullable="false" />
           <Property Name="CodArticulo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CantidadArticulo" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ARTICULO" Relationship="Self.fk_detalles_articulo" FromRole="detallesfactura" ToRole="articulos" />
           <Property Name="TallaONum" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="FACTURA" Relationship="bdtiendaModel.fk_detalles_factura" FromRole="detallesfactura" ToRole="facturas" />
+          <NavigationProperty Name="ARTICULO" Relationship="bdtiendaModel.fk_detalles_articulo" FromRole="detallesfactura" ToRole="articulos" />
         </EntityType>
         <EntityType Name="inventarios">
           <Key>
@@ -296,7 +276,7 @@
           <Property Name="IdInventario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Descripcion" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="FechaCreacion" Type="DateTime" Nullable="false" />
-          <NavigationProperty Name="ARTICULOS" Relationship="Self.fk_articulos_inventarios" FromRole="inventarios" ToRole="articulos" />
+          <NavigationProperty Name="ARTICULOS" Relationship="bdtiendaModel.fk_articulos_inventarios" FromRole="inventarios" ToRole="articulos" />
         </EntityType>
         <EntityType Name="numeroscalzado">
           <Key>
@@ -315,8 +295,8 @@
           <Property Name="C45" Type="Int32" Nullable="false" />
           <Property Name="C46" Type="Int32" Nullable="false" />
           <Property Name="C47" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ARTICULO" Relationship="Self.fk_numeroscalzado_articulo" FromRole="numeroscalzado" ToRole="articulos" />
           <Property Name="TotalCantidadArticulo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ARTICULO" Relationship="bdtiendaModel.fk_numeroscalzado_articulo" FromRole="numeroscalzado" ToRole="articulos" />
         </EntityType>
         <EntityType Name="tallastextiles">
           <Key>
@@ -330,134 +310,66 @@
           <Property Name="L" Type="Int32" Nullable="false" />
           <Property Name="XL" Type="Int32" Nullable="false" />
           <Property Name="XXL" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ARTICULO" Relationship="Self.fk_tallas_articulos" FromRole="tallastextiles" ToRole="articulos" />
           <Property Name="TotalCantidadArticulo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ARTICULO" Relationship="bdtiendaModel.fk_tallas_articulos" FromRole="tallastextiles" ToRole="articulos" />
         </EntityType>
-        <Association Name="fk_articulos_categorias">
-          <End Role="categorias" Type="Self.categorias" Multiplicity="1" />
-          <End Role="articulos" Type="Self.articulos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="categorias">
-              <PropertyRef Name="IdCategoria" />
-            </Principal>
-            <Dependent Role="articulos">
-              <PropertyRef Name="Categoria" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_articulos_colores">
-          <End Role="colores" Type="Self.colores" Multiplicity="1" />
-          <End Role="articulos" Type="Self.articulos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="colores">
-              <PropertyRef Name="IdColor" />
-            </Principal>
-            <Dependent Role="articulos">
-              <PropertyRef Name="Color" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_articulos_inventarios">
-          <End Role="inventarios" Type="Self.inventarios" Multiplicity="1" />
-          <End Role="articulos" Type="Self.articulos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="inventarios">
-              <PropertyRef Name="IdInventario" />
-            </Principal>
-            <Dependent Role="articulos">
-              <PropertyRef Name="Inventario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_detalles_articulo">
-          <End Role="articulos" Type="Self.articulos" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="detallesfactura" Type="Self.detallesfactura" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="articulos">
-              <PropertyRef Name="CodArticulo" />
-            </Principal>
-            <Dependent Role="detallesfactura">
-              <PropertyRef Name="CodArticulo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_numeroscalzado_articulo">
-          <End Role="articulos" Type="Self.articulos" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="numeroscalzado" Type="Self.numeroscalzado" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="articulos">
-              <PropertyRef Name="CodArticulo" />
-            </Principal>
-            <Dependent Role="numeroscalzado">
-              <PropertyRef Name="CodArticulo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_tallas_articulos">
-          <End Role="articulos" Type="Self.articulos" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="tallastextiles" Type="Self.tallastextiles" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="articulos">
-              <PropertyRef Name="CodArticulo" />
-            </Principal>
-            <Dependent Role="tallastextiles">
-              <PropertyRef Name="CodArticulo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="bdtiendaEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="articulos" EntityType="Self.articulos" />
           <EntitySet Name="categorias" EntityType="Self.categorias" />
           <EntitySet Name="colores" EntityType="Self.colores" />
           <EntitySet Name="detallesfactura" EntityType="Self.detallesfactura" />
           <EntitySet Name="inventarios" EntityType="Self.inventarios" />
           <EntitySet Name="numeroscalzado" EntityType="Self.numeroscalzado" />
           <EntitySet Name="tallastextiles" EntityType="Self.tallastextiles" />
-          <AssociationSet Name="fk_articulos_categorias" Association="Self.fk_articulos_categorias">
-            <End Role="categorias" EntitySet="categorias" />
-            <End Role="articulos" EntitySet="articulos" />
-          </AssociationSet>
-          <AssociationSet Name="fk_articulos_colores" Association="Self.fk_articulos_colores">
-            <End Role="colores" EntitySet="colores" />
-            <End Role="articulos" EntitySet="articulos" />
-          </AssociationSet>
-          <AssociationSet Name="fk_articulos_inventarios" Association="Self.fk_articulos_inventarios">
-            <End Role="inventarios" EntitySet="inventarios" />
-            <End Role="articulos" EntitySet="articulos" />
-          </AssociationSet>
-          <AssociationSet Name="fk_detalles_articulo" Association="Self.fk_detalles_articulo">
-            <End Role="articulos" EntitySet="articulos" />
-            <End Role="detallesfactura" EntitySet="detallesfactura" />
-          </AssociationSet>
-          <AssociationSet Name="fk_numeroscalzado_articulo" Association="Self.fk_numeroscalzado_articulo">
-            <End Role="articulos" EntitySet="articulos" />
-            <End Role="numeroscalzado" EntitySet="numeroscalzado" />
-          </AssociationSet>
-          <AssociationSet Name="fk_tallas_articulos" Association="Self.fk_tallas_articulos">
-            <End Role="articulos" EntitySet="articulos" />
-            <End Role="tallastextiles" EntitySet="tallastextiles" />
-          </AssociationSet>
+          <EntitySet Name="descuentos" EntityType="bdtiendaModel.descuentos" />
           <EntitySet Name="facturas" EntityType="bdtiendaModel.facturas" />
           <AssociationSet Name="fk_detalles_factura" Association="bdtiendaModel.fk_detalles_factura">
             <End Role="facturas" EntitySet="facturas" />
             <End Role="detallesfactura" EntitySet="detallesfactura" />
           </AssociationSet>
-          <EntitySet Name="descuentos" EntityType="bdtiendaModel.descuentos" />
+          <EntitySet Name="articulos" EntityType="bdtiendaModel.articulos" />
+          <AssociationSet Name="fk_articulos_categorias" Association="bdtiendaModel.fk_articulos_categorias">
+            <End Role="categorias" EntitySet="categorias" />
+            <End Role="articulos" EntitySet="articulos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_articulos_colores" Association="bdtiendaModel.fk_articulos_colores">
+            <End Role="colores" EntitySet="colores" />
+            <End Role="articulos" EntitySet="articulos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_articulos_inventarios" Association="bdtiendaModel.fk_articulos_inventarios">
+            <End Role="inventarios" EntitySet="inventarios" />
+            <End Role="articulos" EntitySet="articulos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_detalles_articulo" Association="bdtiendaModel.fk_detalles_articulo">
+            <End Role="articulos" EntitySet="articulos" />
+            <End Role="detallesfactura" EntitySet="detallesfactura" />
+          </AssociationSet>
+          <AssociationSet Name="fk_numeroscalzado_articulo" Association="bdtiendaModel.fk_numeroscalzado_articulo">
+            <End Role="articulos" EntitySet="articulos" />
+            <End Role="numeroscalzado" EntitySet="numeroscalzado" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tallas_articulos" Association="bdtiendaModel.fk_tallas_articulos">
+            <End Role="articulos" EntitySet="articulos" />
+            <End Role="tallastextiles" EntitySet="tallastextiles" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="descuentos">
+          <Key>
+            <PropertyRef Name="IdDescuento" />
+          </Key>
+          <Property Name="IdDescuento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreDescuento" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="DescuentoAplicar" Type="Single" Nullable="false" />
+          <Property Name="UnidadesCondicionAplicar" Type="Int32" Nullable="false" />
+          <Property Name="TipoCondicion" Type="String" Nullable="false" MaxLength="65532" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="facturas">
           <Key>
             <PropertyRef Name="IdFactura" />
           </Key>
           <Property Name="IdFactura" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FechaCreacion" Type="DateTime" Nullable="false" />
-          <Property Name="ImporteTotalSinIVa" Type="Double" Nullable="false" />
-          <Property Name="ImporteTotalConIva" Type="Double" Nullable="false" />
+          <Property Name="ImporteTotalSinIVa" Type="Single" Nullable="false" />
+          <Property Name="ImporteTotalConIva" Type="Single" Nullable="false" />
           <Property Name="TipoDePago" Type="String" Nullable="false" MaxLength="65532" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="DETALLESFACTURA" Relationship="bdtiendaModel.fk_detalles_factura" FromRole="facturas" ToRole="detallesfactura" />
         </EntityType>
@@ -475,37 +387,110 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="descuentos">
+        <EntityType Name="articulos">
           <Key>
-            <PropertyRef Name="IdDescuento" />
+            <PropertyRef Name="CodArticulo" />
           </Key>
-          <Property Name="IdDescuento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NombreDescuento" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="DescuentoAplicar" Type="Single" Nullable="false" />
-          <Property Name="UnidadesCondicionAplicar" Type="Int32" Nullable="false" />
-          <Property Name="TipoCondicion" Type="String" Nullable="false" MaxLength="65532" FixedLength="false" Unicode="false" />
+          <Property Name="CodArticulo" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Inventario" Type="Int32" Nullable="false" />
+          <Property Name="Categoria" Type="Int32" Nullable="false" />
+          <Property Name="Color" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="PrecioUnitario" Type="Single" Nullable="false" />
+          <Property Name="StockMinimo" Type="Int32" Nullable="false" />
+          <Property Name="StockDisponible" Type="SByte" Nullable="false" />
+          <Property Name="UrlImagen" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CATEGORIA" Relationship="bdtiendaModel.fk_articulos_categorias" FromRole="articulos" ToRole="categorias" />
+          <NavigationProperty Name="COLOR" Relationship="bdtiendaModel.fk_articulos_colores" FromRole="articulos" ToRole="colores" />
+          <NavigationProperty Name="INVENTARIO" Relationship="bdtiendaModel.fk_articulos_inventarios" FromRole="articulos" ToRole="inventarios" />
+          <NavigationProperty Name="DETALLESFACTURA" Relationship="bdtiendaModel.fk_detalles_articulo" FromRole="articulos" ToRole="detallesfactura" />
+          <NavigationProperty Name="NUMEROSCALZADO" Relationship="bdtiendaModel.fk_numeroscalzado_articulo" FromRole="articulos" ToRole="numeroscalzado" />
+          <NavigationProperty Name="TALLASTEXTILES" Relationship="bdtiendaModel.fk_tallas_articulos" FromRole="articulos" ToRole="tallastextiles" />
         </EntityType>
+        <Association Name="fk_articulos_categorias">
+          <End Type="bdtiendaModel.categorias" Role="categorias" Multiplicity="1" />
+          <End Type="bdtiendaModel.articulos" Role="articulos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categorias">
+              <PropertyRef Name="IdCategoria" />
+            </Principal>
+            <Dependent Role="articulos">
+              <PropertyRef Name="Categoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_articulos_colores">
+          <End Type="bdtiendaModel.colores" Role="colores" Multiplicity="1" />
+          <End Type="bdtiendaModel.articulos" Role="articulos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="colores">
+              <PropertyRef Name="IdColor" />
+            </Principal>
+            <Dependent Role="articulos">
+              <PropertyRef Name="Color" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_articulos_inventarios">
+          <End Type="bdtiendaModel.inventarios" Role="inventarios" Multiplicity="1" />
+          <End Type="bdtiendaModel.articulos" Role="articulos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="inventarios">
+              <PropertyRef Name="IdInventario" />
+            </Principal>
+            <Dependent Role="articulos">
+              <PropertyRef Name="Inventario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_detalles_articulo">
+          <End Type="bdtiendaModel.articulos" Role="articulos" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="bdtiendaModel.detallesfactura" Role="detallesfactura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="articulos">
+              <PropertyRef Name="CodArticulo" />
+            </Principal>
+            <Dependent Role="detallesfactura">
+              <PropertyRef Name="CodArticulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_numeroscalzado_articulo">
+          <End Type="bdtiendaModel.articulos" Role="articulos" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="bdtiendaModel.numeroscalzado" Role="numeroscalzado" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="articulos">
+              <PropertyRef Name="CodArticulo" />
+            </Principal>
+            <Dependent Role="numeroscalzado">
+              <PropertyRef Name="CodArticulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tallas_articulos">
+          <End Type="bdtiendaModel.articulos" Role="articulos" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="bdtiendaModel.tallastextiles" Role="tallastextiles" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="articulos">
+              <PropertyRef Name="CodArticulo" />
+            </Principal>
+            <Dependent Role="tallastextiles">
+              <PropertyRef Name="CodArticulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="bdtiendaModelStoreContainer" CdmEntityContainer="bdtiendaEntities">
-          <EntitySetMapping Name="articulos">
-            <EntityTypeMapping TypeName="bdtiendaModel.articulos">
-              <MappingFragment StoreEntitySet="articulos">
-                <ScalarProperty Name="CodArticulo" ColumnName="CodArticulo" />
-                <ScalarProperty Name="Inventario" ColumnName="Inventario" />
-                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
-                <ScalarProperty Name="Color" ColumnName="Color" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="PrecioUnitario" ColumnName="PrecioUnitario" />
-                <ScalarProperty Name="StockMinimo" ColumnName="StockMinimo" />
-                <ScalarProperty Name="StockDisponible" ColumnName="StockDisponible" />
-                <ScalarProperty Name="UrlImagen" ColumnName="UrlImagen" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="categorias">
             <EntityTypeMapping TypeName="bdtiendaModel.categorias">
               <MappingFragment StoreEntitySet="categorias">
@@ -576,6 +561,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="descuentos">
+            <EntityTypeMapping TypeName="bdtiendaModel.descuentos">
+              <MappingFragment StoreEntitySet="descuentos">
+                <ScalarProperty Name="TipoCondicion" ColumnName="TipoCondicion" />
+                <ScalarProperty Name="UnidadesCondicionAplicar" ColumnName="UnidadesCondicionAplicar" />
+                <ScalarProperty Name="DescuentoAplicar" ColumnName="DescuentoAplicar" />
+                <ScalarProperty Name="NombreDescuento" ColumnName="NombreDescuento" />
+                <ScalarProperty Name="IdDescuento" ColumnName="IdDescuento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="facturas">
             <EntityTypeMapping TypeName="bdtiendaModel.facturas">
               <MappingFragment StoreEntitySet="facturas">
@@ -587,14 +583,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="descuentos">
-            <EntityTypeMapping TypeName="bdtiendaModel.descuentos">
-              <MappingFragment StoreEntitySet="descuentos">
-                <ScalarProperty Name="TipoCondicion" ColumnName="TipoCondicion" />
-                <ScalarProperty Name="UnidadesCondicionAplicar" ColumnName="UnidadesCondicionAplicar" />
-                <ScalarProperty Name="DescuentoAplicar" ColumnName="DescuentoAplicar" />
-                <ScalarProperty Name="NombreDescuento" ColumnName="NombreDescuento" />
-                <ScalarProperty Name="IdDescuento" ColumnName="IdDescuento" />
+          <EntitySetMapping Name="articulos">
+            <EntityTypeMapping TypeName="bdtiendaModel.articulos">
+              <MappingFragment StoreEntitySet="articulos">
+                <ScalarProperty Name="UrlImagen" ColumnName="UrlImagen" />
+                <ScalarProperty Name="StockDisponible" ColumnName="StockDisponible" />
+                <ScalarProperty Name="StockMinimo" ColumnName="StockMinimo" />
+                <ScalarProperty Name="PrecioUnitario" ColumnName="PrecioUnitario" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+                <ScalarProperty Name="Inventario" ColumnName="Inventario" />
+                <ScalarProperty Name="CodArticulo" ColumnName="CodArticulo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

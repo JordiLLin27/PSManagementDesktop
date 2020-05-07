@@ -45,8 +45,6 @@ namespace PSManagement.Dialogs
 
         private void SaveCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-
-
             this.DialogResult = (DataContext as TerminarVentaDialogVM).SaveExecuted();
         }
 

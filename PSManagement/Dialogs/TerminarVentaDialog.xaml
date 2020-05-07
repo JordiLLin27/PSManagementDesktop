@@ -97,7 +97,9 @@
 
         </Grid>
 
-        <Grid Grid.Column="1" x:Name="PanelTerminarVentaTarjetaGrid" Visibility="Collapsed"></Grid>
+        <Grid Grid.Column="1" x:Name="PanelTerminarVentaTarjetaGrid" Visibility="Collapsed">
+            <Button x:Name="AceptarPagoTarjetaButton" Height="40" materialDesign:ButtonAssist.CornerRadius="20" Margin="10" Content="Terminar venta" IsDefault="True" Tag="AceptarEfectivo" Width="500" Command="ApplicationCommands.Save"/>
+        </Grid>
 
     </Grid>
 </Window>

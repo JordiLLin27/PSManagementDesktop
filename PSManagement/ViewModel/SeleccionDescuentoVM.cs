@@ -84,14 +84,14 @@ namespace PSManagement.ViewModel
 
         private void AplicarDescuento()
         {
-            double precioSeleccionado = 0;
+            float precioSeleccionado = 0;
 
             foreach (detallesfactura item in DetallesSeleccionadosParaDescuento)
             {
                 precioSeleccionado += (item.CantidadArticulo * item.ARTICULO.PrecioUnitario);
             }
 
-            double porcentajeARestar = precioSeleccionado * (DescuentoSeleccionado.DescuentoAplicar / 100);
+            float porcentajeARestar = precioSeleccionado * (DescuentoSeleccionado.DescuentoAplicar / 100);
 
             FacturaDescuento.ImporteTotalConIva = FacturaDescuento.ImporteTotalConIva - porcentajeARestar;
         }
