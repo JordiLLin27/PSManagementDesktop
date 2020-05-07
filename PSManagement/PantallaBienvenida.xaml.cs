@@ -51,6 +51,13 @@ namespace PSManagement
         Update_Pin
     }
 
+    public enum DiscountAction
+    {
+        Add_Discount,
+        Update_Discount,
+        Delete_Discount
+    }
+
     /// <summary>
     /// Lógica de interacción para MainWindow.xaml
     /// </summary>

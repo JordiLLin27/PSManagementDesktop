@@ -1,0 +1,103 @@
+﻿<Window x:Class="PSManagement.Dialogs.TerminarVentaDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PSManagement.Dialogs"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="{materialDesign:MaterialDesignFont}"
+        Height="800" Width="1200" WindowState="Normal" WindowStyle="None" ResizeMode="NoResize" BorderThickness="7" BorderBrush="{DynamicResource SecondaryHueLightBrush}">
+
+    <Window.CommandBindings>
+        <CommandBinding
+            Command="ApplicationCommands.Save"
+            Executed="SaveCommandBinding_Executed"
+            CanExecute="SaveCommandBinding_CanExecute"/>
+    </Window.CommandBindings>
+
+    <Grid x:Name="PanelPrincipalGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+
+        <Grid x:Name="SeleccionPagoGrid" Grid.Column="0" VerticalAlignment="Center">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="80"/>
+            </Grid.RowDefinitions>
+
+            <Button x:Name="PagoEnEfectivoButton" Height="60" materialDesign:ButtonAssist.CornerRadius="20" Margin="10" Tag="Efectivo" Width="500" Click="PagoEnEfectivoButton_Click">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="PAGO EN EFECTIVO" Margin="5" VerticalAlignment="Center"/>
+                        <materialDesign:PackIcon Kind="Money" Margin="5" Width="30" Height="30" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+
+            <Button x:Name="PagoEnTarjetaButton" Grid.Row="1" Height="60" materialDesign:ButtonAssist.CornerRadius="20" Margin="10" Style="{StaticResource MaterialDesignRaisedAccentButton }" Tag="Tarjeta" Width="500" Click="PagoEnTarjetaButton_Click">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="PAGO CON TARJETA" Margin="5" VerticalAlignment="Center"/>
+                        <materialDesign:PackIcon Kind="CreditCardOutline" Margin="5" Width="30" Height="30" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+
+            <Button x:Name="SalirButton" Grid.Row="2" Height="60" materialDesign:ButtonAssist.CornerRadius="20" Margin="10" Tag="Tarjeta" IsCancel="True" Width="500" Background="IndianRed" BorderBrush="IndianRed">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="SALIR" Margin="5" VerticalAlignment="Center"/>
+                        <materialDesign:PackIcon Kind="ExitToApp" Margin="5" Width="30" Height="30" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+
+        </Grid>
+
+        <Grid Grid.Column="1" x:Name="PanelTerminarVentaEfectivoGrid" Visibility="Collapsed" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="280"/>
+                <RowDefinition Height="200"/>
+                <RowDefinition Height="250"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Orientation="Vertical" VerticalAlignment="Center">
+                <TextBlock Text="Importe Total Venta" HorizontalAlignment="Center" FontSize="35" Margin="10"/>
+                <materialDesign:ColorZone Mode="Inverted" Padding="16" Margin="15" Height="100">
+                    <TextBlock Text="{Binding FacturaFinal.ImporteTotalConIva, StringFormat='#.00€', UpdateSourceTrigger=PropertyChanged}" 
+                               FontFamily="OCR A Extended" Foreground="Gold" FontSize="35" FontWeight="Bold"
+                               VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </materialDesign:ColorZone>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Text="Cantidad abonada por el cliente" HorizontalAlignment="Center" FontSize="35" Margin="15"/>
+                <TextBox x:Name="CantidadAbonadaClienteTextBox" FontSize="35" FontWeight="Bold" MaxLength="7" TextAlignment="Center" Margin="10,0,10,0" Width="500" Text="{Binding CantidadAbonadaCliente, UpdateSourceTrigger=PropertyChanged, StringFormat='{}{0:#,#.00}'}" TextChanged="CantidadAbonadaClienteTextBox_TextChanged"/>
+                <Button x:Name="AceptarPagoEnEfectivoButton" Height="40" materialDesign:ButtonAssist.CornerRadius="20" Margin="10" Content="Terminar venta" IsDefault="True" Tag="AceptarEfectivo" Width="500" Command="ApplicationCommands.Save"/>
+            </StackPanel>
+
+
+            <StackPanel Grid.Row="2" Orientation="Vertical" VerticalAlignment="Center">
+                <TextBlock Text="Cambio para el cliente" HorizontalAlignment="Center" FontSize="35" Margin="15"/>
+                <materialDesign:ColorZone Mode="Inverted" Padding="16" Margin="15" Height="100">
+                    <TextBlock Text="{Binding CambioCliente, StringFormat='00.00€', UpdateSourceTrigger=PropertyChanged}" FontFamily="OCR A Extended" Foreground="Gold" FontSize="35" FontWeight="Bold"
+                               VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </materialDesign:ColorZone>
+            </StackPanel>
+
+        </Grid>
+
+        <Grid Grid.Column="1" x:Name="PanelTerminarVentaTarjetaGrid" Visibility="Collapsed"></Grid>
+
+    </Grid>
+</Window>

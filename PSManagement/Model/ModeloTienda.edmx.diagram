@@ -9,7 +9,6 @@
         <EntityTypeShape EntityType="bdtiendaModel.categorias" Width="1.5" PointX="6.25" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="bdtiendaModel.colores" Width="1.5" PointX="6.25" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="bdtiendaModel.detallesfactura" Width="1.5" PointX="11.375" PointY="4.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="bdtiendaModel.facturas" Width="1.5" PointX="13.375" PointY="4.5" IsExpanded="true" />
         <EntityTypeShape EntityType="bdtiendaModel.inventarios" Width="1.5" PointX="9" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="bdtiendaModel.numeroscalzado" Width="1.5" PointX="9.875" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="bdtiendaModel.tallastextiles" Width="1.5" PointX="8.125" PointY="8.75" IsExpanded="true" />
@@ -19,7 +18,9 @@
         <AssociationConnector Association="bdtiendaModel.fk_detalles_articulo" ManuallyRouted="false" />
         <AssociationConnector Association="bdtiendaModel.fk_numeroscalzado_articulo" ManuallyRouted="false" />
         <AssociationConnector Association="bdtiendaModel.fk_tallas_articulos" ManuallyRouted="false" />
-        <AssociationConnector Association="bdtiendaModel.fk_detalles_factura" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="bdtiendaModel.facturas" Width="1.5" PointX="13.875" PointY="4.375" />
+        <AssociationConnector Association="bdtiendaModel.fk_detalles_factura" />
+        <EntityTypeShape EntityType="bdtiendaModel.descuentos" Width="1.5" PointX="11.375" PointY="1.5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

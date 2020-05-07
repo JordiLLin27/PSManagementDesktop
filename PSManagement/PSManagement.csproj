@@ -53,7 +53,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Assets\shipping_shipment_product.ico</ApplicationIcon>
+    <ApplicationIcon>Assets\package_box_inventory.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BouncyCastle.Crypto, Version=1.8.3.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
@@ -107,6 +107,7 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -132,14 +133,23 @@
     <Compile Include="Dialogs\ExitDialog.xaml.cs">
       <DependentUpon>ExitDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\FormularioDescuentosDialog.xaml.cs">
+      <DependentUpon>FormularioDescuentosDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\PanelNumericoDialog.xaml.cs">
       <DependentUpon>PanelNumericoDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\PinDialog.xaml.cs">
       <DependentUpon>PinDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\SeleccionDescuentoDialog.xaml.cs">
+      <DependentUpon>SeleccionDescuentoDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\SelectorTallasDialog.xaml.cs">
       <DependentUpon>SelectorTallasDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\TerminarVentaDialog.xaml.cs">
+      <DependentUpon>TerminarVentaDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\articulos.cs">
       <DependentUpon>ModeloTienda.tt</DependentUpon>
@@ -148,6 +158,9 @@
       <DependentUpon>ModeloTienda.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\colores.cs">
+      <DependentUpon>ModeloTienda.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\descuentos.cs">
       <DependentUpon>ModeloTienda.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\detallesfactura.cs">
@@ -184,7 +197,9 @@
     <Compile Include="Model\OperacionesTallasYNumeros.cs" />
     <Compile Include="Service\BBDDService.cs" />
     <Compile Include="Service\BlobStorage.cs" />
+    <Compile Include="Service\VatApiService.cs" />
     <Compile Include="ViewModel\FormularioCrudArticuloVM.cs" />
+    <Compile Include="ViewModel\FormularioDescuentoVM.cs" />
     <Compile Include="ViewModel\PanelGestionVM.cs" />
     <Compile Include="ViewModel\PanelIntroduccionVM.cs" />
     <Compile Include="ViewModel\PanelInventariosVM.cs" />
@@ -196,7 +211,9 @@
       <DependentUpon>FormularioCrudArticuloDialogView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\PinDialogVM.cs" />
+    <Compile Include="ViewModel\SeleccionDescuentoVM.cs" />
     <Compile Include="ViewModel\SelectorTallasDialogVM.cs" />
+    <Compile Include="ViewModel\TerminarVentaDialogVM.cs" />
     <Compile Include="View\PanelGestionView.xaml.cs">
       <DependentUpon>PanelGestionView.xaml</DependentUpon>
     </Compile>
@@ -219,6 +236,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Dialogs\FormularioDescuentosDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\PanelNumericoDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -227,7 +248,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Dialogs\SeleccionDescuentoDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\SelectorTallasDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\TerminarVentaDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -307,9 +336,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\shipping_shipment_product.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.6.1 %28x86 y x64%29</ProductName>
@@ -335,6 +361,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\no-image-available.png" />
+    <Resource Include="Assets\package_box_inventory.ico" />
     <Content Include="Model\ModeloTienda.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModeloTienda.edmx</DependentUpon>

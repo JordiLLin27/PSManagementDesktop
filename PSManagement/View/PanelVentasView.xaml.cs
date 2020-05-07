@@ -1,4 +1,5 @@
-﻿using PSManagement.ViewModel;
+﻿using PSManagement.Model;
+using PSManagement.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,12 +22,11 @@ namespace PSManagement.View
     /// </summary>
     public partial class PanelVentasView : UserControl
     {
-        bool iniciado = false;
         public PanelVentasView()
         {
             DataContext = new PanelVentasVM();
             InitializeComponent();
-            
+
         }
 
         private void CleanFiltersCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -64,12 +64,22 @@ namespace PSManagement.View
 
         private void ListBoxItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            (DataContext as PanelVentasVM).SeleccionarTallaVenta();
+            if (((ListBoxItem)sender).DataContext is detallesfactura || ((ListBoxItem)sender).DataContext is categorias)
+            {
+                e.Handled = true;
+            }
+            else
+                (DataContext as PanelVentasVM).SeleccionarTallaVenta();
         }
 
         private void SellCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-
+            if ((DataContext as PanelVentasVM).SellExecuted())
+            {
+                MessageBox.Show("Venta realizada", "Éxito", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            }
+            else
+                MessageBox.Show("No se ha podido realizar la venta", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         private void SellCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -85,6 +95,36 @@ namespace PSManagement.View
         private void DeleteCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = (DataContext as PanelVentasVM).DeleteCanExecute();
+        }
+
+        private void EliminarArticuloDetallesFacturaButton_Click(object sender, RoutedEventArgs e)
+        {
+            if ((DataContext as PanelVentasVM).DescuentoAplicado)
+            {
+                if (MessageBox.Show("Hay descuentos aplicados, si borras un elemento tendrás que volver a aplicarlos ¿Continuar eliminando artículo?", "Aviso", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
+                {
+                    (DataContext as PanelVentasVM).BorrarItems(((Button)sender).DataContext as detallesfactura);
+                }
+                else
+                    e.Handled = true;
+            }
+            else
+                (DataContext as PanelVentasVM).BorrarItems(((Button)sender).DataContext as detallesfactura);
+        }
+
+        private void DiscountCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            if ((DataContext as PanelVentasVM).DiscountExecuted())
+            {
+                MessageBox.Show("Descuento aplicado correctamente", "Éxito", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            }
+            else
+                MessageBox.Show("No es posible aplicar ese descuento", "Sin descuento", MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+
+        private void DiscountCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = (DataContext as PanelVentasVM).DiscountCanExecute();
         }
     }
 }

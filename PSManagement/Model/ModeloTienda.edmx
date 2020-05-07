@@ -33,6 +33,16 @@
           <Property Name="IdColor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Color" Type="varchar" MaxLength="45" Nullable="false" />
         </EntityType>
+        <EntityType Name="descuentos">
+          <Key>
+            <PropertyRef Name="IdDescuento" />
+          </Key>
+          <Property Name="IdDescuento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreDescuento" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="DescuentoAplicar" Type="float" Nullable="false" />
+          <Property Name="UnidadesCondicionAplicar" Type="int" Nullable="false" />
+          <Property Name="TipoCondicion" Type="enum" Nullable="false" />
+        </EntityType>
         <EntityType Name="detallesfactura">
           <Key>
             <PropertyRef Name="CodFactura" />
@@ -50,7 +60,9 @@
           </Key>
           <Property Name="IdFactura" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FechaCreacion" Type="datetime" Precision="0" Nullable="false" />
-          <Property Name="ImporteTotal" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="ImporteTotalSinIVa" Type="double" Nullable="false" />
+          <Property Name="ImporteTotalConIva" Type="double" Nullable="false" />
+          <Property Name="TipoDePago" Type="enum" Nullable="false" />
         </EntityType>
         <EntityType Name="inventarios">
           <Key>
@@ -189,6 +201,7 @@
           <EntitySet Name="articulos" EntityType="Self.articulos" Schema="bdtienda" store:Type="Tables" />
           <EntitySet Name="categorias" EntityType="Self.categorias" Schema="bdtienda" store:Type="Tables" />
           <EntitySet Name="colores" EntityType="Self.colores" Schema="bdtienda" store:Type="Tables" />
+          <EntitySet Name="descuentos" EntityType="Self.descuentos" Schema="bdtienda" store:Type="Tables" />
           <EntitySet Name="detallesfactura" EntityType="Self.detallesfactura" Schema="bdtienda" store:Type="Tables" />
           <EntitySet Name="facturas" EntityType="Self.facturas" Schema="bdtienda" store:Type="Tables" />
           <EntitySet Name="inventarios" EntityType="Self.inventarios" Schema="bdtienda" store:Type="Tables" />
@@ -273,17 +286,8 @@
           <Property Name="CodArticulo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CantidadArticulo" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ARTICULO" Relationship="Self.fk_detalles_articulo" FromRole="detallesfactura" ToRole="articulos" />
-          <NavigationProperty Name="FACTURA" Relationship="Self.fk_detalles_factura" FromRole="detallesfactura" ToRole="facturas" />
           <Property Name="TallaONum" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="facturas">
-          <Key>
-            <PropertyRef Name="IdFactura" />
-          </Key>
-          <Property Name="IdFactura" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" />
-          <Property Name="ImporteTotal" Type="Decimal" Nullable="false" />
-          <NavigationProperty Name="DETALLESFACTURA" Relationship="Self.fk_detalles_factura" FromRole="facturas" ToRole="detallesfactura" />
+          <NavigationProperty Name="FACTURA" Relationship="bdtiendaModel.fk_detalles_factura" FromRole="detallesfactura" ToRole="facturas" />
         </EntityType>
         <EntityType Name="inventarios">
           <Key>
@@ -407,26 +411,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_detalles_factura">
-          <End Role="facturas" Type="Self.facturas" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="detallesfactura" Type="Self.detallesfactura" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="facturas">
-              <PropertyRef Name="IdFactura" />
-            </Principal>
-            <Dependent Role="detallesfactura">
-              <PropertyRef Name="CodFactura" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="bdtiendaEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="articulos" EntityType="Self.articulos" />
           <EntitySet Name="categorias" EntityType="Self.categorias" />
           <EntitySet Name="colores" EntityType="Self.colores" />
           <EntitySet Name="detallesfactura" EntityType="Self.detallesfactura" />
-          <EntitySet Name="facturas" EntityType="Self.facturas" />
           <EntitySet Name="inventarios" EntityType="Self.inventarios" />
           <EntitySet Name="numeroscalzado" EntityType="Self.numeroscalzado" />
           <EntitySet Name="tallastextiles" EntityType="Self.tallastextiles" />
@@ -454,11 +443,48 @@
             <End Role="articulos" EntitySet="articulos" />
             <End Role="tallastextiles" EntitySet="tallastextiles" />
           </AssociationSet>
-          <AssociationSet Name="fk_detalles_factura" Association="Self.fk_detalles_factura">
+          <EntitySet Name="facturas" EntityType="bdtiendaModel.facturas" />
+          <AssociationSet Name="fk_detalles_factura" Association="bdtiendaModel.fk_detalles_factura">
             <End Role="facturas" EntitySet="facturas" />
             <End Role="detallesfactura" EntitySet="detallesfactura" />
           </AssociationSet>
+          <EntitySet Name="descuentos" EntityType="bdtiendaModel.descuentos" />
         </EntityContainer>
+        <EntityType Name="facturas">
+          <Key>
+            <PropertyRef Name="IdFactura" />
+          </Key>
+          <Property Name="IdFactura" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" />
+          <Property Name="ImporteTotalSinIVa" Type="Double" Nullable="false" />
+          <Property Name="ImporteTotalConIva" Type="Double" Nullable="false" />
+          <Property Name="TipoDePago" Type="String" Nullable="false" MaxLength="65532" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DETALLESFACTURA" Relationship="bdtiendaModel.fk_detalles_factura" FromRole="facturas" ToRole="detallesfactura" />
+        </EntityType>
+        <Association Name="fk_detalles_factura">
+          <End Type="bdtiendaModel.facturas" Role="facturas" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="bdtiendaModel.detallesfactura" Role="detallesfactura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="facturas">
+              <PropertyRef Name="IdFactura" />
+            </Principal>
+            <Dependent Role="detallesfactura">
+              <PropertyRef Name="CodFactura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="descuentos">
+          <Key>
+            <PropertyRef Name="IdDescuento" />
+          </Key>
+          <Property Name="IdDescuento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreDescuento" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="DescuentoAplicar" Type="Single" Nullable="false" />
+          <Property Name="UnidadesCondicionAplicar" Type="Int32" Nullable="false" />
+          <Property Name="TipoCondicion" Type="String" Nullable="false" MaxLength="65532" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -506,15 +532,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="facturas">
-            <EntityTypeMapping TypeName="bdtiendaModel.facturas">
-              <MappingFragment StoreEntitySet="facturas">
-                <ScalarProperty Name="IdFactura" ColumnName="IdFactura" />
-                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
-                <ScalarProperty Name="ImporteTotal" ColumnName="ImporteTotal" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="inventarios">
             <EntityTypeMapping TypeName="bdtiendaModel.inventarios">
               <MappingFragment StoreEntitySet="inventarios">
@@ -556,6 +573,28 @@
                 <ScalarProperty Name="L" ColumnName="L" />
                 <ScalarProperty Name="XL" ColumnName="XL" />
                 <ScalarProperty Name="XXL" ColumnName="XXL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="facturas">
+            <EntityTypeMapping TypeName="bdtiendaModel.facturas">
+              <MappingFragment StoreEntitySet="facturas">
+                <ScalarProperty Name="TipoDePago" ColumnName="TipoDePago" />
+                <ScalarProperty Name="ImporteTotalConIva" ColumnName="ImporteTotalConIva" />
+                <ScalarProperty Name="ImporteTotalSinIVa" ColumnName="ImporteTotalSinIVa" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="IdFactura" ColumnName="IdFactura" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="descuentos">
+            <EntityTypeMapping TypeName="bdtiendaModel.descuentos">
+              <MappingFragment StoreEntitySet="descuentos">
+                <ScalarProperty Name="TipoCondicion" ColumnName="TipoCondicion" />
+                <ScalarProperty Name="UnidadesCondicionAplicar" ColumnName="UnidadesCondicionAplicar" />
+                <ScalarProperty Name="DescuentoAplicar" ColumnName="DescuentoAplicar" />
+                <ScalarProperty Name="NombreDescuento" ColumnName="NombreDescuento" />
+                <ScalarProperty Name="IdDescuento" ColumnName="IdDescuento" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -187,5 +187,26 @@ namespace PSManagement.View
         {
             e.CanExecute = !((this.DataContext as PanelPrincipalVM).PanelActual is PanelGestionView);
         }
+
+        //Evento que maneja el click de los items del menú 'Tienda' para añadir, editar o eliminar un descuento.
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            DiscountAction action;
+            MenuItem menuItem = (MenuItem)sender;
+
+            if (menuItem.Tag.ToString().Equals("Add"))
+                action = DiscountAction.Add_Discount;
+            else if (menuItem.Tag.ToString().Equals("Update"))
+                action = DiscountAction.Update_Discount;
+            else
+                action = DiscountAction.Delete_Discount;
+
+            if ((DataContext as PanelPrincipalVM).DiscountExecuted(action))
+            {
+                MessageBox.Show("Operación realizada con éxito", "Éxito", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            }
+            else
+                MessageBox.Show("Se ha cancelado la operación", "Error", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+        }
     }
 }

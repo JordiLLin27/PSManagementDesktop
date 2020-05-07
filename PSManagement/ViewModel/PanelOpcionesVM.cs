@@ -1,10 +1,15 @@
 ﻿using MaterialDesignThemes.Wpf;
+using Microsoft.Win32;
+using PSManagement.Dialogs;
+using PSManagement.Service;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using WinForms = System.Windows.Forms;
 
 namespace PSManagement.ViewModel
 {
@@ -12,6 +17,7 @@ namespace PSManagement.ViewModel
     {
 
         public string PinIntroducido { get; set; }
+        public string RutaFacturas { get; set; }
 
         public PanelOpcionesVM()
         {
@@ -42,12 +48,39 @@ namespace PSManagement.ViewModel
 
         public bool CompruebaConexionBD()
         {
-            return true;
+            try
+            {
+                BBDDService.SaveChanges();
+                return true;
+            }
+            catch (Exception) { return false; }
         }
 
         public void CambiaPINSeguridad()
         {
+            PinDialog dialogoPin = new PinDialog(PinConfig.Update_Pin)
+            {
+                WindowStartupLocation = WindowStartupLocation.CenterScreen,
+                ShowInTaskbar = false
+            };
 
+            dialogoPin.ShowDialog();
+        }
+
+        internal void CambiarRutaFacturas()
+        {
+            Properties.Settings.Default.RutaFacturasDefault = RutaFacturas;
+            Properties.Settings.Default.Save();
+        }
+
+        internal void ElegirRutaFacturas()
+        {
+            WinForms.FolderBrowserDialog dialog = new WinForms.FolderBrowserDialog() { SelectedPath = System.AppDomain.CurrentDomain.BaseDirectory, ShowNewFolderButton = false, Description = "Selecciona un directorio para guardar las facturas" };
+
+            if (dialog.ShowDialog() == WinForms.DialogResult.OK)
+            {
+                RutaFacturas = dialog.SelectedPath;
+            }
         }
     }
 }

@@ -163,6 +163,13 @@ namespace PSManagement.Commands
               "Sell",
               typeof(CustomCommands)
           );
+
+        public static readonly RoutedUICommand Discount = new RoutedUICommand
+         (
+             "Discount",
+             "Discount",
+             typeof(CustomCommands)
+         );
     }
 
 }

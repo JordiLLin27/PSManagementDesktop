@@ -87,5 +87,16 @@ namespace PSManagement.ViewModel
         {
             return CargaPanelBienvenida();
         }
+
+        internal bool DiscountExecuted(DiscountAction action)
+        {
+            FormularioDescuentosDialog formularioDescuentos = new FormularioDescuentosDialog(action)
+            {
+                WindowStartupLocation = WindowStartupLocation.CenterScreen,
+                ShowInTaskbar = false
+            };
+
+            return formularioDescuentos.ShowDialog() == true ? true : false;
+        }
     }
 }

@@ -1,0 +1,93 @@
+﻿<Window x:Class="PSManagement.Dialogs.FormularioDescuentosDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PSManagement.Dialogs"
+        xmlns:com="clr-namespace:PSManagement.Commands"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="{materialDesign:MaterialDesignFont}"
+        Height="600" Width="800" WindowState="Normal" WindowStyle="None" 
+        ResizeMode="NoResize" BorderThickness="7" BorderBrush="{DynamicResource SecondaryHueLightBrush}">
+
+    <Window.CommandBindings>
+        <CommandBinding
+            Command="ApplicationCommands.Save"
+            Executed="SaveCommandBinding_Executed"
+            CanExecute="SaveCommandBinding_CanExecute"/>
+
+        <CommandBinding
+            Command="com:CustomCommands.UnDoChanges"
+            Executed="RevertCommandBinding_Executed"/>
+    </Window.CommandBindings>
+
+    <Grid x:Name="PanelPrincipalGrid" Margin="15">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" >
+            <Run Text="Formulario"/>
+            <Run Text="{Binding Accion}"/>
+            <Run Text="descuento"/>
+        </TextBlock>
+
+        <ComboBox x:Name="SeleccionarDescuentoComboBox" Grid.Row="1" Grid.ColumnSpan="3" 
+                  ItemsSource="{Binding ListaDescuentos}" SelectedItem="{Binding DescuentoSeleccionado, UpdateSourceTrigger=PropertyChanged}" 
+                  DisplayMemberPath="NombreDescuento" 
+                  materialDesign:HintAssist.Hint="Selecciona un descuento" Margin="15" HorizontalContentAlignment="Center" Visibility="Collapsed" SelectionChanged="SeleccionarDescuentoComboBox_SelectionChanged"/>
+
+        <Label Grid.Row="2" Content="_Nombre de la promoción" VerticalAlignment="Center" Target="{Binding ElementName=NombreDescuentoTextBox}"/>
+        <TextBox x:Name="NombreDescuentoTextBox" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding DescuentoSeleccionado.NombreDescuento, UpdateSourceTrigger=PropertyChanged}" Margin="5,0,5,0" VerticalAlignment="Center"/>
+
+        <Label Grid.Row="3" Content="_Porcentaje de descuento" VerticalAlignment="Center" Target="{Binding ElementName=PorcentajeDescuentoTextBox}"/>
+
+        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="5,0,5,0">
+
+            <TextBox x:Name="PorcentajeDescuentoTextBox" Width="80" Text="{Binding  DescuentoSeleccionado.DescuentoAplicar, UpdateSourceTrigger=PropertyChanged, StringFormat='#.00'}"/>
+            <TextBlock Text="%" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Margin="10,0,0,0"/>
+
+        </StackPanel>
+
+        <Label Grid.Row="4" Content="Tipo de _condición" VerticalAlignment="Center"/>
+
+        <StackPanel Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="5,0,5,0">
+
+            <Label Content="A partir de ciertas _unidades" VerticalAlignment="Center" FontSize="15" Margin="10" Target="{Binding ElementName=APartirDeUdsCheckBox}"/>
+            <CheckBox x:Name="APartirDeUdsCheckBox" IsChecked="{Binding CondicionAPartirDe, UpdateSourceTrigger=PropertyChanged}" Checked="CheckBox_Checked"/>
+
+            <Label Content="Unidades _determinadas" VerticalAlignment="Center" FontSize="15" Margin="10" Target="{Binding ElementName=UdsDeterminadasCheckBox}"/>
+            <CheckBox x:Name="UdsDeterminadasCheckBox" IsChecked="{Binding CondicionUDSExactas, UpdateSourceTrigger=PropertyChanged}" Checked="CheckBox_Checked"/>
+        </StackPanel>
+
+        <Label Grid.Row="5" Content="_Unidades para la condición" VerticalAlignment="Center"/>
+
+        <Slider x:Name="UnidadesParaCondicionSlider" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" Margin="5" 
+                TickFrequency="5" Orientation="Horizontal" TickPlacement="BottomRight" Minimum="0" Maximum="99" Value="{Binding DescuentoSeleccionado.UnidadesCondicionAplicar}"/>
+
+        <TextBlock Grid.Row="5" Grid.Column="2" Text="{Binding ElementName=UnidadesParaCondicionSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" FontSize="20" HorizontalAlignment="Center"/>
+
+        <StackPanel Grid.Column="1" Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button x:Name="AceptarEliminarButton"  IsDefault="True" VerticalAlignment="Center" HorizontalAlignment="Center" Command="ApplicationCommands.Save" Margin="10"/>
+            <Button x:Name="CancelarDelButton" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Cancelar" Margin="10" IsCancel="True" Background="IndianRed" BorderBrush="IndianRed" Click="CancelarDelButton_Click"/>
+        </StackPanel>
+    </Grid>
+
+</Window>

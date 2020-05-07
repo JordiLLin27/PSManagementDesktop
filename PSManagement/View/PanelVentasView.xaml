@@ -34,6 +34,11 @@
             Command="com:CustomCommands.Sell"
             Executed="SellCommandBinding_Executed"
             CanExecute="SellCommandBinding_CanExecute"/>
+
+        <CommandBinding
+            Command="com:CustomCommands.Discount"
+            Executed="DiscountCommandBinding_Executed"
+            CanExecute="DiscountCommandBinding_CanExecute"/>
     </UserControl.CommandBindings>
 
     <UserControl.Resources>
@@ -47,19 +52,19 @@
         <Border DockPanel.Dock="Right" BorderThickness="2" BorderBrush="LightBlue" MinWidth="400">
             <DockPanel x:Name="RegistroVentaDockPanel" >
                 <StackPanel DockPanel.Dock="Top"  Orientation="Horizontal">
-                    <TextBlock FontSize="30" Margin="15">Venta actual:</TextBlock>
-                    <Button x:Name="CancelarVentaButton" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Cancelar Venta" Margin="50,0,0,0" Command="ApplicationCommands.Delete"/>
+                    <TextBlock FontSize="30" Margin="20">Venta actual:</TextBlock>
+                    <Button x:Name="CancelarVentaButton" BorderBrush="IndianRed" Background="IndianRed" Content="Cancelar Venta" Margin="30,0,0,0" Command="ApplicationCommands.Delete"/>
                 </StackPanel>
                 <Button x:Name="ConfirmarCompraButton" DockPanel.Dock="Bottom" Margin="10" Height="70" Command="com:CustomCommands.Sell">
                     <Button.Content>
                         <TextBlock FontSize="25" HorizontalAlignment="Left" Foreground="White">
                             <Run Text="Precio Total: "/>
-                            <Run Text="{Binding PrecioTotal}"/>
+                            <Run Text="{Binding FacturaFinal.ImporteTotalConIva, StringFormat='#.00', UpdateSourceTrigger=PropertyChanged}"/>
                             <Run Text=" €"/>
                         </TextBlock>
                     </Button.Content>
                 </Button>
-                <ListBox x:Name="ListaFacturaListBox" ItemsSource="{Binding DetallesArticulosFactura}" SelectedItem="{Binding DetallesFacturaSeleccionado}" MaxWidth="390">
+                <ListBox x:Name="ListaFacturaListBox" ItemsSource="{Binding DetallesArticulosFactura}" SelectedItem="{Binding DetallesFacturaSeleccionado}" MaxWidth="390" MaxHeight="740">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Vertical" Margin="10"/>
@@ -67,7 +72,7 @@
                     </ListBox.ItemsPanel>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <materialDesign:Card Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" Padding="8" UniformCornerRadius="6" >
+                            <materialDesign:Card Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" Padding="8" UniformCornerRadius="6" Tag="itemFactura">
                                 <Grid MinWidth="340" MaxWidth="340">
 
                                     <Grid.ColumnDefinitions>
@@ -78,17 +83,15 @@
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
-
-
-
-                                    <TextBlock Grid.Column="0" Text="{Binding ARTICULO.Nombre}" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                                    <TextBlock Grid.Column="1" Text="{Binding TallaONum}" Margin="5" VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Column="0" Text="{Binding ARTICULO.Nombre}" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left" TextWrapping="WrapWithOverflow"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding TallaONum}" TextWrapping="WrapWithOverflow" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                     <TextBlock Grid.Column="2" Margin="5" VerticalAlignment="Center">
                                         <Run Text="x"/>
                                         <Run Text="{Binding CantidadArticulo}"/>
                                     </TextBlock>
                                     <TextBlock Grid.Column="3" Text="{Binding ARTICULO.PrecioUnitario, StringFormat='#.00€'}" Margin="5" VerticalAlignment="Center"/>
-                                    <Button Grid.Column="4" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource PrimaryHueLightBrush}" BorderThickness="0" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right">
+                                    <Button Grid.Column="4" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource PrimaryHueLightBrush}" 
+                                            BorderThickness="0" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right" Click="EliminarArticuloDetallesFacturaButton_Click">
                                         <Button.Content>
                                             <materialDesign:PackIcon Kind="TrashCan"/>
                                         </Button.Content>
@@ -103,20 +106,32 @@
 
 
         <Border DockPanel.Dock="Bottom" BorderBrush="LightBlue" BorderThickness="1">
-            <ListBox x:Name="ListaCategoriasListBox" ItemsSource="{Binding ListaCategorias}" SelectedItem="{Binding CategoriaSeleccionada}" SelectionChanged="ListaCategoriasListBox_SelectionChanged" SelectionMode="Single">
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal"></StackPanel>
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Border Height="120" Width="120" CornerRadius="10,5,10,5" Background="{DynamicResource PrimaryHueMidBrush }">
-                            <TextBlock TextWrapping="WrapWithOverflow" Text="{Binding Categoria}" FontSize="20" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+            <DockPanel>
+
+                <Button x:Name="AplicarDescuentoButton" DockPanel.Dock="Right" 
+                        Height="120" Width="140"
+                        materialDesign:ButtonAssist.CornerRadius="10" 
+                        Margin="5" Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                        Command="com:CustomCommands.Discount">
+                    <TextBlock Text="Aplicar Descuento" TextWrapping="WrapWithOverflow" FontSize="20" TextAlignment="Center"/>
+                </Button>
+
+                <ListBox x:Name="ListaCategoriasListBox" ItemsSource="{Binding ListaCategorias}" SelectedItem="{Binding CategoriaSeleccionada}" SelectionChanged="ListaCategoriasListBox_SelectionChanged" SelectionMode="Single">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"></StackPanel>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border Height="120" Width="120" CornerRadius="10,5,10,5" Background="{DynamicResource PrimaryHueMidBrush }">
+                                <TextBlock TextWrapping="WrapWithOverflow" Text="{Binding Categoria}" FontSize="20" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
+
         </Border>
 
         <Border DockPanel.Dock="Top" BorderBrush="LightBlue" BorderThickness="1" >

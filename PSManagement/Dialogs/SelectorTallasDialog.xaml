@@ -31,7 +31,7 @@
     </Window.Resources>
 
     <Grid>
-        <StackPanel x:Name="PanelTallasStackPanel" Orientation="Horizontal" HorizontalAlignment="Center" Visibility="Collapsed">
+        <WrapPanel x:Name="PanelTallasStackPanel" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
             <Button ToolTip="Seleccionar talla XXS" Content="XXS" Tag="Talla XXS" Style="{StaticResource botonesSeleccion}" Command="com:CustomCommands.SelectSize"/>
             <Button ToolTip="Seleccionar talla XS" Content="XS" Tag="Talla XS" Style="{StaticResource botonesSeleccion}" Command="com:CustomCommands.SelectSize"/>
             <Button ToolTip="Seleccionar talla S" Content="S" Tag="Talla S" Style="{StaticResource botonesSeleccion}" Command="com:CustomCommands.SelectSize"/>
@@ -39,7 +39,12 @@
             <Button ToolTip="Seleccionar talla L" Content="L" Tag="Talla L" Style="{StaticResource botonesSeleccion}" Command="com:CustomCommands.SelectSize"/>
             <Button ToolTip="Seleccionar talla XL" Content="XL" Tag="Talla XL" Style="{StaticResource botonesSeleccion}" Command="com:CustomCommands.SelectSize"/>
             <Button ToolTip="Seleccionar talla XXL" Content="XXL" Tag="Talla XXL" Style="{StaticResource botonesSeleccion}" Command="com:CustomCommands.SelectSize"/>
-        </StackPanel>
+            <Button ToolTip="Cancelar" Tag="Cancelar" Style="{StaticResource botonesSeleccion}" IsCancel="True" Background="IndianRed" BorderBrush="IndianRed">
+                <Button.Content>
+                    <materialDesign:PackIcon Kind="ExitToApp"/>
+                </Button.Content>
+            </Button>
+        </WrapPanel>
 
         <WrapPanel x:Name="PanelNumerosWrapPanel" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
             <Button ToolTip="Seleccionar Número 36" Content="36" Tag="Número 36" Style="{StaticResource botonesSeleccion}" Command="com:CustomCommands.SelectSize"/>
@@ -54,6 +59,11 @@
             <Button ToolTip="Seleccionar Número 45" Content="45" Tag="Número 45" Style="{StaticResource botonesSeleccion}" Command="com:CustomCommands.SelectSize"/>
             <Button ToolTip="Seleccionar Número 46" Content="46" Tag="Número 46" Style="{StaticResource botonesSeleccion}" Command="com:CustomCommands.SelectSize"/>
             <Button ToolTip="Seleccionar Número 47" Content="47" Tag="Número 47" Style="{StaticResource botonesSeleccion}" Command="com:CustomCommands.SelectSize"/>
+            <Button ToolTip="Cancelar" Tag="Cancelar" Style="{StaticResource botonesSeleccion}" IsCancel="True" Background="IndianRed" BorderBrush="IndianRed">
+                <Button.Content>
+                    <materialDesign:PackIcon Kind="ExitToApp"/>
+                </Button.Content>
+            </Button>
         </WrapPanel>
     </Grid>
 </Window>

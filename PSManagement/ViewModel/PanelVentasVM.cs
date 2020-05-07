@@ -30,9 +30,12 @@ namespace PSManagement.ViewModel
         public detallesfactura DetallesFacturaSeleccionado { get; set; }
         public facturas FacturaFinal { get; set; }
 
-        public double PrecioTotal { get; set; }
+        public int CantidadElementosFactura { get; set; }
 
         public string FiltroTextBox { get; set; }
+
+        public bool DescuentoAplicado { get; set; }
+
 
 
         public PanelVentasVM()
@@ -42,10 +45,10 @@ namespace PSManagement.ViewModel
             ListaNumerosCalzado = BBDDService.GetNumerosCalzado();
             ListaColores = BBDDService.GetColores();
 
-            FacturaFinal = new facturas() { IdFactura = BBDDService.GetIdFactura() + 1 };
+            FacturaFinal = new facturas();
             DetallesArticulosFactura = new ObservableCollection<detallesfactura>();
 
-            PrecioTotal = 0.00;
+            CantidadElementosFactura = 0;
 
         }
 
@@ -86,10 +89,49 @@ namespace PSManagement.ViewModel
             }
         }
 
+        internal void BorrarItems(detallesfactura detallesfacturaABorrar)
+        {
+            if (detallesfacturaABorrar.CantidadArticulo > 1)
+            {
+                detallesfacturaABorrar.CantidadArticulo--;
+                if (detallesfacturaABorrar.TallaONum.ToLower().Contains("talla"))
+                {
+                    detallesfacturaABorrar.ARTICULO.TALLASTEXTILES.SumaTalla(detallesfacturaABorrar.TallaONum);
+                }
+                else
+                    detallesfacturaABorrar.ARTICULO.NUMEROSCALZADO.SumaNumero(detallesfacturaABorrar.TallaONum);
+            }
+            else
+            {
+                DetallesArticulosFactura.Remove(detallesfacturaABorrar);
+                BBDDService.RevertChanges();
+            }
+            RecalcularPrecio();
+        }
+
+        internal bool DiscountExecuted()
+        {
+            SeleccionDescuentoDialog seleccionDescuento = new SeleccionDescuentoDialog(FacturaFinal, DetallesArticulosFactura)
+            {
+                WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen,
+                ShowInTaskbar = false
+            };
+
+            DescuentoAplicado = seleccionDescuento.ShowDialog() == true ? true : false;
+
+            return DescuentoAplicado;
+        }
+
+        internal bool DiscountCanExecute()
+        {
+            return FacturaFinal.ImporteTotalConIva > 0;
+        }
+
         internal void DeleteExecuted()
         {
             DetallesArticulosFactura.Clear();
-            PrecioTotal = 0.00;
+            FacturaFinal = new facturas();
+            BBDDService.RevertChanges();
         }
 
         internal bool DeleteCanExecute()
@@ -97,32 +139,58 @@ namespace PSManagement.ViewModel
             return DetallesArticulosFactura.Count > 0;
         }
 
-        internal void SellExecuted()
+        internal bool SellExecuted()
         {
 
+            TerminarVentaDialog terminarVenta = new TerminarVentaDialog(FacturaFinal, DetallesArticulosFactura)
+            {
+                WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen,
+                ShowInTaskbar = false
+            };
+
+            if (terminarVenta.ShowDialog() == true)
+            {
+                FacturaFinal = new facturas();
+                DetallesArticulosFactura = new ObservableCollection<detallesfactura>();
+                CantidadElementosFactura = 0;
+                return true;
+            }
+            else
+                return false;
         }
 
         internal bool SellCanExecute()
         {
-            return PrecioTotal > 0;
+            return FacturaFinal.ImporteTotalConIva > 0;
         }
 
         internal void SeleccionarTallaVenta()
         {
             SelectorTallasDialog selectorTallas = new SelectorTallasDialog(ArticuloSeleccionado, DetallesArticulosFactura) { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen, ShowInTaskbar = false };
 
-            selectorTallas.ShowDialog();
-
-            CalculaPrecio();
+            if (selectorTallas.ShowDialog() == true)
+            {
+                CantidadElementosFactura++;
+                SumarPrecio(ArticuloSeleccionado);
+            }
         }
 
-        private void CalculaPrecio()
+        private void RecalcularPrecio()
         {
-            PrecioTotal = 0d;
+            DescuentoAplicado = false;
+            FacturaFinal.ImporteTotalConIva = 0;
             foreach (detallesfactura item in DetallesArticulosFactura)
             {
-                PrecioTotal += item.ARTICULO.PrecioUnitario;
+                FacturaFinal.ImporteTotalConIva += (item.ARTICULO.PrecioUnitario * item.CantidadArticulo);
             }
+        }
+
+        private void SumarPrecio(articulos articulo)
+        {
+            if (DetallesArticulosFactura.Count > 0)
+                FacturaFinal.ImporteTotalConIva += articulo.PrecioUnitario;
+            else
+                FacturaFinal.ImporteTotalConIva = 0;
         }
 
         internal void CargaArticulosCategoriaSeleccionada()

@@ -74,5 +74,17 @@ namespace PSManagement.Properties {
                 return ((string)(this["ContainerName"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string RutaFacturasDefault {
+            get {
+                return ((string)(this["RutaFacturasDefault"]));
+            }
+            set {
+                this["RutaFacturasDefault"] = value;
+            }
+        }
     }
 }

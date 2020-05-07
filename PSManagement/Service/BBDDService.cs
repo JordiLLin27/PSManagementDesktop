@@ -28,6 +28,8 @@ namespace PSManagement.Service
 
             _context.facturas.Load();
             _context.detallesfactura.Load();
+
+            _context.descuentos.Load();
         }
 
         //*******
@@ -81,6 +83,12 @@ namespace PSManagement.Service
             return SaveChanges();
         }
 
+        public static int AddDescuento(descuentos descuentoAdd)
+        {
+            _context.descuentos.Add(descuentoAdd);
+            return SaveChanges();
+        }
+
         //*******
         //GETTERS (READ)
         //******
@@ -117,6 +125,11 @@ namespace PSManagement.Service
         public static ObservableCollection<facturas> GetFacturas()
         {
             return _context.facturas.Local;
+        }
+
+        public static ObservableCollection<descuentos> GetDescuentos()
+        {
+            return _context.descuentos.Local;
         }
 
         public static ObservableCollection<detallesfactura> GetDetallesfactura(facturas factura)
@@ -277,6 +290,11 @@ namespace PSManagement.Service
             return SaveChanges();
         }
 
+        public static int DeleteDescuentos(descuentos descuentosDel)
+        {
+            _context.descuentos.Remove(descuentosDel);
+            return SaveChanges();
+        }
 
         //*******
         // Auxiliares

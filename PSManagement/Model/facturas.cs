@@ -22,7 +22,9 @@ namespace PSManagement.Model
     
         public int IdFactura { get; set; }
         public System.DateTime FechaCreacion { get; set; }
-        public decimal ImporteTotal { get; set; }
+        public double ImporteTotalSinIVa { get; set; }
+        public double ImporteTotalConIva { get; set; }
+        public string TipoDePago { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<detallesfactura> DETALLESFACTURA { get; set; }

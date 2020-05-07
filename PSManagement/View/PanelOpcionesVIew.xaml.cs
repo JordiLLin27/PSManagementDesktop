@@ -41,26 +41,51 @@ namespace PSManagement.View
 
         private void CheckConnectionCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-
+            if ((DataContext as PanelOpcionesVM).CompruebaConexionBD())
+            {
+                MessageBox.Show("Conexión con la base de datos realizada correctamente", "Conectado", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            }
+            else
+                MessageBox.Show("La conexión no se ha podido establecer", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         private void CheckConnectionCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-
+            e.CanExecute = true;
         }
 
-        private void SavePINCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        private void SaveCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            PinDialog dialogoPin = new PinDialog(PinConfig.Update_Pin)
+            if (((Button)e.OriginalSource).Tag.ToString() == "Pin")
             {
-                WindowStartupLocation = WindowStartupLocation.CenterScreen,
-                ShowInTaskbar = false
-            };
+                (DataContext as PanelOpcionesVM).CambiaPINSeguridad();
+            }
+            else if (((Button)e.OriginalSource).Tag.ToString() == "Ruta")
+            {
+                try
+                {
+                    (DataContext as PanelOpcionesVM).CambiarRutaFacturas();
+                    MessageBox.Show("Ruta guardada con éxito", "Éxito", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Error intentando guardar la ruta", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
 
-            dialogoPin.ShowDialog();
+            }
         }
 
-        private void SavePINCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        private void SaveCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void OpenCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            (DataContext as PanelOpcionesVM).ElegirRutaFacturas();
+        }
+
+        private void OpenCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
         }

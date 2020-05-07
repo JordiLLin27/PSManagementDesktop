@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PSManagement.View"
+             xmlns:properties="clr-namespace:PSManagement.Properties"
              xmlns:com="clr-namespace:PSManagement.Commands"
              mc:Ignorable="d"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -12,7 +13,7 @@
              TextElement.FontWeight="Medium"
              TextElement.FontSize="14"
              FontFamily="{materialDesign:MaterialDesignFont}"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" MaxHeight="978">
     <UserControl.CommandBindings>
         <CommandBinding
             Command="com:CustomCommands.CheckConnection"
@@ -20,8 +21,13 @@
             CanExecute="CheckConnectionCommandBinding_CanExecute"/>
         <CommandBinding
             Command="ApplicationCommands.Save"
-            Executed="SavePINCommandBinding_Executed"
-            CanExecute="SavePINCommandBinding_CanExecute"/>
+            Executed="SaveCommandBinding_Executed"
+            CanExecute="SaveCommandBinding_CanExecute"/>
+
+        <CommandBinding
+            Command="ApplicationCommands.Open"
+            Executed="OpenCommandBinding_Executed"
+            CanExecute="OpenCommandBinding_CanExecute"/>
 
     </UserControl.CommandBindings>
 
@@ -43,17 +49,52 @@
         </GroupBox>
 
         <GroupBox Grid.Row="1" Grid.RowSpan="2" Header="Sistema" Style="{DynamicResource MaterialDesignGroupBox}" materialDesign:ShadowAssist.ShadowDepth="Depth3" BorderThickness="0">
-            <StackPanel Orientation="Vertical">
-                <StackPanel Orientation="Horizontal" Margin="5">
-                    <Label Content="Comprobar Co_nexión a la base de datos:" VerticalAlignment="Center" Target="{Binding ElementName=ComprobarConexionButton}"/>
-                    <Button x:Name="ComprobarConexionButton" Content="Comprobar" Width="120" Grid.ColumnSpan="2" materialDesign:ButtonAssist.CornerRadius="10" Command="com:CustomCommands.CheckConnection" HorizontalAlignment="Left" Margin="15,0,0,0"/>
+            <Grid MaxHeight="700" Margin="20">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+
+                <Label Grid.Column="0" Grid.Row="0"  VerticalAlignment="Center" Target="{Binding ElementName=ComprobarConexionButton}" AutomationProperties.AccessKey="R">
+                    <Label.Content>
+                        <TextBlock Text="Ruta para guardar las facturas predeterminada:" TextWrapping="WrapWithOverflow"/>
+                    </Label.Content>
+                </Label>
+                <TextBox Grid.Column="1" Grid.Row="0" x:Name="RutaFacturasTextBox" Width="Auto" VerticalAlignment="Center" Text="{Binding Source={x:Static properties:Settings.Default},Path=RutaFacturasDefault, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
+                <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left">
+                    <Button x:Name="SeleccionarRutaFacturasButton" Content="..." Width="40" Grid.ColumnSpan="2" materialDesign:ButtonAssist.CornerRadius="10" Command="ApplicationCommands.Open" Margin="15,0,0,0"/>
+                    <Button x:Name="GuardarRutaFacturasButton" Content="Guardar" Width="120" Grid.ColumnSpan="2" materialDesign:ButtonAssist.CornerRadius="10" Command="ApplicationCommands.Save" Margin="15,0,0,0" Tag="Ruta"/>
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal" Margin="5">
-                    <Label Content="Cambiar el número PIN de seguridad:" VerticalAlignment="Center" Target="{Binding ElementName=ComprobarConexionButton}"/>
-                    <Button x:Name="ModificarPinButton" Content="Cambiar PIN" Width="120" Grid.ColumnSpan="2" materialDesign:ButtonAssist.CornerRadius="10" Command="ApplicationCommands.Save" HorizontalAlignment="Left" Margin="35,0,0,0"/>
-                </StackPanel>
-            </StackPanel>
+
+
+                <Label Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Target="{Binding ElementName=ComprobarConexionButton}" AutomationProperties.AccessKey="N">
+                    <Label.Content>
+                        <TextBlock Text="Comprobar conexión a la base de datos:" TextWrapping="WrapWithOverflow"/>
+                    </Label.Content>
+                </Label>
+                <Button x:Name="ComprobarConexionButton" Grid.Column="1" Grid.Row="2" Content="Comprobar" Width="120" Grid.ColumnSpan="2" materialDesign:ButtonAssist.CornerRadius="10" Command="com:CustomCommands.CheckConnection" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15"/>
+
+
+
+                <Label Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" Target="{Binding ElementName=ComprobarConexionButton}" AutomationProperties.AccessKey="P">
+                    <Label.Content>
+                        <TextBlock Text="Cambiar el número PIN de seguridad:" TextWrapping="WrapWithOverflow"/>
+                    </Label.Content>
+                </Label>
+                <Button x:Name="ModificarPinButton" Grid.Column="1" Grid.Row="3" Content="Cambiar PIN" Width="120" materialDesign:ButtonAssist.CornerRadius="10" Command="ApplicationCommands.Save" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15" Tag="Pin"/>
+
+            </Grid>
         </GroupBox>
     </Grid>
 </UserControl>

@@ -13,7 +13,7 @@
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="{materialDesign:MaterialDesignFont}"
-        Title="PSManagement" Height="1080" Width="1920" WindowState="Maximized" Icon="/Assets/shipping_shipment_product.ico" WindowStyle="None" ResizeMode="NoResize">
+        Title="PSManagement" Height="1080" Width="1920" WindowState="Maximized" WindowStyle="None" ResizeMode="NoResize">
 
     <!--Comandos-->
     <Window.CommandBindings>
@@ -61,8 +61,24 @@
 
     <DockPanel>
         <Menu DockPanel.Dock="Top">
-            <MenuItem Header="S_istema" TabIndex="6">
-                <MenuItem Header="_Salir" InputGestureText="Alt + F4"   Command="comands:CustomCommands.Exit">
+            <MenuItem Header="_Tienda" TabIndex="6">
+                <MenuItem Header="_Añadir Descuento" Click="MenuItem_Click" Tag="Add">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="Discount"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Editar Desc_uento" Click="MenuItem_Click" Tag="Update">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="Discount"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Eliminar _Descuento" Click="MenuItem_Click" Tag="Delete">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="Discount"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+
+                <MenuItem Header="_Salir" InputGestureText="Alt + F4" Command="comands:CustomCommands.Exit">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon Kind="ExitToApp"/>
                     </MenuItem.Icon>
