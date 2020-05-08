@@ -52,7 +52,6 @@ namespace PSManagement.Dialogs
         {
             if ((DataContext as SeleccionDescuentoVM).PuedeSeleccionarArticulos())
             {
-                TextoAyudaTextBox.Visibility = Visibility.Visible;
                 ListaDetallesArticulosFacturaListBox.IsEnabled = true;
             }
         }

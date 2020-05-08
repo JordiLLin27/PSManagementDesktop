@@ -93,6 +93,8 @@ namespace PSManagement.ViewModel
         {
             StringBuilder cadena = new StringBuilder();
 
+            string rutaNombreFactura = Properties.Settings.Default.RutaFacturasDefault + @"\factura" + FacturaFinal.IdFactura + DateTime.Now.ToShortDateString().Replace("/", "") + DateTime.Now.ToShortTimeString().Replace(":", "") + ".pdf"; ;
+
             cadena.Append("Factura realizada el: " + DateTime.Now.ToLongDateString() + "\nDetalles de la factura:\n---------------------------------------------------\n");
 
             foreach (detallesfactura item in DetallesFactura)
@@ -100,10 +102,10 @@ namespace PSManagement.ViewModel
                 cadena.Append(item.ARTICULO.Nombre + "\t\t" + item.TallaONum + "\t\tuds: " + item.CantidadArticulo + "\t\t" + Math.Round(item.ARTICULO.PrecioUnitario, 2) + "€\n");
             }
             cadena.Append("---------------------------------------------------\n" +
-                "\t\t\tImporte total sin IVA: " + Math.Round(FacturaFinal.ImporteTotalSinIVa, 2) + " €\n\t\t\t" + "IVA: " + VatApiService.RescatarIva() + "%\n\t\t\tImporte total con iva: " + Math.Round(FacturaFinal.ImporteTotalConIva, 2) + " €");
+                "\t\t\tImporte total sin IVA: " + Math.Round(FacturaFinal.ImporteTotalSinIVa, 2) + " €\n\t\t\t" + "IVA: " + VatApiService.RescatarIva() + "%\n\t\t\tImporte total con iva: " + Math.Round(FacturaFinal.ImporteTotalConIva, 2) + " €\nTipo de pago: " + FacturaFinal.TipoDePago);
 
-            Properties.Settings.Default.RutaFacturasDefault += @"\factura" + FacturaFinal.IdFactura + DateTime.Now.ToShortDateString().Replace("/", "") + DateTime.Now.ToShortTimeString().Replace(":", "") + ".txt";
-            File.WriteAllText(Properties.Settings.Default.RutaFacturasDefault, cadena.ToString(), Encoding.UTF8);
+
+            File.WriteAllText(rutaNombreFactura, cadena.ToString(), Encoding.UTF8);
         }
 
         private float PrecioSinIVa()

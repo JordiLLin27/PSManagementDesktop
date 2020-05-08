@@ -129,7 +129,7 @@ namespace PSManagement.ViewModel
 
         internal void DeleteExecuted()
         {
-            DetallesArticulosFactura.Clear();
+            DetallesArticulosFactura = new ObservableCollection<detallesfactura>();
             FacturaFinal = new facturas();
             BBDDService.RevertChanges();
         }

@@ -157,7 +157,7 @@ namespace PSManagement.Service
 
             var query = from art in _context.articulos
                         where art.Categoria == idCategoria &&
-                        (art.TALLASTEXTILES.TotalCantidadArticulo > 0 || art.NUMEROSCALZADO.TotalCantidadArticulo > 0)
+                        (art.TALLASTEXTILES.TotalCantidadArticulo > 0 || art.NUMEROSCALZADO.TotalCantidadArticulo > 0) && art.StockDisponible == 1
                         select art;
 
             collection.Source = query.ToList();
@@ -223,13 +223,6 @@ namespace PSManagement.Service
             else
                 return 0;
         }
-
-        /*
-        public static detallesfactura GetDetallesFactura(int idFactura, string CodArt, string talla)
-        {
-            
-        }
-        */
 
         //*******
         // UPDATE

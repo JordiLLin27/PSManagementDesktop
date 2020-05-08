@@ -29,7 +29,7 @@ namespace PSManagement.ViewModel
         internal bool SetTallasONumeros(int cantidad)
         {
             if (Tallastextiles != null)
-                return Tallastextiles.SetTallas(TallaONum, cantidad);
+                return Tallastextiles.SetTallas("Talla " + TallaONum, cantidad);
             else
                 return Numeroscalzado.SetNumeros(TallaONum, cantidad);
         }
@@ -39,7 +39,7 @@ namespace PSManagement.ViewModel
             if (Numeroscalzado != null)
                 return Numeroscalzado.GetCantidadNumero(TallaONum);
             else
-                return Tallastextiles.GetCantidadTalla(TallaONum);
+                return Tallastextiles.GetCantidadTalla("Talla " + TallaONum);
         }
     }
 }

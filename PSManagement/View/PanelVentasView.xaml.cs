@@ -26,12 +26,19 @@ namespace PSManagement.View
         {
             DataContext = new PanelVentasVM();
             InitializeComponent();
-
         }
 
         private void CleanFiltersCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            (DataContext as PanelVentasVM).CleanFiltersExecuted();
+            try
+            {
+                (DataContext as PanelVentasVM).CleanFiltersExecuted();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
         private void CleanFiltersCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -48,6 +55,8 @@ namespace PSManagement.View
             catch (Exception)
             {
                 MessageBox.Show("No hay elementos para filtrar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                FiltroPorNombreOModeloTextBox.Text = null;
+                SeleccionarColorFiltroComboBox.SelectedItem = null;
             }
 
         }
@@ -76,7 +85,7 @@ namespace PSManagement.View
         {
             if ((DataContext as PanelVentasVM).SellExecuted())
             {
-                MessageBox.Show("Venta realizada", "Éxito", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                MessageBox.Show("Venta realizada correctamente", "Éxito", MessageBoxButton.OK, MessageBoxImage.Asterisk);
             }
             else
                 MessageBox.Show("No se ha podido realizar la venta", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -119,7 +128,7 @@ namespace PSManagement.View
                 MessageBox.Show("Descuento aplicado correctamente", "Éxito", MessageBoxButton.OK, MessageBoxImage.Asterisk);
             }
             else
-                MessageBox.Show("No es posible aplicar ese descuento", "Sin descuento", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("No se ha aplicado ningún descuento", "Sin descuento", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void DiscountCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
