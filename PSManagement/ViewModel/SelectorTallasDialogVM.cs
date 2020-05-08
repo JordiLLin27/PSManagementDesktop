@@ -24,8 +24,8 @@ namespace PSManagement.ViewModel
             ArticuloSeleccionado = articulo;
             DetallesArticuloEnFactura = ListaDetallesArticulo;
 
-            TallasArticuloSeleccionado = BBDDService.GetArticuloTallasTextiles(ArticuloSeleccionado);
-            NumerosArticuloSeleccionado = BBDDService.GetArticuloNumerosCalzado(ArticuloSeleccionado);
+            TallasArticuloSeleccionado = BbddService.GetArticuloTallasTextiles(ArticuloSeleccionado);
+            NumerosArticuloSeleccionado = BbddService.GetArticuloNumerosCalzado(ArticuloSeleccionado);
         }
 
         internal bool SelectSizeCanExecute(string tag)

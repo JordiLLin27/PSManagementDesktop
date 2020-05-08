@@ -191,10 +191,10 @@
       <DependentUpon>ModeloTienda.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\PropertyChangedModel.cs" />
+    <Compile Include="Model\OperacionesTallasYNumeros.cs" />
     <Compile Include="Model\tallastextiles.cs">
       <DependentUpon>ModeloTienda.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\OperacionesTallasYNumeros.cs" />
     <Compile Include="Service\BBDDService.cs" />
     <Compile Include="Service\BlobStorage.cs" />
     <Compile Include="Service\VatApiService.cs" />
@@ -362,6 +362,8 @@
   <ItemGroup>
     <Resource Include="Assets\no-image-available.png" />
     <Resource Include="Assets\package_box_inventory.ico" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Model\ModeloTienda.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModeloTienda.edmx</DependentUpon>

@@ -40,10 +40,10 @@ namespace PSManagement.ViewModel
 
         public PanelVentasVM()
         {
-            ListaCategorias = BBDDService.GetCategorias();
-            ListaTallasTextiles = BBDDService.GetTallasTextiles();
-            ListaNumerosCalzado = BBDDService.GetNumerosCalzado();
-            ListaColores = BBDDService.GetColores();
+            ListaCategorias = BbddService.GetCategorias();
+            ListaTallasTextiles = BbddService.GetTallasTextiles();
+            ListaNumerosCalzado = BbddService.GetNumerosCalzado();
+            ListaColores = BbddService.GetColores();
 
             FacturaFinal = new facturas();
             DetallesArticulosFactura = new ObservableCollection<detallesfactura>();
@@ -104,7 +104,7 @@ namespace PSManagement.ViewModel
             else
             {
                 DetallesArticulosFactura.Remove(detallesfacturaABorrar);
-                BBDDService.RevertChanges();
+                BbddService.RevertChanges();
             }
             RecalcularPrecio();
         }
@@ -131,7 +131,7 @@ namespace PSManagement.ViewModel
         {
             DetallesArticulosFactura = new ObservableCollection<detallesfactura>();
             FacturaFinal = new facturas();
-            BBDDService.RevertChanges();
+            BbddService.RevertChanges();
         }
 
         internal bool DeleteCanExecute()
@@ -153,6 +153,7 @@ namespace PSManagement.ViewModel
                 FacturaFinal = new facturas();
                 DetallesArticulosFactura = new ObservableCollection<detallesfactura>();
                 CantidadElementosFactura = 0;
+                BbddService.SaveChanges();
                 return true;
             }
             else
@@ -197,7 +198,7 @@ namespace PSManagement.ViewModel
         {
             if (CategoriaSeleccionada != null)
             {
-                ListaArticulosSeleccionados = BBDDService.GetArticulosPorCategoria(CategoriaSeleccionada.IdCategoria);
+                ListaArticulosSeleccionados = BbddService.GetArticulosPorCategoria(CategoriaSeleccionada.IdCategoria);
                 ListaArticulosSeleccionados.Filter += ListaArticulosSeleccionados_Filter;
             }
         }

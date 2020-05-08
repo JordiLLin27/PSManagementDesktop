@@ -11,11 +11,11 @@ using System.Windows.Data;
 
 namespace PSManagement.Service
 {
-    public static class BBDDService
+    public static class BbddService
     {
-        private static readonly bdtiendaEntities _context = new bdtiendaEntities();
+        private static readonly balmis_pdam04bEntities _context = new balmis_pdam04bEntities();
 
-        static BBDDService()
+        static BbddService()
         {
 
             _context.inventarios.Load();
@@ -165,30 +165,6 @@ namespace PSManagement.Service
             return collection;
         }
 
-        private static bool TieneTallas(articulos articulo)
-        {
-            if (articulo.TALLASTEXTILES != null)
-            {
-                if (articulo.TALLASTEXTILES.TotalCantidadArticulo <= 0)
-                {
-                    return false;
-
-                }
-                else
-                    return true;
-            }
-            else if (articulo.NUMEROSCALZADO != null)
-            {
-                if (articulo.NUMEROSCALZADO.TotalCantidadArticulo <= 0)
-                {
-                    return false;
-                }
-                else
-                    return true;
-            }
-            else return false;
-        }
-
         public static tallastextiles GetArticuloTallasTextiles(articulos articuloBuscar)
         {
             var query = from tallas in _context.tallastextiles
@@ -219,7 +195,7 @@ namespace PSManagement.Service
                         select fact;
 
             if (query.Count() > 0)
-                return query.ToList().Last().IdFactura;
+                return query.Last().IdFactura;
             else
                 return 0;
         }

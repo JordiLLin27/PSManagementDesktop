@@ -31,9 +31,9 @@ namespace PSManagement.ViewModel
 
         public PanelGestionVM()
         {
-            ListaNumerosArticulos = new CollectionViewSource() { Source = BBDDService.GetNumerosCalzado(), IsLiveFilteringRequested = true };
-            ListaTallasArticulos = new CollectionViewSource() { Source = BBDDService.GetTallasTextiles(), IsLiveFilteringRequested = true };
-            ListaInventarios = BBDDService.GetInventarios();
+            ListaNumerosArticulos = new CollectionViewSource() { Source = BbddService.GetNumerosCalzado(), IsLiveFilteringRequested = true };
+            ListaTallasArticulos = new CollectionViewSource() { Source = BbddService.GetTallasTextiles(), IsLiveFilteringRequested = true };
+            ListaInventarios = BbddService.GetInventarios();
 
             ListaNumerosArticulos.Filter += FilterTablaNumeros;
             ListaTallasArticulos.Filter += FilterTablaTallas;
@@ -136,7 +136,7 @@ namespace PSManagement.ViewModel
 
         internal void UnDoChangesExecuted()
         {
-            BBDDService.RevertChanges();
+            BbddService.RevertChanges();
         }
 
         internal bool FindCanExecute()
@@ -157,7 +157,7 @@ namespace PSManagement.ViewModel
 
         internal int GuardarStock()
         {
-            return BBDDService.SaveChanges();
+            return BbddService.SaveChanges();
         }
 
         internal bool PidePIN()

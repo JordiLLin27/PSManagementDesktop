@@ -23,7 +23,7 @@ namespace PSManagement.ViewModel
 
         public SeleccionDescuentoVM(facturas factura, ObservableCollection<detallesfactura> detallesfactura)
         {
-            ListaDescuentos = BBDDService.GetDescuentos();
+            ListaDescuentos = BbddService.GetDescuentos();
             FacturaDescuento = factura;
             DetallesEnFactura = detallesfactura;
             DetallesSeleccionadosParaDescuento = new ObservableCollection<detallesfactura>();

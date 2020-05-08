@@ -50,7 +50,7 @@ namespace PSManagement.ViewModel
         {
             try
             {
-                BBDDService.GetDescuentos();
+                BbddService.GetDescuentos();
                 return true;
             }
             catch (Exception) { return false; }

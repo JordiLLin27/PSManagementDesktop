@@ -34,10 +34,10 @@ namespace PSManagement.ViewModel
 
         public PanelInventariosVM()
         {
-            ListaArticulos = new CollectionViewSource { Source = BBDDService.GetArticulos(), IsLiveFilteringRequested = true };
-            ListaInventarios = BBDDService.GetInventarios();
-            ListaCategorias = BBDDService.GetCategorias();
-            ListaColores = BBDDService.GetColores();
+            ListaArticulos = new CollectionViewSource { Source = BbddService.GetArticulos(), IsLiveFilteringRequested = true };
+            ListaInventarios = BbddService.GetInventarios();
+            ListaCategorias = BbddService.GetCategorias();
+            ListaColores = BbddService.GetColores();
 
             ListaArticulos.Filter += FiltroTablaArticulos;
         }
@@ -50,7 +50,7 @@ namespace PSManagement.ViewModel
                 FechaCreacion = DateTime.Now
             };
 
-            return BBDDService.AddInventario(nuevoInventario);
+            return BbddService.AddInventario(nuevoInventario);
         }
 
         public int InsertarCategoria(string nombreCategoria)
@@ -60,7 +60,7 @@ namespace PSManagement.ViewModel
                 Categoria = nombreCategoria
             };
 
-            return BBDDService.AddCategoria(nuevaCategoria);
+            return BbddService.AddCategoria(nuevaCategoria);
         }
 
         public int InsertarColor(string nombreColor)
@@ -70,27 +70,27 @@ namespace PSManagement.ViewModel
                 Color = nombreColor
             };
 
-            return BBDDService.AddColor(nuevoColor);
+            return BbddService.AddColor(nuevoColor);
         }
 
         public int SaveChanges()
         {
-            return BBDDService.SaveChanges();
+            return BbddService.SaveChanges();
         }
 
         public int DeleteInventario()
         {
-            return BBDDService.DeleteInventario(InventarioSeleccionado);
+            return BbddService.DeleteInventario(InventarioSeleccionado);
         }
 
         public int DeleteCategoria()
         {
-            return BBDDService.DeleteCategoria(CategoriaSeleccionada);
+            return BbddService.DeleteCategoria(CategoriaSeleccionada);
         }
 
         public int DeleteColor()
         {
-            return BBDDService.DeleteColor(ColorSeleccionado);
+            return BbddService.DeleteColor(ColorSeleccionado);
         }
 
         public void FiltroArticulos()

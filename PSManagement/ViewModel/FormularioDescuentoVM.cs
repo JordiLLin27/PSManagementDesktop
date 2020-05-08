@@ -36,12 +36,12 @@ namespace PSManagement.ViewModel
             else if (Action == DiscountAction.Update_Discount)
             {
                 Accion = "actualizar";
-                ListaDescuentos = BBDDService.GetDescuentos();
+                ListaDescuentos = BbddService.GetDescuentos();
             }
             else
             {
                 Accion = "eliminar";
-                ListaDescuentos = BBDDService.GetDescuentos();
+                ListaDescuentos = BbddService.GetDescuentos();
             }
         }
 
@@ -59,11 +59,11 @@ namespace PSManagement.ViewModel
             try
             {
                 if (Action == DiscountAction.Add_Discount)
-                    return BBDDService.AddDescuento(DescuentoSeleccionado);
+                    return BbddService.AddDescuento(DescuentoSeleccionado);
                 else if (Action == DiscountAction.Update_Discount)
-                    return BBDDService.SaveChanges();
+                    return BbddService.SaveChanges();
                 else
-                    return BBDDService.DeleteDescuentos(DescuentoSeleccionado);
+                    return BbddService.DeleteDescuentos(DescuentoSeleccionado);
             }
             catch (Exception)
             {
@@ -73,7 +73,7 @@ namespace PSManagement.ViewModel
 
         internal void RevertChanges()
         {
-            BBDDService.RevertChanges();
+            BbddService.RevertChanges();
         }
 
         public void CambiaTipoCondicion()

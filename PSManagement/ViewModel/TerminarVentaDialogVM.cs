@@ -14,8 +14,8 @@ namespace PSManagement.ViewModel
     class TerminarVentaDialogVM : INotifyPropertyChanged
     {
         public facturas FacturaFinal { get; set; }
-        public double CantidadAbonadaCliente { get; set; }
-        public double CambioCliente { get; set; }
+        public float CantidadAbonadaCliente { get; set; }
+        public float CambioCliente { get; set; }
         public ObservableCollection<detallesfactura> DetallesFactura { get; set; }
 
         public TerminarVentaDialogVM(facturas factura, ObservableCollection<detallesfactura> detallesArticulosFactura)
@@ -32,7 +32,7 @@ namespace PSManagement.ViewModel
             {
                 if (FacturaFinal.TipoDePago.Equals("Efectivo"))
                 {
-                    return CantidadAbonadaCliente > 0 && CantidadAbonadaCliente >= FacturaFinal.ImporteTotalConIva;
+                    return CantidadAbonadaCliente > 0 && CantidadAbonadaCliente >= Math.Round(FacturaFinal.ImporteTotalConIva, 2);
                 }
                 else
                     return true;
@@ -45,8 +45,8 @@ namespace PSManagement.ViewModel
         {
             float x, y;
 
-            x = (float)CantidadAbonadaCliente;
-            y = (float)FacturaFinal.ImporteTotalConIva;
+            x = CantidadAbonadaCliente;
+            y = FacturaFinal.ImporteTotalConIva;
 
             CambioCliente = x - y;
         }
@@ -70,12 +70,12 @@ namespace PSManagement.ViewModel
                 FacturaFinal.ImporteTotalSinIVa = PrecioSinIVa();
 
 
-                BBDDService.AddFactura(FacturaFinal);
+                BbddService.AddFactura(FacturaFinal);
 
                 foreach (detallesfactura item in DetallesFactura)
                 {
                     item.CodFactura = FacturaFinal.IdFactura;
-                    BBDDService.AddDetallesAFactura(item);
+                    BbddService.AddDetallesAFactura(item);
                 }
 
                 ImprimirFactura();
@@ -87,13 +87,11 @@ namespace PSManagement.ViewModel
             }
         }
 
-
-
         private void ImprimirFactura()
         {
             StringBuilder cadena = new StringBuilder();
 
-            string rutaNombreFactura = Properties.Settings.Default.RutaFacturasDefault + @"\factura" + FacturaFinal.IdFactura + DateTime.Now.ToShortDateString().Replace("/", "") + DateTime.Now.ToShortTimeString().Replace(":", "") + ".pdf"; ;
+            string rutaNombreFactura = Properties.Settings.Default.RutaFacturasDefault + @"\factura" + FacturaFinal.IdFactura + DateTime.Now.ToShortDateString().Replace("/", "") + DateTime.Now.ToShortTimeString().Replace(":", "") + ".txt"; ;
 
             cadena.Append("Factura realizada el: " + DateTime.Now.ToLongDateString() + "\nDetalles de la factura:\n---------------------------------------------------\n");
 

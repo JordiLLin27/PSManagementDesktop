@@ -41,9 +41,9 @@ namespace PSManagement.ViewModel
         {
             itemAction = action;
 
-            ListaInventarios = BBDDService.GetInventarios();
-            ListaCategorias = BBDDService.GetCategorias();
-            ListaColores = BBDDService.GetColores();
+            ListaInventarios = BbddService.GetInventarios();
+            ListaCategorias = BbddService.GetCategorias();
+            ListaColores = BbddService.GetColores();
 
             if (itemAction == ItemCRUDAction.Insert_Item)
             {
@@ -63,13 +63,13 @@ namespace PSManagement.ViewModel
             if (itemAction == ItemCRUDAction.Insert_Item)
             {
                 NormalizarArticulo();
-                BBDDService.AddArticulo(ArticuloCrud);
+                BbddService.AddArticulo(ArticuloCrud);
                 RegistrarTallas();
             }
             else if (itemAction == ItemCRUDAction.Delete_Item)
             {
                 BlobStorage.EliminarImagen(ArticuloCrud.UrlImagen);
-                BBDDService.DeleteArticulo(ArticuloCrud);
+                BbddService.DeleteArticulo(ArticuloCrud);
             }
             else
             {
@@ -93,18 +93,18 @@ namespace PSManagement.ViewModel
             if (TextilOCalzado)
             {
                 NumerosCalzado.TotalCantidadArticulo = NumerosCalzado.GetTotalItems();
-                BBDDService.AddNumerosCalzado(NumerosCalzado);
+                BbddService.AddNumerosCalzado(NumerosCalzado);
             }
             else
             {
                 TallasTextiles.TotalCantidadArticulo = TallasTextiles.GetTotalItems();
-                BBDDService.AddTallasTextiles(TallasTextiles);
+                BbddService.AddTallasTextiles(TallasTextiles);
             }
         }
 
         public void ActualizarInfo()
         {
-            BBDDService.SaveChanges();
+            BbddService.SaveChanges();
         }
 
         public bool MinimoAlcanzado(int cantidad)
@@ -114,7 +114,7 @@ namespace PSManagement.ViewModel
 
         internal void CloseExecuted()
         {
-            BBDDService.RevertChanges();
+            BbddService.RevertChanges();
         }
 
         public string EsTextilOCalzado()

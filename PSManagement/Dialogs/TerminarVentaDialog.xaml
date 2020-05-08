@@ -75,14 +75,14 @@
                 <TextBlock Text="Importe Total Venta" HorizontalAlignment="Center" FontSize="35" Margin="10"/>
                 <materialDesign:ColorZone Mode="Inverted" Padding="16" Margin="15" Height="100">
                     <TextBlock Text="{Binding FacturaFinal.ImporteTotalConIva, StringFormat='#.00€', UpdateSourceTrigger=PropertyChanged}" 
-                               FontFamily="OCR A Extended" Foreground="Gold" FontSize="35" FontWeight="Bold"
+                               FontFamily="OCR A Extended" FontSize="35" FontWeight="Bold"
                                VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </materialDesign:ColorZone>
             </StackPanel>
 
             <StackPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <TextBlock Text="Cantidad abonada por el cliente" HorizontalAlignment="Center" FontSize="35" Margin="15"/>
-                <TextBox x:Name="CantidadAbonadaClienteTextBox" FontSize="35" FontWeight="Bold" MaxLength="7" TextAlignment="Center" Margin="10,0,10,0" Width="500" Text="{Binding CantidadAbonadaCliente, UpdateSourceTrigger=PropertyChanged, StringFormat='{}{0:#,#.00}'}" TextChanged="CantidadAbonadaClienteTextBox_TextChanged"/>
+                <TextBox x:Name="CantidadAbonadaClienteTextBox" FontSize="35" FontWeight="Bold" MaxLength="7" TextAlignment="Center" Margin="10,0,10,0" Width="500" Text="{Binding CantidadAbonadaCliente, UpdateSourceTrigger=PropertyChanged}" TextChanged="CantidadAbonadaClienteTextBox_TextChanged" GotKeyboardFocus="CantidadAbonadaClienteTextBox_GotKeyboardFocus" TabIndex="1"/>
                 <Button x:Name="AceptarPagoEnEfectivoButton" Height="40" materialDesign:ButtonAssist.CornerRadius="20" Margin="10" Content="Terminar venta" IsDefault="True" Tag="AceptarEfectivo" Width="500" Command="ApplicationCommands.Save"/>
             </StackPanel>
 
@@ -90,7 +90,7 @@
             <StackPanel Grid.Row="2" Orientation="Vertical" VerticalAlignment="Center">
                 <TextBlock Text="Cambio para el cliente" HorizontalAlignment="Center" FontSize="35" Margin="15"/>
                 <materialDesign:ColorZone Mode="Inverted" Padding="16" Margin="15" Height="100">
-                    <TextBlock Text="{Binding CambioCliente, StringFormat='00.00€', UpdateSourceTrigger=PropertyChanged}" FontFamily="OCR A Extended" Foreground="Gold" FontSize="35" FontWeight="Bold"
+                    <TextBlock Text="{Binding CambioCliente, StringFormat='00.00€', UpdateSourceTrigger=PropertyChanged}" FontFamily="OCR A Extended" FontSize="35" FontWeight="Bold"
                                VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </materialDesign:ColorZone>
             </StackPanel>

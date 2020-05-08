@@ -64,5 +64,10 @@ namespace PSManagement.Dialogs
                 MessageBox.Show("Introduce sólo números", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        private void CantidadAbonadaClienteTextBox_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            CantidadAbonadaClienteTextBox.Text = "";
+        }
     }
 }
