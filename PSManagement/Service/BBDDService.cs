@@ -17,7 +17,6 @@ namespace PSManagement.Service
 
         static BbddService()
         {
-
             _context.inventarios.Load();
             _context.categorias.Load();
             _context.colores.Load();

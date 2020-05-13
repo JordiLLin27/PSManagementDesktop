@@ -72,7 +72,7 @@
                 </Label>
                 <TextBox Grid.Column="1" Grid.Row="0" x:Name="RutaFacturasTextBox" Width="Auto" VerticalAlignment="Center" Text="{Binding Source={x:Static properties:Settings.Default},Path=RutaFacturasDefault, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
                 <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left">
-                    <Button x:Name="SeleccionarRutaFacturasButton" Content="..." Width="40" Grid.ColumnSpan="2" materialDesign:ButtonAssist.CornerRadius="10" Command="ApplicationCommands.Open" Margin="15,0,0,0"/>
+                    <Button x:Name="SeleccionarRutaFacturasButton" Content="..." Width="45" Grid.ColumnSpan="2" materialDesign:ButtonAssist.CornerRadius="10" Command="ApplicationCommands.Open" Margin="15,2,0,1"/>
                     <Button x:Name="GuardarRutaFacturasButton" Content="Guardar" Width="120" Grid.ColumnSpan="2" materialDesign:ButtonAssist.CornerRadius="10" Command="ApplicationCommands.Save" Margin="15,0,0,0" Tag="Ruta"/>
                 </StackPanel>
 

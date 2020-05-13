@@ -57,18 +57,16 @@ namespace PSManagement.View
         //Comando para cargar el manual de ayuda
         private void HelpCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-
+            string ruta = System.IO.Directory.GetCurrentDirectory().ToString() + @"\PSManagementManual.chm";
+            System.Diagnostics.Process.Start(ruta);
         }
 
 
         //Comando para cargar el panel de opciones del programa
-
         private void PropertiesCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            PanelDeTrabajoGrid.Children.Clear();
-            PanelDeTrabajoGrid.Children.Add((this.DataContext as PanelPrincipalVM).CargaPanelOpciones());
-            CambiaTituloIconoMenuNav();
-
+            BarraCargaProgressBar.Visibility = Visibility.Visible;
+            CambiaPanel((this.DataContext as PanelPrincipalVM).CargaPanelOpciones());
         }
 
         private void PropertiesCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -99,9 +97,8 @@ namespace PSManagement.View
         //Comando para el botón de volver al panel anterior
         private void BrowseBackCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            PanelDeTrabajoGrid.Children.Clear();
-            PanelDeTrabajoGrid.Children.Add((this.DataContext as PanelPrincipalVM).BotonHome());
-            CambiaTituloIconoMenuNav();
+            BarraCargaProgressBar.Visibility = Visibility.Visible;
+            CambiaPanel((this.DataContext as PanelPrincipalVM).BotonHome());
         }
 
         private void BrowseBackCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -151,9 +148,8 @@ namespace PSManagement.View
         //Comando para cambiar al panel de ventas y facturación
         private void SalesCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            PanelDeTrabajoGrid.Children.Clear();
-            PanelDeTrabajoGrid.Children.Add((this.DataContext as PanelPrincipalVM).CargaPanelVentas());
-            CambiaTituloIconoMenuNav();
+            BarraCargaProgressBar.Visibility = Visibility.Visible;
+            CambiaPanel((this.DataContext as PanelPrincipalVM).CargaPanelVentas());
         }
 
 
@@ -165,9 +161,8 @@ namespace PSManagement.View
         //Comando para cambiar al panel de mantenimiento de inventarios
         private void InventoryCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            PanelDeTrabajoGrid.Children.Clear();
-            PanelDeTrabajoGrid.Children.Add((this.DataContext as PanelPrincipalVM).CargaPanelInventarios());
-            CambiaTituloIconoMenuNav();
+            BarraCargaProgressBar.Visibility = Visibility.Visible;
+            CambiaPanel((this.DataContext as PanelPrincipalVM).CargaPanelInventarios());
         }
 
         private void InventoryCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -178,9 +173,8 @@ namespace PSManagement.View
         //Comando para cambiar al panel de gestión de stock
         private void ManageCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            PanelDeTrabajoGrid.Children.Clear();
-            PanelDeTrabajoGrid.Children.Add((this.DataContext as PanelPrincipalVM).CargaPanelGestion());
-            CambiaTituloIconoMenuNav();
+            BarraCargaProgressBar.Visibility = Visibility.Visible;
+            CambiaPanel((this.DataContext as PanelPrincipalVM).CargaPanelGestion());
         }
 
         private void ManageCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -207,6 +201,23 @@ namespace PSManagement.View
             }
             else
                 MessageBox.Show("Se ha cancelado la operación", "Error", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+        }
+
+        private void CambiaPanel(UserControl userControl)
+        {
+            try
+            {
+
+                PanelDeTrabajoGrid.Children.Clear();
+                PanelDeTrabajoGrid.Children.Add(userControl);
+                CambiaTituloIconoMenuNav();
+                BarraCargaProgressBar.Visibility = Visibility.Collapsed;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ha ocurrido un error y no se ha podido cargar el panel seleccionado", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                CambiaPanel((DataContext as PanelPrincipalVM).BotonHome());
+            }
         }
     }
 }

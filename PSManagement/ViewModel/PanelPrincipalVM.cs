@@ -83,7 +83,7 @@ namespace PSManagement.ViewModel
             }
         }
 
-        internal UIElement BotonHome()
+        internal PanelIntroduccionView BotonHome()
         {
             return CargaPanelBienvenida();
         }

@@ -24,7 +24,15 @@ namespace PSManagement.View
     {
         public PanelGestionView()
         {
-            this.DataContext = new PanelGestionVM();
+            try
+            {
+                this.DataContext = new PanelGestionVM();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("La conexión a la base de datos ha fallado", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
             InitializeComponent();
         }
 

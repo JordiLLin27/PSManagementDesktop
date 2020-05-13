@@ -21,7 +21,6 @@ namespace PSManagement.ViewModel
 
         public PanelOpcionesVM()
         {
-
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -69,7 +68,6 @@ namespace PSManagement.ViewModel
 
         internal void CambiarRutaFacturas()
         {
-            Properties.Settings.Default.RutaFacturasDefault = RutaFacturas;
             Properties.Settings.Default.Save();
         }
 
@@ -80,6 +78,7 @@ namespace PSManagement.ViewModel
             if (dialog.ShowDialog() == WinForms.DialogResult.OK)
             {
                 RutaFacturas = dialog.SelectedPath;
+                Properties.Settings.Default.RutaFacturasDefault = RutaFacturas;
             }
         }
     }

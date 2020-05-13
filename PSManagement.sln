@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.1062
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSManagement", "PSManagement\PSManagement.csproj", "{C20A27CD-B8A5-4828-9DC3-3468757271F2}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "PSMSetup", "PSMSetup\PSMSetup.vdproj", "{794CA33C-C254-4E83-900F-9496BFDA033C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,8 @@ Global
 		{C20A27CD-B8A5-4828-9DC3-3468757271F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C20A27CD-B8A5-4828-9DC3-3468757271F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C20A27CD-B8A5-4828-9DC3-3468757271F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{794CA33C-C254-4E83-900F-9496BFDA033C}.Debug|Any CPU.ActiveCfg = Debug
+		{794CA33C-C254-4E83-900F-9496BFDA033C}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

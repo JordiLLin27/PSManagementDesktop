@@ -85,7 +85,7 @@
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="_Ayuda" TabIndex="7">
-                <MenuItem Header="_Manual" InputGestureText="F1">
+                <MenuItem Header="_Manual" InputGestureText="F1" Command="ApplicationCommands.Help">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon Kind="Help"/>
                     </MenuItem.Icon>
@@ -95,6 +95,9 @@
         <StatusBar x:Name="HoraStatusBar" DockPanel.Dock="Bottom" Background="{DynamicResource MaterialDesignPaper}">
             <StatusBarItem x:Name="FechaStatusBarItem" HorizontalContentAlignment="Left">
                 <TextBlock x:Name="FechaTextBlock" FontFamily="{materialDesign:MaterialDesignFont}" Foreground="{DynamicResource MaterialDesignBody}" FontSize="20" Margin="5"/>
+            </StatusBarItem>
+            <StatusBarItem x:Name="BarraDeCargaBarItem" HorizontalContentAlignment="Center">
+                <ProgressBar x:Name="BarraCargaProgressBar" IsIndeterminate="True" HorizontalAlignment="Center" MinWidth="1000" MaxWidth="1530" Width="1530" Visibility="Collapsed"/>
             </StatusBarItem>
             <StatusBarItem x:Name="HoraStatusBarItem" HorizontalContentAlignment="Right">
                 <TextBlock x:Name="HoraTextBlock" FontFamily="{materialDesign:MaterialDesignFont}" Foreground="{DynamicResource MaterialDesignBody}" FontSize="20" Margin="5"/>
@@ -160,7 +163,6 @@
                 </StackPanel>
                 <Separator Margin="10,0,10,0"/>
                 <Grid x:Name="PanelDeTrabajoGrid">
-
                     <!--Aquí dentro se irán insertando dinámicamente los controles de usuario que se vayan eligiendo (Por defecto se muestra un mensaje de Bienvenida)-->
                 </Grid>
             </StackPanel>

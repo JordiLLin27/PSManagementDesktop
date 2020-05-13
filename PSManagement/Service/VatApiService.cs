@@ -24,13 +24,20 @@ namespace PSManagement.Service
     {
         public static int RescatarIva()
         {
-            int[] rate = new int[1];
-            string url = @"http://api.vatlookup.eu/rates/es";
-            var json = new WebClient().DownloadString(url);
-            Vat vat = JsonConvert.DeserializeObject<Vat>(json);
+            try
+            {
+                int[] rate = new int[1];
+                string url = @"http://api.vatlookup.eu/rates/es";
+                var json = new WebClient().DownloadString(url);
+                Vat vat = JsonConvert.DeserializeObject<Vat>(json);
 
 
-            return vat.Rates[2].Rates[0];
+                return vat.Rates[2].Rates[0];
+            }
+            catch (Exception)
+            {
+                return 10;
+            }
         }
     }
 }

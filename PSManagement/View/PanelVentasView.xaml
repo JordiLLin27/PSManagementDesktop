@@ -59,7 +59,7 @@
                     <Button.Content>
                         <TextBlock FontSize="25" HorizontalAlignment="Left" Foreground="White">
                             <Run Text="Precio Total: "/>
-                            <Run Text="{Binding FacturaFinal.ImporteTotalConIva, StringFormat='#.00', UpdateSourceTrigger=PropertyChanged}"/>
+                            <Run Text="{Binding FacturaFinal.ImporteTotalConIva, StringFormat='0.00', UpdateSourceTrigger=PropertyChanged}"/>
                             <Run Text=" €"/>
                         </TextBlock>
                     </Button.Content>

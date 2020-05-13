@@ -24,7 +24,14 @@ namespace PSManagement.View
     {
         public PanelVentasView()
         {
-            DataContext = new PanelVentasVM();
+            try
+            {
+                DataContext = new PanelVentasVM();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("La conexión a la base de datos ha fallado", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             InitializeComponent();
         }
 

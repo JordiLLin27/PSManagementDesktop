@@ -11,7 +11,7 @@
              Background="{DynamicResource MaterialDesignPaper}"
              TextElement.FontWeight="Medium"
              TextElement.FontSize="14"
-             FontFamily="{materialDesign:MaterialDesignFont}">
+             FontFamily="{materialDesign:MaterialDesignFont}" MinHeight="700" MaxHeight="970">
     <DockPanel x:Name="PanelPrincipalDockPanel">
 
         <StackPanel DockPanel.Dock="Top" Margin="10">
@@ -22,7 +22,7 @@
             <TextBlock FontSize="18" Margin="30,0,0,0"><Run Text="Pulsa "/><Run Text="Inventario " FontStyle="Italic"/><Run Text="para añadir un nuevo inventario al sistema."/></TextBlock>
         </StackPanel>
 
-        <Grid x:Name="CuadrosDeAyudaGrid">
+        <Grid x:Name="CuadrosDeAyudaGrid" Height="Auto">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -31,7 +31,7 @@
             </Grid.ColumnDefinitions>
 
             <materialDesign:Card Grid.Column="0" Margin="20" UniformCornerRadius="10">
-                <Grid>
+                <Grid Height="Auto">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
