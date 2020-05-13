@@ -954,7 +954,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:PSManagement"
         "ProductCode" = "8:{FD30228F-0802-4A61-9D3E-894EA79DABBD}"
-        "PackageCode" = "8:{F3CEA9E0-6DF8-4F56-B5EE-8F4ADA0FFDC8}"
+        "PackageCode" = "8:{1E91D3B5-A894-4C7D-8B5E-6856E3E46EF0}"
         "UpgradeCode" = "8:{827D7D58-3B62-4475-95FE-5EE9CEE6235B}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
