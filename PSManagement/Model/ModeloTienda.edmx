@@ -77,18 +77,18 @@
             <PropertyRef Name="CodArticulo" />
           </Key>
           <Property Name="CodArticulo" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="36" Type="int" Nullable="false" />
-          <Property Name="37" Type="int" Nullable="false" />
-          <Property Name="38" Type="int" Nullable="false" />
-          <Property Name="39" Type="int" Nullable="false" />
-          <Property Name="40" Type="int" Nullable="false" />
-          <Property Name="41" Type="int" Nullable="false" />
-          <Property Name="42" Type="int" Nullable="false" />
-          <Property Name="43" Type="int" Nullable="false" />
-          <Property Name="44" Type="int" Nullable="false" />
-          <Property Name="45" Type="int" Nullable="false" />
-          <Property Name="46" Type="int" Nullable="false" />
-          <Property Name="47" Type="int" Nullable="false" />
+          <Property Name="C36" Type="int" Nullable="false" />
+          <Property Name="C37" Type="int" Nullable="false" />
+          <Property Name="C38" Type="int" Nullable="false" />
+          <Property Name="C39" Type="int" Nullable="false" />
+          <Property Name="C40" Type="int" Nullable="false" />
+          <Property Name="C41" Type="int" Nullable="false" />
+          <Property Name="C42" Type="int" Nullable="false" />
+          <Property Name="C43" Type="int" Nullable="false" />
+          <Property Name="C44" Type="int" Nullable="false" />
+          <Property Name="C45" Type="int" Nullable="false" />
+          <Property Name="C46" Type="int" Nullable="false" />
+          <Property Name="C47" Type="int" Nullable="false" />
           <Property Name="TotalCantidadArticulo" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="tallastextiles">
@@ -568,18 +568,18 @@
             <EntityTypeMapping TypeName="balmis_pdam04bModel.numeroscalzado">
               <MappingFragment StoreEntitySet="numeroscalzado">
                 <ScalarProperty Name="CodArticulo" ColumnName="CodArticulo" />
-                <ScalarProperty Name="C36" ColumnName="36" />
-                <ScalarProperty Name="C37" ColumnName="37" />
-                <ScalarProperty Name="C38" ColumnName="38" />
-                <ScalarProperty Name="C39" ColumnName="39" />
-                <ScalarProperty Name="C40" ColumnName="40" />
-                <ScalarProperty Name="C41" ColumnName="41" />
-                <ScalarProperty Name="C42" ColumnName="42" />
-                <ScalarProperty Name="C43" ColumnName="43" />
-                <ScalarProperty Name="C44" ColumnName="44" />
-                <ScalarProperty Name="C45" ColumnName="45" />
-                <ScalarProperty Name="C46" ColumnName="46" />
-                <ScalarProperty Name="C47" ColumnName="47" />
+                <ScalarProperty Name="C36" ColumnName="C36" />
+                <ScalarProperty Name="C37" ColumnName="C37" />
+                <ScalarProperty Name="C38" ColumnName="C38" />
+                <ScalarProperty Name="C39" ColumnName="C39" />
+                <ScalarProperty Name="C40" ColumnName="C40" />
+                <ScalarProperty Name="C41" ColumnName="C41" />
+                <ScalarProperty Name="C42" ColumnName="C42" />
+                <ScalarProperty Name="C43" ColumnName="C43" />
+                <ScalarProperty Name="C44" ColumnName="C44" />
+                <ScalarProperty Name="C45" ColumnName="C45" />
+                <ScalarProperty Name="C46" ColumnName="C46" />
+                <ScalarProperty Name="C47" ColumnName="C47" />
                 <ScalarProperty Name="TotalCantidadArticulo" ColumnName="TotalCantidadArticulo" />
               </MappingFragment>
             </EntityTypeMapping>

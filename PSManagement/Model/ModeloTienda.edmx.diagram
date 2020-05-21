@@ -4,16 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f2f110b0373c46ebb3d1b63b2da0e62c" Name="Diagram1">
-        <EntityTypeShape EntityType="balmis_pdam04bModel.articulos" Width="1.5" PointX="9" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="balmis_pdam04bModel.categorias" Width="1.5" PointX="6.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="balmis_pdam04bModel.colores" Width="1.5" PointX="6.75" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="balmis_pdam04bModel.descuentos" Width="1.5" PointX="11" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="balmis_pdam04bModel.detallesfactura" Width="1.5" PointX="11" PointY="4.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="balmis_pdam04bModel.facturas" Width="1.5" PointX="13.25" PointY="4.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="balmis_pdam04bModel.inventarios" Width="1.5" PointX="9" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="balmis_pdam04bModel.numeroscalzado" Width="1.5" PointX="8" PointY="8" IsExpanded="true" />
-        <EntityTypeShape EntityType="balmis_pdam04bModel.tallastextiles" Width="1.5" PointX="9.875" PointY="8" IsExpanded="true" />
+      <Diagram DiagramId="3f384104ff5a4018b802a5fbb59da0b2" Name="Diagram1">
+        <EntityTypeShape EntityType="balmis_pdam04bModel.articulos" Width="1.5" PointX="8.625" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="balmis_pdam04bModel.categorias" Width="1.5" PointX="6.75" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="balmis_pdam04bModel.colores" Width="1.5" PointX="6.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="balmis_pdam04bModel.descuentos" Width="1.5" PointX="10.875" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="balmis_pdam04bModel.detallesfactura" Width="1.5" PointX="10.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="balmis_pdam04bModel.facturas" Width="1.5" PointX="12.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="balmis_pdam04bModel.inventarios" Width="1.5" PointX="8.625" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="balmis_pdam04bModel.numeroscalzado" Width="1.5" PointX="9.625" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="balmis_pdam04bModel.tallastextiles" Width="1.5" PointX="7.625" PointY="8.625" IsExpanded="true" />
         <AssociationConnector Association="balmis_pdam04bModel.fk_articulos_categorias" ManuallyRouted="false" />
         <AssociationConnector Association="balmis_pdam04bModel.fk_articulos_colores" ManuallyRouted="false" />
         <AssociationConnector Association="balmis_pdam04bModel.fk_articulos_inventarios" ManuallyRouted="false" />

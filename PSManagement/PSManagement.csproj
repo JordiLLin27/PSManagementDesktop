@@ -319,11 +319,11 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Manual\PSManagementManual.chm" />
     <EntityDeploy Include="Model\ModeloTienda.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ModeloTienda.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Manual\PSManagementManual.chm" />
     <None Include="Model\ModeloTienda.edmx.diagram">
       <DependentUpon>ModeloTienda.edmx</DependentUpon>
     </None>
@@ -365,6 +365,8 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\logo_psmanagement.ico" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Model\ModeloTienda.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModeloTienda.edmx</DependentUpon>
