@@ -77,7 +77,7 @@ namespace PSManagement.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\")]
         public string RutaFacturasDefault {
             get {
                 return ((string)(this["RutaFacturasDefault"]));

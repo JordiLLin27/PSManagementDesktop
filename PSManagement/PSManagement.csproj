@@ -319,7 +319,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Manual\PSManagementManual.chm" />
+    <None Include="Manual\PSManagementManual.chm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <EntityDeploy Include="Model\ModeloTienda.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ModeloTienda.Designer.cs</LastGenOutput>

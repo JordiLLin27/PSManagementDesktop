@@ -2,12 +2,8 @@
 using PSManagement.Model;
 using PSManagement.Service;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 
 namespace PSManagement.ViewModel
@@ -117,7 +113,7 @@ namespace PSManagement.ViewModel
                 ShowInTaskbar = false
             };
 
-            DescuentoAplicado = seleccionDescuento.ShowDialog() == true ? true : false;
+            DescuentoAplicado = seleccionDescuento.ShowDialog() == true;
 
             return DescuentoAplicado;
         }

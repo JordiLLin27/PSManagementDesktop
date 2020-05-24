@@ -1,20 +1,11 @@
 ﻿using PSManagement.Model;
 using PSManagement.ViewModel;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
 
 namespace PSManagement.Dialogs
 {
@@ -55,19 +46,23 @@ namespace PSManagement.Dialogs
 
         private void CantidadAbonadaClienteTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            try
+            if (!string.IsNullOrEmpty((sender as TextBox).Text))
             {
-                (DataContext as TerminarVentaDialogVM).CalcularCambio();
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Introduce sólo números", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
+                try
+                {
+                    if ((sender as TextBox).Text.Substring((sender as TextBox).Text.Length - 1, 1) == ".")
+                    {
+                        (sender as TextBox).Text = (sender as TextBox).Text.Replace(".", ",");
+                        (sender as TextBox).SelectionStart = (sender as TextBox).Text.Length;
+                    }
 
-        private void CantidadAbonadaClienteTextBox_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
-        {
-            CantidadAbonadaClienteTextBox.Text = "";
+                    (DataContext as TerminarVentaDialogVM).CalcularCambio();
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Introduce una cantidad correcta", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
     }
 }

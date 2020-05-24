@@ -1,20 +1,12 @@
-﻿using MaterialDesignThemes.Wpf;
-using PSManagement.Dialogs;
+﻿
 using PSManagement.ViewModel;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace PSManagement.View
 {
@@ -34,11 +26,13 @@ namespace PSManagement.View
                 CambiaTemaToggleButton.IsChecked = false;
         }
 
+        //Método para cambiar entre el tema claro y oscuro
         private void CambiaTemaToggleButton_Click(object sender, RoutedEventArgs e)
         {
             (this.DataContext as PanelOpcionesVM).CambiaTema();
         }
 
+        //Método para comprobar si la conexión a la base de datos es correcta.
         private void CheckConnectionCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if ((DataContext as PanelOpcionesVM).CompruebaConexionBD())
@@ -54,6 +48,7 @@ namespace PSManagement.View
             e.CanExecute = true;
         }
 
+        //Método para llamar a las funciones de cambiar el pin o guardar la ruta predeterminada para guardar las facturas.
         private void SaveCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (((Button)e.OriginalSource).Tag.ToString() == "Pin")
@@ -80,9 +75,19 @@ namespace PSManagement.View
             e.CanExecute = true;
         }
 
+        //Método para abrir el diálogo para elegir una ruta para guardar las facturas en txt.
         private void OpenCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            (DataContext as PanelOpcionesVM).ElegirRutaFacturas();
+            try
+            {
+                (DataContext as PanelOpcionesVM).ElegirRutaFacturas();
+
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("No ha sido posible elegir una ruta válida", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void OpenCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)

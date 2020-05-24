@@ -82,7 +82,7 @@
 
             <StackPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <TextBlock Text="Cantidad abonada por el cliente" HorizontalAlignment="Center" FontSize="35" Margin="15"/>
-                <TextBox x:Name="CantidadAbonadaClienteTextBox" FontSize="35" FontWeight="Bold" MaxLength="7" TextAlignment="Center" Margin="10,0,10,0" Width="500" Text="{Binding CantidadAbonadaCliente, UpdateSourceTrigger=PropertyChanged}" TextChanged="CantidadAbonadaClienteTextBox_TextChanged" GotKeyboardFocus="CantidadAbonadaClienteTextBox_GotKeyboardFocus" TabIndex="1"/>
+                <TextBox x:Name="CantidadAbonadaClienteTextBox" FontSize="35" FontWeight="Bold" MaxLength="7" TextAlignment="Center" Margin="10,0,10,0" Width="500" Text="{Binding CantidadAbonadaCliente, UpdateSourceTrigger=PropertyChanged}" TextChanged="CantidadAbonadaClienteTextBox_TextChanged" TabIndex="1"/>
                 <Button x:Name="AceptarPagoEnEfectivoButton" Height="40" materialDesign:ButtonAssist.CornerRadius="20" Margin="10" Content="Terminar venta" IsDefault="True" Tag="AceptarEfectivo" Width="500" Command="ApplicationCommands.Save"/>
             </StackPanel>
 

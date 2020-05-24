@@ -1,19 +1,11 @@
 ﻿using PSManagement.Model;
 using PSManagement.ViewModel;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace PSManagement.View
 {
@@ -35,6 +27,7 @@ namespace PSManagement.View
             InitializeComponent();
         }
 
+        //Comando para limpiar los filtros de búsqeda.
         private void CleanFiltersCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             try
@@ -50,9 +43,17 @@ namespace PSManagement.View
 
         private void CleanFiltersCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = (DataContext as PanelVentasVM).FindCanExecute();
+            try
+            {
+                e.CanExecute = (DataContext as PanelVentasVM).FindCanExecute();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("No hay filtros que limpiar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
+        //Comando para realizar el filtro de los artículos que se están mostrando ahora mismo.
         private void FindCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             try
@@ -70,14 +71,34 @@ namespace PSManagement.View
 
         private void FindCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = (DataContext as PanelVentasVM).FindCanExecute();
+            try
+            {
+                e.CanExecute = (DataContext as PanelVentasVM).FindCanExecute();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("No hay elementos para filtrar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
+        //Manejador de evento para controlar si el usuario quiere cambiar la categoría seleccionada.
         private void ListaCategoriasListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            (DataContext as PanelVentasVM).CargaArticulosCategoriaSeleccionada();
+            try
+            {
+                (DataContext as PanelVentasVM).CargaArticulosCategoriaSeleccionada();
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("No se ha podido seleccionar ninguna categoría", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
+        //Manejador de evento doble click en cada elemento que sea un artículo disponible para su venta. No funciona en los botones de categoría o detalles de factura.
+        //Si es un artículo se abrirá el panel para seleccionar la talla deseada.
         private void ListBoxItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (((ListBoxItem)sender).DataContext is detallesfactura || ((ListBoxItem)sender).DataContext is categorias)
@@ -88,6 +109,7 @@ namespace PSManagement.View
                 (DataContext as PanelVentasVM).SeleccionarTallaVenta();
         }
 
+        //Comando para abrir el panel de terminar la venta.
         private void SellCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if ((DataContext as PanelVentasVM).SellExecuted())
@@ -100,9 +122,18 @@ namespace PSManagement.View
 
         private void SellCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = (DataContext as PanelVentasVM).SellCanExecute();
+            try
+            {
+                e.CanExecute = (DataContext as PanelVentasVM).SellCanExecute();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("No es posible realizar ventas en este momento", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
+        //Este comando es para limpiar todos los registros de la venta actual
         private void DeleteCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             (DataContext as PanelVentasVM).DeleteExecuted();
@@ -110,9 +141,18 @@ namespace PSManagement.View
 
         private void DeleteCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = (DataContext as PanelVentasVM).DeleteCanExecute();
+            try
+            {
+                e.CanExecute = (DataContext as PanelVentasVM).DeleteCanExecute();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("No es posible cancelar la venta", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
+        //Manejador de evento click en cada botón de los detalles de la factura, llama al método para borrar el ítem seleccionado de la factura actual
         private void EliminarArticuloDetallesFacturaButton_Click(object sender, RoutedEventArgs e)
         {
             if ((DataContext as PanelVentasVM).DescuentoAplicado)
@@ -128,6 +168,7 @@ namespace PSManagement.View
                 (DataContext as PanelVentasVM).BorrarItems(((Button)sender).DataContext as detallesfactura);
         }
 
+        //Comando para abrir el formulario para aplicar descuentos
         private void DiscountCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if ((DataContext as PanelVentasVM).DiscountExecuted())
@@ -140,7 +181,14 @@ namespace PSManagement.View
 
         private void DiscountCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = (DataContext as PanelVentasVM).DiscountCanExecute();
+            try
+            {
+                e.CanExecute = (DataContext as PanelVentasVM).DiscountCanExecute();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("No es posible aplicar descuentos", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
     }
 }

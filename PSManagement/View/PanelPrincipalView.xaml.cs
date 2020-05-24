@@ -2,18 +2,12 @@
 using PSManagement.Dialogs;
 using PSManagement.ViewModel;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
 using System.Windows.Threading;
 
 namespace PSManagement.View
@@ -71,7 +65,15 @@ namespace PSManagement.View
 
         private void PropertiesCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = !((this.DataContext as PanelPrincipalVM).PanelActual is PanelOpcionesVIew);
+            try
+            {
+                e.CanExecute = !((this.DataContext as PanelPrincipalVM).PanelActual is PanelOpcionesVIew);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("No ha sido posible cargar el panel de configuración", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
         //Comando para mostrar el diálogo para salir de la aplicación
@@ -94,7 +96,7 @@ namespace PSManagement.View
         }
 
 
-        //Comando para el botón de volver al panel anterior
+        //Comando para el botón de volver al panel de inicio
         private void BrowseBackCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             BarraCargaProgressBar.Visibility = Visibility.Visible;
@@ -103,7 +105,15 @@ namespace PSManagement.View
 
         private void BrowseBackCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = !((this.DataContext as PanelPrincipalVM).PanelActual is PanelIntroduccionView);
+            try
+            {
+                e.CanExecute = !((this.DataContext as PanelPrincipalVM).PanelActual is PanelIntroduccionView);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("No ha sido posible volver al panel de inicio", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
         //Método que cambia el titulo del menu de navegación según el panel.
@@ -155,7 +165,15 @@ namespace PSManagement.View
 
         private void SalesCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = !((this.DataContext as PanelPrincipalVM).PanelActual is PanelVentasView);
+            try
+            {
+                e.CanExecute = !((this.DataContext as PanelPrincipalVM).PanelActual is PanelVentasView);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("No ha sido posible cargar el panel de ventas", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
         //Comando para cambiar al panel de mantenimiento de inventarios
@@ -167,19 +185,42 @@ namespace PSManagement.View
 
         private void InventoryCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = !((this.DataContext as PanelPrincipalVM).PanelActual is PanelInventariosView);
+            try
+            {
+                e.CanExecute = !((this.DataContext as PanelPrincipalVM).PanelActual is PanelInventariosView);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("No ha sido posible cargar el panel de ventas", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         //Comando para cambiar al panel de gestión de stock
         private void ManageCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            BarraCargaProgressBar.Visibility = Visibility.Visible;
-            CambiaPanel((this.DataContext as PanelPrincipalVM).CargaPanelGestion());
+            try
+            {
+                BarraCargaProgressBar.Visibility = Visibility.Visible;
+                CambiaPanel((this.DataContext as PanelPrincipalVM).CargaPanelGestion());
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("No ha sido posible cargar el panel de gestión", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
         private void ManageCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = !((this.DataContext as PanelPrincipalVM).PanelActual is PanelGestionView);
+            try
+            {
+                e.CanExecute = !((this.DataContext as PanelPrincipalVM).PanelActual is PanelGestionView);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Hay un problema intentando cargar el panel de gestión.\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
         //Evento que maneja el click de los items del menú 'Tienda' para añadir, editar o eliminar un descuento.
@@ -200,14 +241,14 @@ namespace PSManagement.View
                 MessageBox.Show("Operación realizada con éxito", "Éxito", MessageBoxButton.OK, MessageBoxImage.Asterisk);
             }
             else
-                MessageBox.Show("Se ha cancelado la operación", "Error", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                MessageBox.Show("Se ha cancelado la operación", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
+        //Método que cambia el tipo de UserControl (panel) del contenedor de la vista principal.
         private void CambiaPanel(UserControl userControl)
         {
             try
             {
-
                 PanelDeTrabajoGrid.Children.Clear();
                 PanelDeTrabajoGrid.Children.Add(userControl);
                 CambiaTituloIconoMenuNav();
