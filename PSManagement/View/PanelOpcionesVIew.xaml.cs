@@ -66,7 +66,6 @@ namespace PSManagement.View
                 {
                     MessageBox.Show("Error intentando guardar la ruta", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-
             }
         }
 
@@ -85,7 +84,6 @@ namespace PSManagement.View
             }
             catch (Exception)
             {
-
                 MessageBox.Show("No ha sido posible elegir una ruta válida", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }

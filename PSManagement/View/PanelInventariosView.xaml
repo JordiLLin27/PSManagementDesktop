@@ -240,10 +240,7 @@
         </GroupBox>
 
         <!--Mantenimiento de inventario-->
-        <GroupBox Header="Mantenimiento de Inventario" Margin="5" Grid.Row="2" Grid.Column="0">
-
-
-
+        <GroupBox Header="Mantenimiento de Inventario" Margin="5" Grid.Row="2" Grid.Column="0" MinHeight="250" MaxHeight="275">
             <DockPanel>
                 <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center" Margin="15">
                     <Button x:Name="InventarioCrudAceptarButton" Content="Aceptar" Width="100" Margin="0,0,20,0" Command="com:CustomCommands.InventoryCrud"/>
@@ -316,7 +313,7 @@
         </GroupBox>
 
         <!--Mantenimiento de Colores-->
-        <GroupBox Header="Mantenimiento de Colores" Margin="5" Grid.Row="2" Grid.Column="1">
+        <GroupBox Header="Mantenimiento de Colores" Margin="5" Grid.Row="2" Grid.Column="1" MinHeight="250" MaxHeight="275">
             <DockPanel>
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Margin="20" HorizontalAlignment="Center">
                     <Button x:Name="ColorCrudAceptarButton" Content="Aceptar" Width="100" Margin="0,0,20,0" Command="com:CustomCommands.ColorCrud"/>
@@ -327,7 +324,7 @@
 
                     <!--Colores Disponibles-->
                     <TabItem x:Name="ColoresDisponiblesTabitem" Header="Colores disponibles">
-                        <ListView ItemsSource="{Binding ListaColores}" DisplayMemberPath="Color"></ListView>
+                        <ListView ItemsSource="{Binding ListaColores}" DisplayMemberPath="Color"/>
                     </TabItem>
 
                     <!--Añadir-->
@@ -389,7 +386,7 @@
 
 
         <!--Mantenimiento de Categorías-->
-        <GroupBox Header="Mantenimiento de Categorías" Margin="5" Grid.Row="2" Grid.Column="2">
+        <GroupBox Header="Mantenimiento de Categorías" Margin="5" Grid.Row="2" Grid.Column="2" MinHeight="250" MaxHeight="275">
             <DockPanel>
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Margin="30" HorizontalAlignment="Center">
                     <Button x:Name="CategoriaCrudAceptarButton" Content="Aceptar" Width="100" Margin="0,0,20,0"  Command="com:CustomCommands.CategoryCrud"/>

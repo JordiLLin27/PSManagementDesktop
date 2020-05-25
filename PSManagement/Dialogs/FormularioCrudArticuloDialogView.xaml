@@ -72,29 +72,30 @@
                     <Label Grid.Column="0" Grid.Row="4" Margin="0,10,0,0" Content="_Precio unitario" Target="{Binding ElementName=PrecioUnitarioTextBox}"/>
                     <TextBox x:Name="PrecioUnitarioTextBox" Grid.Column="0" Grid.Row="5" Text="{Binding ArticuloCrud.PrecioUnitario, StringFormat='F'}" Tag="Precio" GotKeyboardFocus="TextBox_GotKeyboardFocus" LostFocus="TextBox_LostFocus" materialDesign:HintAssist.Hint="Introduce un precio (Obligatorio)"/>
 
+
                     <Label Grid.Column="0" Grid.Row="6" Margin="0,10,0,0" Content="_Stock Mínimo" Target="{Binding ElementName=StockMinimoSlider}" Grid.RowSpan="2"/>
                     <Slider x:Name="StockMinimoSlider"
                         Grid.Column="0" Grid.Row="7" Minimum="0" Maximum="100" Style="{StaticResource MaterialDesignDiscreteSlider}" ToolTip="El stock mínimo indica la cantidad mínima de unidades de cada ítem que debe haber en el inventario." Value="{Binding ArticuloCrud.StockMinimo}"/>
+                    <TextBlock Grid.Column="0" Grid.Row="7" Text="{Binding ElementName=StockMinimoSlider, Path=Value}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,14,10,20"/>
 
+                    <GroupBox x:Name="ImagenArticuloGroupBox" Grid.Column="1" Grid.RowSpan="7" Margin="5" Header="Imagen actual del artículo" MinHeight="200" MaxHeight="400">
 
-                    <GroupBox x:Name="ImagenArticuloGroupBox" Grid.Column="1" Grid.RowSpan="7" Margin="5" Header="Imagen actual del artículo" MaxHeight="200">
-
-                        <Image x:Name="ImagenArticuloImage" Source="{Binding ArticuloCrud.UrlImagen}" Stretch="UniformToFill"/>
+                        <Image x:Name="ImagenArticuloImage" Source="{Binding ArticuloCrud.UrlImagen}" Stretch="Uniform"/>
 
                     </GroupBox>
                     <Button x:Name="SeleccionImagenButton" Grid.Column="1" Grid.Row="8" Content="Se_leccionar imagen del producto" Margin="5"  Command="ApplicationCommands.Open"/>
                 </Grid>
 
                 <Label Margin="0,10,0,0" Content="_Inventario"/>
-                <ComboBox ItemsSource="{Binding ListaInventarios}" DisplayMemberPath="Descripcion" SelectedValue="{Binding ArticuloCrud.INVENTARIO}" materialDesign:HintAssist.Hint="Selecciona un inventario"/>
+                <ComboBox x:Name="ListaInventariosComboBox" ItemsSource="{Binding ListaInventarios}" DisplayMemberPath="Descripcion" SelectedValue="{Binding ArticuloCrud.INVENTARIO}" materialDesign:HintAssist.Hint="Selecciona un inventario"/>
 
                 <Label Margin="0,10,0,0" Content="_Categoría"/>
-                <ComboBox ItemsSource="{Binding ListaCategorias}" DisplayMemberPath="Categoria" SelectedValue="{Binding ArticuloCrud.CATEGORIA}" materialDesign:HintAssist.Hint="Selecciona una categoría"/>
+                <ComboBox x:Name="ListaCategoriasComboBox" ItemsSource="{Binding ListaCategorias}" DisplayMemberPath="Categoria" SelectedValue="{Binding ArticuloCrud.CATEGORIA}" materialDesign:HintAssist.Hint="Selecciona una categoría"/>
 
                 <Label Margin="0,10,0,0" Content="C_olor"/>
-                <ComboBox ItemsSource="{Binding ListaColores}" DisplayMemberPath="Color" SelectedValue="{Binding ArticuloCrud.COLOR}" materialDesign:HintAssist.Hint="Selecciona un color"/>
+                <ComboBox x:Name="ListaColoresComboBox" ItemsSource="{Binding ListaColores}" DisplayMemberPath="Color" SelectedValue="{Binding ArticuloCrud.COLOR}" materialDesign:HintAssist.Hint="Selecciona un color"/>
 
-                <CheckBox Margin="0,20,0,20" IsChecked="{Binding ArticuloCrud.StockDisponible}" Content="Artículo _disponible para su venta" ToolTip="Indica si el producto está disponible para su venta en el momento de su registro en el inventario."/>
+                <CheckBox x:Name="VentaDisponibleCheckBox" Margin="0,20,0,20" IsChecked="{Binding ArticuloCrud.StockDisponible}" Content="Artículo _disponible para su venta" ToolTip="Indica si el producto está disponible para su venta en el momento de su registro en el inventario."/>
 
                 <StackPanel x:Name="SeleccionTallasStackPanel" Orientation="Horizontal" Margin="15,0,0,15">
                     <Label Content="Tallas textiles" />

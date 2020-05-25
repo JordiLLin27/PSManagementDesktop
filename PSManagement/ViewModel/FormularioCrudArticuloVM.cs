@@ -2,12 +2,8 @@
 using PSManagement.Model;
 using PSManagement.Service;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 
 namespace PSManagement.ViewModel
@@ -154,7 +150,7 @@ namespace PSManagement.ViewModel
         {
             PinDialog pinDialog = new PinDialog(PinConfig.Insert_Pin) { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
 
-            return pinDialog.ShowDialog() == true ? true : false;
+            return pinDialog.ShowDialog() == true;
         }
 
         internal ItemCRUDAction GetAction() { return itemAction; }
@@ -165,12 +161,12 @@ namespace PSManagement.ViewModel
             if (TallasTextiles != null && NumerosCalzado == null)
             {
                 numPad = new PanelNumericoDialog(TallasTextiles, TextBoxSeleccionadoActual.Tag.ToString()) { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
-                return (numPad.ShowDialog() == true ? true : false);
+                return (numPad.ShowDialog() == true);
             }
             else if (TallasTextiles == null && NumerosCalzado != null)
             {
                 numPad = new PanelNumericoDialog(NumerosCalzado, TextBoxSeleccionadoActual.Tag.ToString()) { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
-                return (numPad.ShowDialog() == true ? true : false);
+                return (numPad.ShowDialog() == true);
             }
             else
                 return false;

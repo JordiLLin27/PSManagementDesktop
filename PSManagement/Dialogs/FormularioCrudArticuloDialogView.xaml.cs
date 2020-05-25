@@ -1,19 +1,13 @@
 ﻿using Microsoft.Win32;
 using PSManagement.ViewModel;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
 
 namespace PSManagement.View
 {
@@ -45,12 +39,11 @@ namespace PSManagement.View
             else if (action == ItemCRUDAction.Delete_Item)
             {
                 VentanaCrudItemsGroupBox.Header = "Eliminar artículo";
-                CompruebaExpanders();
                 AceptarButton.Content = "Eliminar artículo";
                 mensajeOpcion = "eliminar";
+                CompruebaExpanders();
+                SoloLecturaDeleteItem();
             }
-
-
         }
 
         private void SaveCommand_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -159,9 +152,22 @@ namespace PSManagement.View
             (DataContext as FormularioCrudArticuloVM).TallasArticuloNuevo();
         }
 
+        private void SoloLecturaDeleteItem()
+        {
+            NombreArticuloTextBox.IsReadOnly = true;
+            CodigoArticuloTextBox.IsReadOnly = true;
+            PrecioUnitarioTextBox.IsReadOnly = true;
+            StockMinimoSlider.IsEnabled = false;
+            ListaCategoriasComboBox.IsEnabled = false;
+            ListaInventariosComboBox.IsEnabled = false;
+            ListaColoresComboBox.IsEnabled = false;
+            VentaDisponibleCheckBox.IsEnabled = false;
+            AbrirPanelNumericoButton.IsEnabled = false;
+            SeleccionTallasToggleButton.IsEnabled = false;
+        }
+
         private void TextBox_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
-            ((TextBox)sender).Text = "";
             if (((TextBox)sender).Tag.ToString() != "Precio")
                 (DataContext as FormularioCrudArticuloVM).SetTextBoxActual((TextBox)sender);
         }
