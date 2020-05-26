@@ -39,7 +39,7 @@
             <TextBlock FontSize="18" Margin="30,0,0,0"><Run Text="Pulsa "/><Run Text="Inventario " FontStyle="Italic"/><Run Text="para añadir un nuevo inventario al sistema."/></TextBlock>
         </StackPanel>
 
-        <Grid x:Name="CuadrosDeAyudaGrid" Height="700">
+        <Grid x:Name="CuadrosDeAyudaGrid" MinHeight="600" MaxHeight="685">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
