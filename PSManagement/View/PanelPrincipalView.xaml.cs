@@ -299,17 +299,12 @@ namespace PSManagement.View
         //Método que cambia el tipo de UserControl (panel) del contenedor de la vista principal.
         private void CambiaPanel(UserControl userControl)
         {
-            try
-            {
-                PanelDeTrabajoGrid.Children.Clear();
-                PanelDeTrabajoGrid.Children.Add(userControl);
-                CambiaTituloIconoMenuNav();
-                BarraCargaProgressBar.Visibility = Visibility.Collapsed;
-            }
-            catch (Exception ex)
-            {
-                ExcepcionCapturada("Ha ocurrido un error y no se ha podido cargar el panel seleccionado.", ex.Message);
-            }
+
+            PanelDeTrabajoGrid.Children.Clear();
+            PanelDeTrabajoGrid.Children.Add(userControl);
+            CambiaTituloIconoMenuNav();
+            BarraCargaProgressBar.Visibility = Visibility.Collapsed;
+
         }
 
         //Método que muestra un mensaje de error cuando se captura una excepción en esta vista y vuelve a cargar el panel de bienvenida.

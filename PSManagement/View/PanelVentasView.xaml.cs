@@ -22,7 +22,7 @@ namespace PSManagement.View
             }
             catch (Exception)
             {
-                MessageBox.Show("La conexión a la base de datos ha fallado", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                throw new OperationCanceledException("La conexión a la base de datos ha fallado.");
             }
             InitializeComponent();
         }

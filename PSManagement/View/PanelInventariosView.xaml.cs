@@ -27,7 +27,7 @@ namespace PSManagement.View
             }
             catch (Exception)
             {
-                MessageBox.Show("La conexión a la base de datos ha fallado", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                throw new OperationCanceledException("La conexión a la base de datos a fallado.");
             }
             InitializeComponent();
         }
@@ -110,27 +110,36 @@ namespace PSManagement.View
             EditarNombreInventarioTextBox.Text = "";
         }
 
+        //Determina si se ejecuta el comando para realizar las acciones de mantenimiento de inventarios según la acción indicada
         private void InventoryCrudCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            if (InventariosTabControl != null)
+            try
             {
-                switch (invAction)
+                if (InventariosTabControl != null)
                 {
-                    case InventoryCRUDAction.Insert_Inventario:
-                        e.CanExecute = (!string.IsNullOrEmpty(NombreInventarioAddTextBox.Text));
-                        break;
+                    switch (invAction)
+                    {
+                        case InventoryCRUDAction.Insert_Inventario:
+                            e.CanExecute = (!string.IsNullOrEmpty(NombreInventarioAddTextBox.Text));
+                            break;
 
-                    case InventoryCRUDAction.Update_Inventario:
-                        e.CanExecute = ((this.DataContext as PanelInventariosVM).InventarioSeleccionado != null) && (!string.IsNullOrEmpty(EditarNombreInventarioTextBox.Text));
-                        break;
+                        case InventoryCRUDAction.Update_Inventario:
+                            e.CanExecute = ((this.DataContext as PanelInventariosVM).InventarioSeleccionado != null) && (!string.IsNullOrEmpty(EditarNombreInventarioTextBox.Text));
+                            break;
 
-                    case InventoryCRUDAction.Delete_Inventario:
-                        e.CanExecute = (this.DataContext as PanelInventariosVM).InventarioSeleccionado != null;
-                        break;
+                        case InventoryCRUDAction.Delete_Inventario:
+                            e.CanExecute = (this.DataContext as PanelInventariosVM).InventarioSeleccionado != null;
+                            break;
 
-                    default:
-                        break;
+                        default:
+                            break;
+                    }
                 }
+            }
+            catch (Exception)
+            {
+
+                e.CanExecute = false;
             }
         }
 
@@ -193,24 +202,33 @@ namespace PSManagement.View
             EditarNombreCategoriaTextBox.Text = "";
         }
 
+        //Determina si se ejecuta el coando para el mantenimiento de categorías según la accíon determinada
         private void CategoryCrudCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            if (CategoriasTabControl != null)
+            try
             {
-                switch (categoryAction)
+                if (CategoriasTabControl != null)
                 {
-                    case CategoryCRUDAction.Insert_Categoria:
-                        e.CanExecute = (!string.IsNullOrEmpty(NombreCategoriaAddTextBox.Text));
-                        break;
-                    case CategoryCRUDAction.Update_Categoria:
-                        e.CanExecute = ((this.DataContext as PanelInventariosVM).CategoriaSeleccionada != null && (!string.IsNullOrEmpty(EditarNombreCategoriaTextBox.Text)));
-                        break;
-                    case CategoryCRUDAction.Delete_Categoria:
-                        e.CanExecute = ((this.DataContext as PanelInventariosVM).CategoriaSeleccionada != null);
-                        break;
-                    default:
-                        break;
+                    switch (categoryAction)
+                    {
+                        case CategoryCRUDAction.Insert_Categoria:
+                            e.CanExecute = (!string.IsNullOrEmpty(NombreCategoriaAddTextBox.Text));
+                            break;
+                        case CategoryCRUDAction.Update_Categoria:
+                            e.CanExecute = ((this.DataContext as PanelInventariosVM).CategoriaSeleccionada != null && (!string.IsNullOrEmpty(EditarNombreCategoriaTextBox.Text)));
+                            break;
+                        case CategoryCRUDAction.Delete_Categoria:
+                            e.CanExecute = ((this.DataContext as PanelInventariosVM).CategoriaSeleccionada != null);
+                            break;
+                        default:
+                            break;
+                    }
                 }
+            }
+            catch (Exception)
+            {
+
+                e.CanExecute = false;
             }
         }
 
@@ -238,7 +256,6 @@ namespace PSManagement.View
 
         #region GroupBox_Colores
         //Comando para manejar las diferentes acciones de mantenimiento de colores
-
         private void ColorCrudCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             switch (colorAction)
@@ -274,25 +291,35 @@ namespace PSManagement.View
             NombreColorAddTextBox.Text = "";
         }
 
+        //Determina si se ejecuta el comando para el mantenimiento de colores según la acción indicada
         private void ColorCrudCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            if (ColoresTabControl != null)
+            try
             {
-                switch (colorAction)
+                if (ColoresTabControl != null)
                 {
-                    case ColorCRUDAction.Insert_Color:
-                        e.CanExecute = (!string.IsNullOrEmpty(NombreColorAddTextBox.Text));
-                        break;
-                    case ColorCRUDAction.Update_Color:
-                        e.CanExecute = ((this.DataContext as PanelInventariosVM).ColorSeleccionado != null && (!string.IsNullOrEmpty(EditarNombreColorTextBox.Text)));
-                        break;
-                    case ColorCRUDAction.Delete_Color:
-                        e.CanExecute = ((this.DataContext as PanelInventariosVM).ColorSeleccionado != null);
-                        break;
-                    default:
-                        break;
+                    switch (colorAction)
+                    {
+                        case ColorCRUDAction.Insert_Color:
+                            e.CanExecute = (!string.IsNullOrEmpty(NombreColorAddTextBox.Text));
+                            break;
+                        case ColorCRUDAction.Update_Color:
+                            e.CanExecute = ((this.DataContext as PanelInventariosVM).ColorSeleccionado != null && (!string.IsNullOrEmpty(EditarNombreColorTextBox.Text)));
+                            break;
+                        case ColorCRUDAction.Delete_Color:
+                            e.CanExecute = ((this.DataContext as PanelInventariosVM).ColorSeleccionado != null);
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
+            catch (Exception)
+            {
+
+                e.CanExecute = false;
+            }
+
         }
 
         //Comando para limpiar los campos del groupbox de mantenimiento de colores.
@@ -321,47 +348,64 @@ namespace PSManagement.View
         //Manejador del comando para cambiar la acción que se va a realizar sobre los articulos del inventario según el botón que se haya pulsado y abrir el formulario de mantenimiento de artículos.
         private void ItemCrudCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-
-
-            switch ((e.OriginalSource as Button).Name)
+            try
             {
-                case "NuevoArticuloButton":
-                    itemAction = ItemCRUDAction.Insert_Item;
+                switch ((e.OriginalSource as Button).Name)
+                {
+                    case "NuevoArticuloButton":
+                        itemAction = ItemCRUDAction.Insert_Item;
 
-                    break;
+                        break;
 
-                case "UpdateArticuloButton":
-                    itemAction = ItemCRUDAction.Update_Item;
+                    case "UpdateArticuloButton":
+                        itemAction = ItemCRUDAction.Update_Item;
 
-                    break;
+                        break;
 
-                case "DeleteArticuloButton":
-                    itemAction = ItemCRUDAction.Delete_Item;
+                    case "DeleteArticuloButton":
+                        itemAction = ItemCRUDAction.Delete_Item;
 
-                    break;
+                        break;
 
-                //La acción por defecto es la de insertar un nuevo artículo
-                default:
-                    itemAction = ItemCRUDAction.Insert_Item;
+                    //La acción por defecto es la de insertar un nuevo artículo
+                    default:
+                        itemAction = ItemCRUDAction.Insert_Item;
 
-                    break;
+                        break;
+                }
+
+                //Después de seleccionar la acción se muestra el diálogo con el formulario de mantenimiento de artículos
+                FormularioCrudArticuloDialogView formularioCrudArticulo = (DataContext as PanelInventariosVM).ItemCrud_Execute(itemAction);
+
+                if (formularioCrudArticulo != null)
+                {
+                    formularioCrudArticulo.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                    formularioCrudArticulo.ShowInTaskbar = false;
+
+                    formularioCrudArticulo.ShowDialog();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("ha ocurrido un error mostrando el formulario: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            //Después de seleccionar la acción se muestra el diálogo con el formulario de mantenimiento de artículos
-            FormularioCrudArticuloDialogView formularioCrudArticulo = (DataContext as PanelInventariosVM).ItemCrud_Execute(itemAction);
 
-            if (formularioCrudArticulo != null)
-            {
-                formularioCrudArticulo.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                formularioCrudArticulo.ShowInTaskbar = false;
-
-                formularioCrudArticulo.ShowDialog();
-            }
         }
 
         private void ItemCrudCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = (DataContext as PanelInventariosVM).ItemCrudCommandBinding_CanExecute((e.OriginalSource as Button).Name);
+            try
+            {
+                e.CanExecute = (DataContext as PanelInventariosVM).ItemCrudCommandBinding_CanExecute((e.OriginalSource as Button).Name);
+
+            }
+            catch (Exception)
+            {
+
+                e.CanExecute = false;
+            }
         }
 
         #region Filtrado_de_datos
@@ -374,7 +418,14 @@ namespace PSManagement.View
 
         private void FilterCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = (DataContext as PanelInventariosVM).Filter_CanExecute();
+            try
+            {
+                e.CanExecute = (DataContext as PanelInventariosVM).Filter_CanExecute();
+            }
+            catch (Exception)
+            {
+                e.CanExecute = false;
+            }
         }
 
         //Comando para borrar los filtros y mostrar toda la tabla
@@ -386,13 +437,29 @@ namespace PSManagement.View
 
         private void CleanFiltersCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = (DataContext as PanelInventariosVM).Filter_CanExecute();
+            try
+            {
+                e.CanExecute = (DataContext as PanelInventariosVM).Filter_CanExecute();
+            }
+            catch (Exception)
+            {
+
+                e.CanExecute = false;
+            }
         }
 
         //Manejador de evento para que se aplique el filtro de nombre o modelo a la vez que se va escribiendo.
         private void BarraFiltroTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            (DataContext as PanelInventariosVM).FiltroArticulos();
+            try
+            {
+                (DataContext as PanelInventariosVM).FiltroArticulos();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ha ocurrido un error: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
         //Evento que indica si la cantidad de una talla del artículo seleccionado ha alcanzado o está por debajo del stock mínimo
