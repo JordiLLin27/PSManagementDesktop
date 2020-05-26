@@ -1,18 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace PSManagement.Model
 {
     public partial class numeroscalzado
     {
+        /// <summary>
+        /// Función que devuelve el total de números de calzado en stock de un artículo.
+        /// </summary>
+        /// <returns>Número total de unidades en stock</returns>
         public int GetTotalItems()
         {
             return C36 + C37 + C38 + C39 + C40 + C41 + C42 + C43 + C44 + C45 + C46 + C47;
         }
 
+        /// <summary>
+        /// Devuelve la cantidad en stock de un número de calzado en concreto.
+        /// </summary>
+        /// <param name="numero">Número de calzado a consultar "Número [numero]"</param>
+        /// <returns>Cantidad en stock de un número determinado, -1 si no se ha introducido bien el número</returns>
         public int GetCantidadNumero(string numero)
         {
             switch (numero)
@@ -58,10 +64,19 @@ namespace PSManagement.Model
             }
         }
 
+        /// <summary>
+        /// Establece la cantidad en stock para un número en concreto y actualiza el total para el artículo.
+        /// </summary>
+        /// <param name="numero">Número de calzado "Número [numero]"</param>
+        /// <param name="cantidad">Cantidad en stock a asignar</param>
+        /// <returns>Verdadero si se ha podido añadir la cantidad, falso en cualquier otro caso</returns>
         public bool SetNumeros(string numero, int cantidad)
         {
             try
             {
+                if (cantidad < 0)
+                    throw new InvalidOperationException();
+
                 switch (numero)
                 {
                     case "Número 36":
@@ -124,6 +139,10 @@ namespace PSManagement.Model
             }
         }
 
+        /// <summary>
+        /// Aumenta en una unidad el stock de un número de calzado en concreto y actualiza el total en stock para el artículo.
+        /// </summary>
+        /// <param name="numero">Número de calzado "Número [numero]"</param>
         public void SumaNumero(string numero)
         {
             switch (numero)
@@ -182,56 +201,60 @@ namespace PSManagement.Model
             this.TotalCantidadArticulo = GetTotalItems();
         }
 
+        /// <summary>
+        /// Resta en una unidad el stock de un número de calzado en concreto y actualiza el total en stock para el artículo.
+        /// </summary>
+        /// <param name="numero">Número de calzado "Número [numero]"</param>
         public void RestaNumero(string numero)
         {
             switch (numero)
             {
                 case "Número 36":
-                    C36--;
+                    if (C36 > 0) C36--;
                     break;
 
                 case "Número 37":
-                    C37--;
+                    if (C37 > 0) C37--;
                     break;
 
                 case "Número 38":
-                    C38--;
+                    if (C38 > 0) C38--;
                     break;
 
                 case "Número 39":
-                    C39--;
+                    if (C39 > 0) C39--;
                     break;
 
                 case "Número 40":
-                    C40--;
+                    if (C40 > 0) C40--;
                     break;
 
                 case "Número 41":
-                    C41--;
+                    if (C41 > 0) C41--;
                     break;
 
                 case "Número 42":
-                    C42--;
+                    if (C42 > 0) C42--;
                     break;
 
                 case "Número 43":
-                    C43--;
+                    if (C43 > 0) C43--;
                     break;
 
                 case "Número 44":
-                    C44--;
+                    if (C44 > 0) C44--;
                     break;
 
                 case "Número 45":
-                    C45--;
+                    if (C45 > 0) C45--;
                     break;
 
                 case "Número 46":
-                    C46--;
+                    if (C46 > 0) C46--;
                     break;
 
                 case "Número 47":
-                    C47--;
+                    if (C47 > 0) C47--;
                     break;
 
                 default:
@@ -243,11 +266,20 @@ namespace PSManagement.Model
 
     public partial class tallastextiles
     {
+        /// <summary>
+        /// Función que devuelve el total de tallas textiles en stock de un artículo.
+        /// </summary>
+        /// <returns>Total en stock</returns>
         public int GetTotalItems()
         {
             return XXS + XS + S + M + L + XL + XXL;
         }
 
+        /// <summary>
+        /// Devuelve la cantidad en stock de talla textil en concreto.
+        /// </summary>
+        /// <param name="talla">Talla textil indicado por "Talla [talla]"</param>
+        /// <returns>La cantidad en stock de la talla, -1 si no se ha introducido correctamente la talla</returns>
         public int GetCantidadTalla(string talla)
         {
             switch (talla)
@@ -278,10 +310,19 @@ namespace PSManagement.Model
             }
         }
 
+        /// <summary>
+        /// Establece la cantidad en stock para una talla en concreto y actualiza el total para el artículo.
+        /// </summary>
+        /// <param name="talla">Talla textil "Talla [talla]"</param>
+        /// <param name="cantidad">Cantidad en stock determinada</param>
+        /// <returns>Verdadero si se puede establecer la cantidad, falso en otro caso</returns>
         public bool SetTallas(string talla, int cantidad)
         {
             try
             {
+                if (cantidad < 0)
+                    throw new InvalidOperationException();
+
                 switch (talla)
                 {
                     case "Talla XXS":
@@ -324,6 +365,10 @@ namespace PSManagement.Model
             }
         }
 
+        /// <summary>
+        /// Aumenta en una unidad el stock de una talla textil en concreto y actualiza el total en stock para el artículo.
+        /// </summary>
+        /// <param name="talla">Talla textil "Talla [talla]"</param>
         public void SumaTalla(string talla)
         {
             switch (talla)
@@ -362,6 +407,10 @@ namespace PSManagement.Model
             this.TotalCantidadArticulo = GetTotalItems();
         }
 
+        /// <summary>
+        /// Resta en una unidad el stock de una talla textil en concreto y actualiza el total en stock para el artículo.
+        /// </summary>
+        /// <param name="talla">Talla textil "Talla [talla]"</param>
         public void RestaTalla(string talla)
         {
             switch (talla)

@@ -33,6 +33,7 @@ namespace PSManagement.ViewModel
         public bool TextilOCalzado { get; set; }
 
 
+        //Constructor
         public FormularioCrudArticuloVM(ItemCRUDAction action, Object articuloCrud = null)
         {
             itemAction = action;
@@ -41,19 +42,24 @@ namespace PSManagement.ViewModel
             ListaCategorias = BbddService.GetCategorias();
             ListaColores = BbddService.GetColores();
 
+
+            //Si se va a insertar un nuevo artículo
             if (itemAction == ItemCRUDAction.Insert_Item)
             {
+                //Se inicializa un artículo y por defecto tendrá tallas textiles
                 ArticuloCrud = new articulos();
                 TallasArticuloNuevo();
             }
             else
             {
                 ArticuloCrud = (articulos)articuloCrud;
+                //Se asignan las tallas y los números del artículo actual (aunque uno de los dos será null, se evaluará más tarde)
                 TallasTextiles = ArticuloCrud.TALLASTEXTILES;
                 NumerosCalzado = ArticuloCrud.NUMEROSCALZADO;
             }
         }
 
+        //Ejecuta la acción a realizar en el mantenimiento de artículos
         public void Save_Execute()
         {
             if (itemAction == ItemCRUDAction.Insert_Item)
@@ -64,6 +70,7 @@ namespace PSManagement.ViewModel
             }
             else if (itemAction == ItemCRUDAction.Delete_Item)
             {
+                //Al borrar un artículo también se borran las referencias a su imagen en el servicio BlobStorage de Azure
                 BlobStorage.EliminarImagen(ArticuloCrud.UrlImagen);
                 BbddService.DeleteArticulo(ArticuloCrud);
             }
@@ -74,6 +81,7 @@ namespace PSManagement.ViewModel
             }
         }
 
+        //El modelo del artículo se convierte a mayúsculas y si no se le ha asignado ninguna imagen se le asigna una por defecto.
         public void NormalizarArticulo()
         {
             ArticuloCrud.CodArticulo = ArticuloCrud.CodArticulo.ToUpper();
@@ -84,6 +92,7 @@ namespace PSManagement.ViewModel
             }
         }
 
+        //Añade las referencias a las tallas o a los números del artículo actual.
         public void RegistrarTallas()
         {
             if (TextilOCalzado)
@@ -98,21 +107,28 @@ namespace PSManagement.ViewModel
             }
         }
 
+        //Guarda la información en la base de datos.
         public void ActualizarInfo()
         {
             BbddService.SaveChanges();
         }
 
+        //Comprueba si la cantidad indicada ha superado el mínimo de stock establecido en artículo actual.
         public bool MinimoAlcanzado(int cantidad)
         {
             return cantidad <= ArticuloCrud.StockMinimo;
         }
 
+        //Al cerrar el diálogo sin guardar los cambios se dehacen los cambios en la base de datos.
         internal void CloseExecuted()
         {
             BbddService.RevertChanges();
         }
 
+        /// <summary>
+        /// Comprueba si el artículo actual contiene tallas textiles o números de calzado
+        /// </summary>
+        /// <returns>Cadena de texto indicanto si es un producto textil o de calzado, nuevo si se va a insertar un nuevo artículo</returns>
         public string EsTextilOCalzado()
         {
 
@@ -124,6 +140,7 @@ namespace PSManagement.ViewModel
                 return "Nuevo";
         }
 
+        //Inicializa las tallas textiles en el artículo a insertar y establece a null los números de calzado.
         public void TallasArticuloNuevo()
         {
             TextilOCalzado = false;
@@ -131,6 +148,7 @@ namespace PSManagement.ViewModel
             TallasTextiles = new tallastextiles() { ARTICULO = ArticuloCrud, CodArticulo = ArticuloCrud.CodArticulo };
         }
 
+        //Inicializa los números de calzadoº en el artículo a insertar y establece a null las tallas textiles.
         public void NumerosArticuloNuevo()
         {
             TextilOCalzado = true;
@@ -138,6 +156,10 @@ namespace PSManagement.ViewModel
             NumerosCalzado = new numeroscalzado() { ARTICULO = ArticuloCrud, CodArticulo = ArticuloCrud.CodArticulo };
         }
 
+        /// <summary>
+        /// Ejecuta el comando para guardar la imagen seleccionada en el servicio BlobStorage de Azure.
+        /// </summary>
+        /// <param name="rutaImagen"></param>
         public void SeleccionarImagenArticulo(string rutaImagen)
         {
             string[] rutaSplit = rutaImagen.Split('\\');
@@ -146,6 +168,7 @@ namespace PSManagement.ViewModel
             ArticuloCrud.UrlImagen = blobStorageRuta;
         }
 
+        //Muestra el diálogo para introducir el pin de seguridad.
         internal bool PidePin()
         {
             PinDialog pinDialog = new PinDialog(PinConfig.Insert_Pin) { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
@@ -153,8 +176,10 @@ namespace PSManagement.ViewModel
             return pinDialog.ShowDialog() == true;
         }
 
+        //Devuelve la acción que se está realizando en el formulario.
         internal ItemCRUDAction GetAction() { return itemAction; }
 
+        //Muestra un panel numérico para introducir unidades de stock.
         internal bool OpenNumPadExecuted()
         {
             PanelNumericoDialog numPad;
@@ -172,6 +197,7 @@ namespace PSManagement.ViewModel
                 return false;
         }
 
+        //Establece qué textbox está seleccionado para introducir unidades de stock mediante panel numérico.
         internal void SetTextBoxActual(TextBox sender)
         {
             TextBoxSeleccionadoActual = sender;

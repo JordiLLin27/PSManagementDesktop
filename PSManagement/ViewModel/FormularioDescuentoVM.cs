@@ -1,12 +1,10 @@
 ﻿using PSManagement.Model;
 using PSManagement.Service;
 using System;
-using System.Collections.Generic;
+
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace PSManagement.ViewModel
 {
@@ -22,6 +20,7 @@ namespace PSManagement.ViewModel
         public bool CondicionUDSExactas { get; set; }
         public DiscountAction Action { get; set; }
 
+        //Constructor
         public FormularioDescuentoVM(DiscountAction action)
         {
             this.Action = action;
@@ -45,6 +44,7 @@ namespace PSManagement.ViewModel
             }
         }
 
+        //Determina si se ejecuta el comando para realizar la acción de mantenimiento de descuentos según la misma.
         internal bool SaveCanExecute()
         {
             if (Action == DiscountAction.Add_Discount)
@@ -54,6 +54,7 @@ namespace PSManagement.ViewModel
 
         }
 
+        //Comando que realiza la acción a realizar en el mantenimiento de descuentos. Devuelve el número de cambios en la base de datos realizados.
         internal int SaveExecuted()
         {
             try
@@ -65,17 +66,20 @@ namespace PSManagement.ViewModel
                 else
                     return BbddService.DeleteDescuentos(DescuentoSeleccionado);
             }
+            //-1 si se ha producido algún error.
             catch (Exception)
             {
                 return -1;
             }
         }
 
+        //Deshace los cambios en la base de datos.
         internal void RevertChanges()
         {
             BbddService.RevertChanges();
         }
 
+        //Cambia la condición que se va a exigir para aplicar el descuento. (si se está editando algún descuento o al insertar uno nuevo si se cambia de decisión)
         public void CambiaTipoCondicion()
         {
             if (!(DescuentoSeleccionado is null))
@@ -93,6 +97,7 @@ namespace PSManagement.ViewModel
             }
         }
 
+        //Establece la condición (al insertar un descuento)
         public void SetCondicion(int condicion)
         {
             if (condicion == 1)

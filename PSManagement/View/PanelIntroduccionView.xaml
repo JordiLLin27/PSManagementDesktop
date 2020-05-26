@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PSManagement.View"
+             xmlns:com="clr-namespace:PSManagement.Commands"
              mc:Ignorable="d" 
              d:DesignHeight="978" d:DesignWidth="1696"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -12,6 +13,22 @@
              TextElement.FontWeight="Medium"
              TextElement.FontSize="14"
              FontFamily="{materialDesign:MaterialDesignFont}" MinHeight="700" MaxHeight="970">
+
+
+    <UserControl.CommandBindings>
+        <CommandBinding
+            Command="com:CustomCommands.HelpVentas"
+            Executed="HelpVentasCommandBinding_Executed"/>
+
+        <CommandBinding
+            Command="com:CustomCommands.HelpGestion"
+            Executed="HelpGestionCommandBinding_Executed"/>
+
+        <CommandBinding
+            Command="com:CustomCommands.HelpInventarios"
+            Executed="HelpInventariosCommandBinding_Executed"/>
+    </UserControl.CommandBindings>
+
     <DockPanel x:Name="PanelPrincipalDockPanel">
 
         <StackPanel DockPanel.Dock="Top" Margin="10">
@@ -39,7 +56,7 @@
                     </Grid.RowDefinitions>
                     <!--Poner imagen-->
                     <Image Height="300" Stretch="Fill" Source="/Assets/ventas.jpg"/>
-                    <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 16 -20">
+                    <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Command="com:CustomCommands.HelpVentas" Margin="0 0 16 -20">
                         <materialDesign:PackIcon Kind="AboutCircle" />
                     </Button>
                     <StackPanel Grid.Row="1" Margin="8 24 8 4">
@@ -51,7 +68,7 @@
                             Este pequeño tutorial te ayudará con los primeros pasos para realizar ventas correctamente.
                         </TextBlock>
                     </StackPanel>
-                    <Button Grid.Row="2" Style="{StaticResource MaterialDesignFlatButton}" HorizontalAlignment="Left" Margin="8 4 8 8" FontWeight="Bold" FontSize="18">
+                    <Button Grid.Row="2" Style="{StaticResource MaterialDesignFlatButton}" HorizontalAlignment="Left" Margin="8 4 8 8" FontWeight="Bold" FontSize="18" Command="com:CustomCommands.HelpVentas">
                         MÁS INFORMACIÓN...
                     </Button>
                 </Grid>
@@ -66,7 +83,7 @@
                     </Grid.RowDefinitions>
                     <!--Poner imagen-->
                     <Image Height="300" Stretch="Fill" Source="/Assets/software_para_tiendas_de_ropa.jpg"/>
-                    <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 16 -20">
+                    <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 16 -20" Command="com:CustomCommands.HelpGestion">
                         <materialDesign:PackIcon Kind="AboutCircle" />
                     </Button>
                     <StackPanel Grid.Row="1" Margin="8 24 8 4">
@@ -78,7 +95,7 @@
                             Con estas sencillas instrucciones podrás empezar a gestionar todo tu almacén.
                         </TextBlock>
                     </StackPanel>
-                    <Button Grid.Row="2" Style="{StaticResource MaterialDesignFlatButton}" HorizontalAlignment="Left" Margin="8 4 8 8" FontWeight="Bold" FontSize="18">
+                    <Button Grid.Row="2" Style="{StaticResource MaterialDesignFlatButton}" HorizontalAlignment="Left" Margin="8 4 8 8" FontWeight="Bold" FontSize="18" Command="com:CustomCommands.HelpGestion">
                         MÁS INFORMACIÓN...
                     </Button>
                 </Grid>
@@ -93,7 +110,7 @@
                     </Grid.RowDefinitions>
                     <!--Poner imagen-->
                     <Image Height="300" Stretch="Fill" Source="/Assets/Gestión-de-inventario.jpg"/>
-                    <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 16 -20">
+                    <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 16 -20" Command="com:CustomCommands.HelpInventarios">
                         <materialDesign:PackIcon Kind="AboutCircle" />
                     </Button>
                     <StackPanel Grid.Row="1" Margin="8 24 8 4">
@@ -105,7 +122,7 @@
                            Guía rápida para crear tus inventarios y añadir artículos.
                         </TextBlock>
                     </StackPanel>
-                    <Button Grid.Row="2" Style="{StaticResource MaterialDesignFlatButton}" HorizontalAlignment="Left" Margin="8 4 8 8" FontWeight="Bold" FontSize="18">
+                    <Button Grid.Row="2" Style="{StaticResource MaterialDesignFlatButton}" HorizontalAlignment="Left" Margin="8 4 8 8" FontWeight="Bold" FontSize="18" Command="com:CustomCommands.HelpInventarios">
                         MÁS INFORMACIÓN...
                     </Button>
                 </Grid>

@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
+
+/// <summary>
+/// Ampliación de las clases parciales del modelo para que implementen la interfaz INotifyPropertyChanged
+/// </summary>
 namespace PSManagement.Model
 {
     public partial class articulos : INotifyPropertyChanged

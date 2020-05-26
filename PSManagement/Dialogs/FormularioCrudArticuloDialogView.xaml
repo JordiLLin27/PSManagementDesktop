@@ -70,7 +70,7 @@
                     <TextBox x:Name="CodigoArticuloTextBox" Grid.Column="0" Grid.Row="3" Text="{Binding ArticuloCrud.CodArticulo}" materialDesign:HintAssist.Hint="Campo obligatorio"/>
 
                     <Label Grid.Column="0" Grid.Row="4" Margin="0,10,0,0" Content="_Precio unitario" Target="{Binding ElementName=PrecioUnitarioTextBox}"/>
-                    <TextBox x:Name="PrecioUnitarioTextBox" Grid.Column="0" Grid.Row="5" Text="{Binding ArticuloCrud.PrecioUnitario, StringFormat='F'}" Tag="Precio" GotKeyboardFocus="TextBox_GotKeyboardFocus" LostFocus="TextBox_LostFocus" materialDesign:HintAssist.Hint="Introduce un precio (Obligatorio)"/>
+                    <TextBox x:Name="PrecioUnitarioTextBox" Grid.Column="0" Grid.Row="5" Text="{Binding ArticuloCrud.PrecioUnitario, StringFormat='F'}" Tag="Precio" GotKeyboardFocus="TextBox_GotKeyboardFocus" LostFocus="TextBox_LostFocus" KeyDown="PrecioUnitarioTextBox_KeyDown" materialDesign:HintAssist.Hint="Introduce un precio (Obligatorio)"/>
 
 
                     <Label Grid.Column="0" Grid.Row="6" Margin="0,10,0,0" Content="_Stock Mínimo" Target="{Binding ElementName=StockMinimoSlider}" Grid.RowSpan="2"/>

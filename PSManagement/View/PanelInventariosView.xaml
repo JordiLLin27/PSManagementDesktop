@@ -240,7 +240,7 @@
         </GroupBox>
 
         <!--Mantenimiento de inventario-->
-        <GroupBox Header="Mantenimiento de Inventario" Margin="5" Grid.Row="2" Grid.Column="0" MinHeight="250" MaxHeight="275">
+        <GroupBox Header="Mantenimiento de Inventario" Margin="2" Grid.Row="2" Grid.Column="0" MinHeight="299" MaxHeight="299">
             <DockPanel>
                 <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center" Margin="15">
                     <Button x:Name="InventarioCrudAceptarButton" Content="Aceptar" Width="100" Margin="0,0,20,0" Command="com:CustomCommands.InventoryCrud"/>
@@ -313,9 +313,9 @@
         </GroupBox>
 
         <!--Mantenimiento de Colores-->
-        <GroupBox Header="Mantenimiento de Colores" Margin="5" Grid.Row="2" Grid.Column="1" MinHeight="250" MaxHeight="275">
+        <GroupBox Header="Mantenimiento de Colores" Margin="2" Grid.Row="2" Grid.Column="1" MinHeight="299" MaxHeight="299">
             <DockPanel>
-                <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Margin="20" HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Margin="15" HorizontalAlignment="Center">
                     <Button x:Name="ColorCrudAceptarButton" Content="Aceptar" Width="100" Margin="0,0,20,0" Command="com:CustomCommands.ColorCrud"/>
                     <Button x:Name="ColorCrudLimpiarButton" Content="Limpiar" Width="100"   Command="com:CustomCommands.LimpiarColorCrud"/>
                 </StackPanel>
@@ -386,9 +386,9 @@
 
 
         <!--Mantenimiento de Categorías-->
-        <GroupBox Header="Mantenimiento de Categorías" Margin="5" Grid.Row="2" Grid.Column="2" MinHeight="250" MaxHeight="275">
+        <GroupBox Header="Mantenimiento de Categorías" Margin="2" Grid.Row="2" Grid.Column="2" MinHeight="299" MaxHeight="295">
             <DockPanel>
-                <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Margin="30" HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Margin="15" HorizontalAlignment="Center">
                     <Button x:Name="CategoriaCrudAceptarButton" Content="Aceptar" Width="100" Margin="0,0,20,0"  Command="com:CustomCommands.CategoryCrud"/>
                     <Button x:Name="CategoriaCrudLimpiarButton" Content="Limpiar" Width="100"  Command="com:CustomCommands.LimpiarCategoriaCrud"/>
                 </StackPanel>
@@ -396,7 +396,7 @@
 
                     <!--Colores Disponibles-->
                     <TabItem x:Name="CategoriassDisponiblesTabitem" Header="Categorias disponibles">
-                        <ListView ItemsSource="{Binding ListaCategorias}" DisplayMemberPath="Categoria"></ListView>
+                        <ListView ItemsSource="{Binding ListaCategorias}" DisplayMemberPath="Categoria" ScrollViewer.CanContentScroll="True" MinHeight="110"></ListView>
                     </TabItem>
 
                     <!--Añadir-->

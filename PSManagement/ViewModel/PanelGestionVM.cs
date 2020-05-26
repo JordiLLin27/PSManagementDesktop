@@ -2,12 +2,9 @@
 using PSManagement.Model;
 using PSManagement.Service;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using System.Windows.Data;
 
 namespace PSManagement.ViewModel
@@ -29,6 +26,7 @@ namespace PSManagement.ViewModel
 
         public string FiltroTextBox { get; set; }
 
+        //Constructor
         public PanelGestionVM()
         {
             ListaNumerosArticulos = new CollectionViewSource() { Source = BbddService.GetNumerosCalzado(), IsLiveFilteringRequested = true };
@@ -39,6 +37,7 @@ namespace PSManagement.ViewModel
             ListaTallasArticulos.Filter += FilterTablaTallas;
         }
 
+        //Limpia los filtros y muestra las tablas originales
         internal void CleanFIlters()
         {
             InventarioSeleccionado = null;
@@ -46,16 +45,19 @@ namespace PSManagement.ViewModel
             FindExecuted();
         }
 
+        //Aplica el filtro a la tabla de tallas.
         private void FilterTablaTallas(object sender, FilterEventArgs e)
         {
             tallastextiles articulo = (tallastextiles)e.Item;
 
+            //Si no hay filtros seleccionados
             if (string.IsNullOrEmpty(FiltroTextBox) && InventarioSeleccionado == null)
             {
                 e.Accepted = true;
             }
             else
             {
+                //Si coincide el inventario seleccionado.
                 if (string.IsNullOrEmpty(FiltroTextBox) && InventarioSeleccionado != null)
                 {
                     if (articulo.ARTICULO.INVENTARIO.Equals(InventarioSeleccionado))
@@ -65,6 +67,7 @@ namespace PSManagement.ViewModel
                     else
                         e.Accepted = false;
                 }
+                //Si coincide el nombre/modelo
                 else if (!string.IsNullOrEmpty(FiltroTextBox) && InventarioSeleccionado == null)
                 {
                     if (articulo.ARTICULO.Nombre.ToLower().Contains(FiltroTextBox.ToLower()) || articulo.ARTICULO.CodArticulo.ToLower().Contains(FiltroTextBox.ToLower()))
@@ -74,6 +77,7 @@ namespace PSManagement.ViewModel
                     else
                         e.Accepted = false;
                 }
+                //Si coinciden nombre/modelo y el inventario
                 else if ((!string.IsNullOrEmpty(FiltroTextBox) && InventarioSeleccionado != null))
                 {
                     if (articulo.ARTICULO.INVENTARIO.Equals(InventarioSeleccionado) && (articulo.ARTICULO.Nombre.ToLower().Contains(FiltroTextBox.ToLower()) || articulo.CodArticulo.ToLower().Contains(FiltroTextBox.ToLower())))
@@ -87,6 +91,7 @@ namespace PSManagement.ViewModel
             }
         }
 
+        //Mismo filtro pero a la tabla de números.
         private void FilterTablaNumeros(object sender, FilterEventArgs e)
         {
             numeroscalzado articulo = (numeroscalzado)e.Item;
@@ -128,12 +133,14 @@ namespace PSManagement.ViewModel
             }
         }
 
+        //Muestra el diálogo del panel numérico
         internal bool DataGridCell_MouseDoubleClick(object articulo, string talla)
         {
             PanelNumericoDialog numPad = new PanelNumericoDialog(articulo, talla) { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
-            return (numPad.ShowDialog() == true ? true : false);
+            return (numPad.ShowDialog() == true);
         }
 
+        //Deshace los cambios no guardados en la base de datos.
         internal void UnDoChangesExecuted()
         {
             BbddService.RevertChanges();
@@ -149,36 +156,42 @@ namespace PSManagement.ViewModel
             return (!string.IsNullOrEmpty(FiltroTextBox) || InventarioSeleccionado != null);
         }
 
+        //Ejecuta los filtros de las dos tablas.
         internal void FindExecuted()
         {
             ListaNumerosArticulos.View.Refresh();
             ListaTallasArticulos.View.Refresh();
         }
 
+        //Guarda los cambios en la base de datos.
         internal int GuardarStock()
         {
             return BbddService.SaveChanges();
         }
 
+        //Abre el diálogo para introducir el pin de seguridad.
         internal bool PidePIN()
         {
             PinDialog pinDialog = new PinDialog(PinConfig.Insert_Pin) { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
 
-            return pinDialog.ShowDialog() == true ? true : false;
+            return pinDialog.ShowDialog() == true;
 
         }
 
         #region TALLAS
+        //Actualiza el elemento actual al que se le van a aplicar los cambios en las tallas textiles.
         internal void ActualizaItemTallasSeleccionado(object item)
         {
             TallasArticuloSeleccionado = (tallastextiles)item;
         }
 
+        //Actualiza la talla a la que se le van a aplicar cambios.
         internal void ActualizaTallaSeleccionada(string nuevaTallaSeleccionada)
         {
             TallaActualSeleccionada = nuevaTallaSeleccionada;
         }
 
+        //Comprueba si cada talla ha superado el mínimo de stock establecido para ese artículo
         internal bool CompruebaStockMinimo()
         {
             if (TallasArticuloSeleccionado != null)
@@ -224,6 +237,7 @@ namespace PSManagement.ViewModel
             return false;
         }
 
+        //Aumenta en una unidad la talla seleccionada del artículo actual. Actualiza el total de tallas.
         internal bool AumentaTalla()
         {
             if (TallasArticuloSeleccionado != null)
@@ -268,6 +282,7 @@ namespace PSManagement.ViewModel
             return false;
         }
 
+        //Disminuye en una unidad la talla seleccionada del artículo actual. Actualiza el total de tallas.
         internal bool DisminuyeTalla()
         {
             if (TallasArticuloSeleccionado != null)
@@ -311,6 +326,7 @@ namespace PSManagement.ViewModel
             return false;
         }
 
+        //Actualiza el total de tallas.
         private void ActualizaTotalTallasItemSeleccionado()
         {
             TallasArticuloSeleccionado.TotalCantidadArticulo = TallasArticuloSeleccionado.GetTotalItems();
@@ -318,16 +334,19 @@ namespace PSManagement.ViewModel
         #endregion TALLAS
 
         #region NUMEROS
+        //Actualiza el elemento actual al que se le van a aplicar los cambios en los números de calzado.
         internal void ActualizaItemNumerosSeleccionado(object item)
         {
             NumerosArticuloSeleccionado = (numeroscalzado)item;
         }
 
+        //Actualiza el número de calzado al que se le van a aplicar cambios.
         internal void ActualizaNumeroSeleccionado(string nuevoNumeroCalzadoSeleccionado)
         {
             NumeroCalzadoActualSeleccionado = nuevoNumeroCalzadoSeleccionado;
         }
 
+        //Aumenta en una unidad el número seleccionado del artículo actual. Actualiza el total de números.
         internal void AumentaNumero()
         {
             if (NumerosArticuloSeleccionado != null)
@@ -389,6 +408,7 @@ namespace PSManagement.ViewModel
             }
         }
 
+        //Disminuye en una unidad el número seleccionado del artículo actual. Actualiza el total de números.
         internal void DisminuyeNumero()
         {
             if (NumerosArticuloSeleccionado != null)
@@ -450,6 +470,7 @@ namespace PSManagement.ViewModel
             }
         }
 
+        //Actualiza el total de números.
         private void ActualizarTotalNumerosItemSeleccionado()
         {
             this.NumerosArticuloSeleccionado.TotalCantidadArticulo = this.NumerosArticuloSeleccionado.GetTotalItems();

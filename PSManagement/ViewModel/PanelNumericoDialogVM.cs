@@ -1,10 +1,7 @@
 ﻿using PSManagement.Model;
-using System;
-using System.Collections.Generic;
+
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace PSManagement.ViewModel
 {
@@ -14,10 +11,14 @@ namespace PSManagement.ViewModel
         public tallastextiles Tallastextiles { get; set; }
         public string TallaONum { get; set; }
 
+        //Constructor
         public PanelNumericoDialogVM(object articulo, string tallaONumSeleccionado)
         {
-            if (articulo is tallastextiles)
-                Tallastextiles = (tallastextiles)articulo;
+            //Comprueba si el artículo hace referencia a sus tallas textiles o a sus números de calzado.
+            if (articulo is tallastextiles art)
+            {
+                Tallastextiles = art;
+            }
             else
                 Numeroscalzado = (numeroscalzado)articulo;
 
@@ -26,6 +27,7 @@ namespace PSManagement.ViewModel
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        //Establece la cantidad a las tallas o números actuales.
         internal bool SetTallasONumeros(int cantidad)
         {
             if (Tallastextiles != null)
@@ -34,6 +36,7 @@ namespace PSManagement.ViewModel
                 return Numeroscalzado.SetNumeros(TallaONum, cantidad);
         }
 
+        //Obtiene la cantidad en stock de tallas o números del artículo actual.
         internal int GetCantidadNumTalla()
         {
             if (Numeroscalzado != null)

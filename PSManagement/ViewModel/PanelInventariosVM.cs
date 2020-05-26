@@ -2,12 +2,9 @@
 using PSManagement.Service;
 using PSManagement.View;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using System.Windows.Data;
 
 namespace PSManagement.ViewModel
@@ -42,6 +39,11 @@ namespace PSManagement.ViewModel
             ListaArticulos.Filter += FiltroTablaArticulos;
         }
 
+        /// <summary>
+        /// Añade un inventario a la base de datos
+        /// </summary>
+        /// <param name="nombreInventario">Nombre del inventario a insertar</param>
+        /// <returns>Devuelve el número de cambios realizados en la base de datos.</returns>
         public int InsertarInventario(string nombreInventario)
         {
             inventarios nuevoInventario = new inventarios()
@@ -53,6 +55,11 @@ namespace PSManagement.ViewModel
             return BbddService.AddInventario(nuevoInventario);
         }
 
+        /// <summary>
+        /// Añade una categoría a la base de datos
+        /// </summary>
+        /// <param name="nombreCategoria">Nombre de la categoría a insertar</param>
+        /// <returns>Devuelve el número de cambios realizados en la base de datos.</returns>
         public int InsertarCategoria(string nombreCategoria)
         {
             categorias nuevaCategoria = new categorias()
@@ -66,7 +73,7 @@ namespace PSManagement.ViewModel
         /// <summary>
         /// Añade un color a la base de datos
         /// </summary>
-        /// <param name="nombreColor"></param>
+        /// <param name="nombreColor">Nombre del color a insertar</param>
         /// <returns>Devuelve el número de cambios realizados en la base de datos.</returns>
         public int InsertarColor(string nombreColor)
         {
@@ -114,12 +121,22 @@ namespace PSManagement.ViewModel
             return BbddService.DeleteColor(ColorSeleccionado);
         }
 
+        //Ejecuta el filtro para la tabla de artículos
         public void FiltroArticulos()
         {
             ListaArticulos.View.Refresh();
         }
 
         //Manejador del evento Filter
+        //Filtro de 4^2 posibilidades o 4 bits.
+
+        /**
+         * 0001 nombre/modelo
+         * 0010 inventario
+         * 0100 categoría
+         * 1000 color
+        **/
+
         private void FiltroTablaArticulos(object sender, FilterEventArgs e)
         {
             articulos item = (articulos)e.Item;
@@ -265,8 +282,8 @@ namespace PSManagement.ViewModel
         /// <summary>
         /// función que devuelve verdadero si la cadena de texto pasaada por parámetro coincide con el nombre o con el código del artículo, falso en otro caso.
         /// </summary>
-        /// <param name="articulo"></param>
-        /// <param name="nombreOCodigo"></param>
+        /// <param name="articulo">artículo a comprobar</param>
+        /// <param name="nombreOCodigo">Nombre a comprobar con el del artículo</param>
         /// <returns></returns>
         private bool CoincideNombreOCodigo(articulos articulo, string nombreOCodigo)
         {
@@ -277,8 +294,8 @@ namespace PSManagement.ViewModel
         /// <summary>
         /// Función que devuelve verdadero si el inventario pasado por parámetro coincide con el del artículo introducido por parámetro.
         /// </summary>
-        /// <param name="articulo"></param>
-        /// <param name="inventario"></param>
+        /// <param name="articulo">artículo a comprobar</param>
+        /// <param name="inventario">inventario a comprobar con el del artículo</param>
         /// <returns></returns>
         private bool CoincideInventario(articulos articulo, inventarios inventario)
         {
@@ -288,8 +305,8 @@ namespace PSManagement.ViewModel
         /// <summary>
         /// Función que devuelve verdadero si la categoría pasada por parámetro coincide con la del artículo introducido por parámetro.
         /// </summary>
-        /// <param name="articulo"></param>
-        /// <param name="categoria"></param>
+        /// <param name="articulo">artículo a comprobar</param>
+        /// <param name="categoria">categoría a comprobar con el del artículo</param>
         /// <returns></returns>
         private bool CoincideCategoria(articulos articulo, categorias categoria)
         {
@@ -300,8 +317,8 @@ namespace PSManagement.ViewModel
         /// <summary>
         /// Función que devuelve verdadero si el color pasado por parámetro coincide con el del artículo introducido por parámetro.
         /// </summary>
-        /// <param name="articulo"></param>
-        /// <param name="color"></param>
+        /// <param name="articulo">artículo a comprobar</param>
+        /// <param name="color">color a comprobar con el del artículo</param>
         /// <returns></returns>
         private bool CoincideColor(articulos articulo, colores color)
         {
@@ -313,6 +330,7 @@ namespace PSManagement.ViewModel
             return (FiltroInventarioSeleccionado != null || FiltroCategoriaSeleccionada != null || FiltroColorSeleccionado != null || !string.IsNullOrEmpty(FiltroArticuloPorNombreOModelo));
         }
 
+        //Limpia todos los campos de los filtros
         public void CleanFilters_Execute()
         {
             FiltroInventarioSeleccionado = null;
@@ -321,11 +339,17 @@ namespace PSManagement.ViewModel
             FiltroArticuloPorNombreOModelo = "";
         }
 
+        //Comprueba si la cantidad actual del artículo seleccionado ha alcanzado su mínimo en stock.
         public bool CantidadMinimaAlcanzada(int cantidadActual)
         {
             return cantidadActual <= ArticuloSeleccionado.StockMinimo;
         }
 
+        /// <summary>
+        /// Muestra el diálogo para el mantenimiento de los artículos especificando la acción a realizar
+        /// </summary>
+        /// <param name="action">Acción a realizar en el mantenimiento de artículos</param>
+        /// <returns>El formulario adaptado a la acción</returns>
         public FormularioCrudArticuloDialogView ItemCrud_Execute(ItemCRUDAction action)
         {
             FormularioCrudArticuloDialogView formularioCrudArticulo;
@@ -340,6 +364,7 @@ namespace PSManagement.ViewModel
             return formularioCrudArticulo;
         }
 
+        //Determina cuando se puede ejecutar el comando para mostrar el formulario de mantenimiento de artículos según la acción a realizar.
         public bool ItemCrudCommandBinding_CanExecute(string nombreControl)
         {
             switch (nombreControl)

@@ -24,7 +24,8 @@
 
         <CommandBinding
             Command="ApplicationCommands.Help"
-            Executed="HelpCommandBinding_Executed"/>
+            Executed="HelpCommandBinding_Executed"
+            CanExecute="HelpCommandBinding_CanExecute"/>
 
         <CommandBinding
             Command="NavigationCommands.BrowseBack"

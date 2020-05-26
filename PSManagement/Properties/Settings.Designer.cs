@@ -86,5 +86,14 @@ namespace PSManagement.Properties {
                 this["RutaFacturasDefault"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://api.vatlookup.eu/rates/es")]
+        public string UrlApi {
+            get {
+                return ((string)(this["UrlApi"]));
+            }
+        }
     }
 }

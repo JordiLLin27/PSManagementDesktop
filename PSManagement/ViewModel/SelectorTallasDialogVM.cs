@@ -1,12 +1,9 @@
 ﻿using PSManagement.Model;
 using PSManagement.Service;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace PSManagement.ViewModel
 {
@@ -28,6 +25,7 @@ namespace PSManagement.ViewModel
             NumerosArticuloSeleccionado = BbddService.GetArticuloNumerosCalzado(ArticuloSeleccionado);
         }
 
+        //Determina si el comando para seleccionar talla o número se puede ejecutar
         internal bool SelectSizeCanExecute(string tag)
         {
             if (tag.Contains("Talla"))
@@ -57,28 +55,25 @@ namespace PSManagement.ViewModel
             return !(NumerosArticuloSeleccionado is null);
         }
 
+
         internal void SelectSizeExecuted(string tallaONum)
         {
-            if (tallaONum.Contains("Talla"))
+            if (tallaONum.Contains("Talla") && !(TallasArticuloSeleccionado is null))
             {
-                if (!(TallasArticuloSeleccionado is null))
-                {
-                    TallasArticuloSeleccionado.RestaTalla(tallaONum);
-                    AddItemALista(tallaONum);
-                }
+                TallasArticuloSeleccionado.RestaTalla(tallaONum);
+                AddItemALista(tallaONum);
             }
-            else if (tallaONum.Contains("Número"))
+            else if (tallaONum.Contains("Número") && !(NumerosArticuloSeleccionado is null))
             {
-                if (!(NumerosArticuloSeleccionado is null))
-                {
-                    NumerosArticuloSeleccionado.RestaNumero(tallaONum);
-                    AddItemALista(tallaONum);
-                }
+                NumerosArticuloSeleccionado.RestaNumero(tallaONum);
+                AddItemALista(tallaONum);
             }
         }
 
+        //Añade un registro a los detalles de la factura
         private void AddItemALista(string tallaONum)
         {
+            //Si ya existe, incrementa las unidades de ese registro
             detallesfactura detallesItem = ExisteArticuloEnLista(ArticuloSeleccionado, tallaONum);
             if (detallesItem != null)
             {
@@ -98,6 +93,12 @@ namespace PSManagement.ViewModel
             }
         }
 
+        /// <summary>
+        /// Función que busca detalles de una factura de un artículo en concreto y una talla en concreto.
+        /// </summary>
+        /// <param name="articuloSeleccionado">Artículo a buscar en los detalles</param>
+        /// <param name="tallaONum">Talla del artículo</param>
+        /// <returns>Detalle de la factura de ese artículo si existe, null en cualquier otro caso</returns>
         private detallesfactura ExisteArticuloEnLista(articulos articuloSeleccionado, string tallaONum)
         {
             foreach (detallesfactura item in DetallesArticuloEnFactura)

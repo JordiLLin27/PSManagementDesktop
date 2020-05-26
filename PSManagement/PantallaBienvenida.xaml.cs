@@ -1,29 +1,28 @@
 ﻿using MaterialDesignThemes.Wpf;
 using PSManagement.View;
 using System;
-using System.Collections.Generic;
+
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 using System.Windows.Threading;
 
 namespace PSManagement
 {
+    /// <summary>
+    /// Enumeracion que indica las acciones CRUD sobre la tabla inventarios
+    /// </summary>
     public enum InventoryCRUDAction
     {
         Insert_Inventario,
         Update_Inventario,
         Delete_Inventario
     }
+
+    /// <summary>
+    /// Enumeracion que indica las acciones CRUD sobre la tabla colores
+    /// </summary>
     public enum ColorCRUDAction
     {
         Insert_Color,
@@ -31,6 +30,9 @@ namespace PSManagement
         Delete_Color
     }
 
+    /// <summary>
+    /// Enumeración que indica las acciones CRUD sobre la tabla categorías
+    /// </summary>
     public enum CategoryCRUDAction
     {
         Insert_Categoria,
@@ -38,6 +40,9 @@ namespace PSManagement
         Delete_Categoria
     }
 
+    /// <summary>
+    /// Enumeración que indica las acciones CRUD sobre la tabla artículos
+    /// </summary>
     public enum ItemCRUDAction
     {
         Insert_Item,
@@ -45,12 +50,18 @@ namespace PSManagement
         Delete_Item
     }
 
+    /// <summary>
+    /// Enumeración que indica las acciones a realizar sobre el pin de seguridad
+    /// </summary>
     public enum PinConfig
     {
         Insert_Pin,
         Update_Pin
     }
 
+    /// <summary>
+    /// Enumeración que indica las acciones CRUD sobre la tabla descuentos
+    /// </summary>
     public enum DiscountAction
     {
         Add_Discount,
@@ -81,13 +92,14 @@ namespace PSManagement
             Close();
         }
 
+        //Comprueba la configuración inicial
         private void CompruebaConfig()
         {
 
             EsTemaOscuro();
-
         }
 
+        //Comprueba el tema actual
         private void EsTemaOscuro()
         {
             BundledTheme bundled = (BundledTheme)App.Current.Resources.MergedDictionaries.First();

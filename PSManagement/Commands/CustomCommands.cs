@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using System.Windows.Input;
 
 namespace PSManagement.Commands
@@ -168,6 +164,27 @@ namespace PSManagement.Commands
          (
              "Discount",
              "Discount",
+             typeof(CustomCommands)
+         );
+
+        public static readonly RoutedUICommand HelpVentas = new RoutedUICommand
+         (
+             "HelpVentas",
+             "HelpVentas",
+             typeof(CustomCommands)
+         );
+
+        public static readonly RoutedUICommand HelpInventarios = new RoutedUICommand
+         (
+             "HelpInventarios",
+             "HelpInventarios",
+             typeof(CustomCommands)
+         );
+
+        public static readonly RoutedUICommand HelpGestion = new RoutedUICommand
+         (
+             "HelpGestion",
+             "HelpGestion",
              typeof(CustomCommands)
          );
     }

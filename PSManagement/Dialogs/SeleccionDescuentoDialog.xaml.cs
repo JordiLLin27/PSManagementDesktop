@@ -1,19 +1,13 @@
 ﻿using PSManagement.Model;
 using PSManagement.ViewModel;
-using System;
-using System.Collections.Generic;
+
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
 
 namespace PSManagement.Dialogs
 {
@@ -28,9 +22,18 @@ namespace PSManagement.Dialogs
             InitializeComponent();
         }
 
+        //Comando para aplicar los descuentos a la factura actual
         private void DiscountCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            this.DialogResult = (DataContext as SeleccionDescuentoVM).DiscountExecuted();
+            try
+            {
+                this.DialogResult = (DataContext as SeleccionDescuentoVM).DiscountExecuted();
+            }
+            catch (System.Exception)
+            {
+                MessageBox.Show("No ha sido posible aplicar el descuento", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                this.DialogResult = false;
+            }
         }
 
         private void DiscountCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -38,16 +41,37 @@ namespace PSManagement.Dialogs
             e.CanExecute = (DataContext as SeleccionDescuentoVM).DiscountCanExecute;
         }
 
+        //Manejador de evento para seleccionar los artículos de la lista a los que se va a aplicar algún descuento
         private void ListBox_Selected(object sender, RoutedEventArgs e)
         {
-            (DataContext as SeleccionDescuentoVM).AddListaDescuentos((detallesfactura)((ListBoxItem)sender).Content);
+            try
+            {
+                (DataContext as SeleccionDescuentoVM).AddListaDescuentos((detallesfactura)((ListBoxItem)sender).Content);
+            }
+            catch (System.Exception)
+            {
+                MessageBox.Show("No se ha podido seleccionar para su descuento", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
+        //Si el usuario se ha equivocado se puede deseleccionar los artículos de la lista y el manejador de este evento elimina el artículo no deseado
         private void ListBox_Unselected(object sender, RoutedEventArgs e)
         {
-            (DataContext as SeleccionDescuentoVM).RemoveListaDescuentos((detallesfactura)((ListBoxItem)sender).Content);
+            try
+            {
+                (DataContext as SeleccionDescuentoVM).RemoveListaDescuentos((detallesfactura)((ListBoxItem)sender).Content);
+            }
+            catch (System.Exception)
+            {
+
+                MessageBox.Show("No se ha podido eliminar el artículo", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
+
         }
 
+        //Se comprueba si se ha seleccionado algún tipo de descuento antes de poder seleccionar los artículos de la factura a los que se va a aplicar.
         private void SeleccionDescuentoComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if ((DataContext as SeleccionDescuentoVM).PuedeSeleccionarArticulos())

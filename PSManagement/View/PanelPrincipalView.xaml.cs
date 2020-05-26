@@ -52,19 +52,20 @@ namespace PSManagement.View
         //Comando para cargar el manual de ayuda
         private void HelpCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-
             try
             {
-                string ruta = System.IO.Directory.GetCurrentDirectory().ToString() + @"\PSManagementManual.chm";
-                System.Diagnostics.Process.Start(ruta);
+                (this.DataContext as PanelPrincipalVM).AbreManual();
             }
             catch (Exception ex)
             {
                 ExcepcionCapturada("El manual de usuario no está disponible en este momento consulte con asistencia técnica.", ex.Message);
             }
-
         }
 
+        private void HelpCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
 
         //Comando para cargar el panel de opciones del programa
         private void PropertiesCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -318,5 +319,7 @@ namespace PSManagement.View
             CambiaPanel((DataContext as PanelPrincipalVM).CargaPanelBienvenida());
             CambiaTituloIconoMenuNav();
         }
+
+
     }
 }

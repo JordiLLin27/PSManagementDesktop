@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace PSManagement.ViewModel
 {
@@ -29,15 +26,22 @@ namespace PSManagement.ViewModel
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// Función que comprueba el pinactual con el almacenado en las propiedades.
+        /// </summary>
+        /// <returns>Verdadero si el pin coincide, falso en cualquier otro caso</returns>
         public bool CompruebaPIN()
         {
-            if (!string.IsNullOrEmpty(PinActual))
-                if (string.Equals(PinActual, Properties.Settings.Default.PinSeguridad))
-                    return true;
-
-            return false;
+            if (!string.IsNullOrEmpty(PinActual) && string.Equals(PinActual, Properties.Settings.Default.PinSeguridad))
+                return true;
+            else
+                return false;
         }
 
+        /// <summary>
+        /// Actualiza el pin actual y lo guarda en las propiedades de la aplicación.
+        /// </summary>
+        /// <returns>Verdadero si se ha guardadado la información, falso en otro caso</returns>
         public bool UpdatePIN()
         {
             if (!PinUpdate.Equals(PinActual))
@@ -52,12 +56,15 @@ namespace PSManagement.ViewModel
             }
         }
 
+
+        //Determina si se puede ejecutar el comando para actualizar el pin actual
         internal bool PINUpdateCanExecute()
         {
             PinUpdate = PrimerDigitoUpdate + SegundoDigitoUpdate + TercerDigitoUpdate + CuartoDigitoUpdate;
             return !string.IsNullOrEmpty(PinUpdate) && PinUpdate.Length == 4;
         }
 
+        //Determina si se puede ejecutar el comando para introducir el pin actual
         internal bool SavePinCanExecute()
         {
             PinActual = PrimerDigito + SegundoDigito + TercerDigito + CuartoDigito;

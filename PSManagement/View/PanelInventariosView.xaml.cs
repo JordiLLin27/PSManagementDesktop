@@ -67,27 +67,31 @@ namespace PSManagement.View
         #endregion Cambios_En_Tabs
 
         #region GroupBox_Inventarios
+
+        //Comando para manejar las diferentes acciones de mantenimiento de inventarios
         private void InventoryCrudCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             switch (invAction)
             {
+                //insertar un inventario
                 case InventoryCRUDAction.Insert_Inventario:
 
                     if ((this.DataContext as PanelInventariosVM).InsertarInventario(NombreInventarioAddTextBox.Text) > 0)
                         MessageBox.Show("Inventario insertado con éxito", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
                     else
                         MessageBox.Show("Error en la operación", "Error en la operación", MessageBoxButton.OK, MessageBoxImage.Error);
-
                     break;
 
+                //Modificar un inventario existente   
                 case InventoryCRUDAction.Update_Inventario:
+                    //Pongo el nombre del inventario en el textbox para que no se actualize directamente.
                     (this.DataContext as PanelInventariosVM).InventarioSeleccionado.Descripcion = EditarNombreInventarioTextBox.Text;
                     if ((this.DataContext as PanelInventariosVM).SaveChanges() > 0)
                         MessageBox.Show("Cambios guardados", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
                     else
                         MessageBox.Show("Error en la operación", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     break;
-
+                //Eliminar un inventario existente    
                 case InventoryCRUDAction.Delete_Inventario:
                     if ((this.DataContext as PanelInventariosVM).DeleteInventario() > 0)
                     {
@@ -101,6 +105,7 @@ namespace PSManagement.View
                     break;
             }
 
+            //Después de realizar la acción los textbox se resetean.
             NombreInventarioAddTextBox.Text = "";
             EditarNombreInventarioTextBox.Text = "";
         }
@@ -129,6 +134,7 @@ namespace PSManagement.View
             }
         }
 
+        //Comando para limpiar los campos de la pestaña seleccionada del groupbox de mantenimiento de inventarios
         private void LimpiarInventarioCrudCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             switch (invAction)
@@ -150,23 +156,28 @@ namespace PSManagement.View
         #endregion GroupBox_Inventarios
 
         #region GroupBox_Categorias
+        //Comando para manejar las diferentes acciones de mantenimiento de inventarios
         private void CategoryCrudCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             switch (categoryAction)
             {
+                //Insertar una nueva categoría
                 case CategoryCRUDAction.Insert_Categoria:
                     if ((this.DataContext as PanelInventariosVM).InsertarCategoria(NombreCategoriaAddTextBox.Text) > 0)
                         MessageBox.Show("Categoría insertada con éxito", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
                     else
                         MessageBox.Show("Error en la operación", "Error en la operación", MessageBoxButton.OK, MessageBoxImage.Error);
                     break;
+                //Modificar una categoría existente
                 case CategoryCRUDAction.Update_Categoria:
+                    //No se hace a través de Binding para que no se modifique el original mientras se está editando.
                     (this.DataContext as PanelInventariosVM).CategoriaSeleccionada.Categoria = EditarNombreCategoriaTextBox.Text;
                     if ((this.DataContext as PanelInventariosVM).SaveChanges() > 0)
                         MessageBox.Show("Cambios guardados", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
                     else
                         MessageBox.Show("Error en la operación", "Error en la operación", MessageBoxButton.OK, MessageBoxImage.Error);
                     break;
+                //Eliminar una categoría existente
                 case CategoryCRUDAction.Delete_Categoria:
                     if ((this.DataContext as PanelInventariosVM).DeleteCategoria() > 0)
                         MessageBox.Show("Categoría eliminada", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -177,6 +188,7 @@ namespace PSManagement.View
                     MessageBox.Show("Error en la operación", "Error en la operación", MessageBoxButton.OK, MessageBoxImage.Error);
                     break;
             }
+            //Después de realizar una acción los TextBox se resetean.
             NombreCategoriaAddTextBox.Text = "";
             EditarNombreCategoriaTextBox.Text = "";
         }
@@ -202,6 +214,7 @@ namespace PSManagement.View
             }
         }
 
+        //Comando para resetear todos los campos del groupbox de mantenimiento de categorías
         private void LimpiarCategoriaCrudCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             switch (categoryAction)
@@ -224,17 +237,20 @@ namespace PSManagement.View
         #endregion GroupBox_Categorias
 
         #region GroupBox_Colores
+        //Comando para manejar las diferentes acciones de mantenimiento de colores
 
         private void ColorCrudCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             switch (colorAction)
             {
+                //Insertar un nuevo color
                 case ColorCRUDAction.Insert_Color:
                     if ((this.DataContext as PanelInventariosVM).InsertarColor(NombreColorAddTextBox.Text) > 0)
                         MessageBox.Show("Color insertado con éxito", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
                     else
                         MessageBox.Show("Error en la operación", "Error en la operación", MessageBoxButton.OK, MessageBoxImage.Error);
                     break;
+                //Editar un color existente
                 case ColorCRUDAction.Update_Color:
                     (this.DataContext as PanelInventariosVM).ColorSeleccionado.Color = EditarNombreColorTextBox.Text;
                     if ((this.DataContext as PanelInventariosVM).SaveChanges() > 0)
@@ -242,6 +258,7 @@ namespace PSManagement.View
                     else
                         MessageBox.Show("Error en la operación", "Error en la operación", MessageBoxButton.OK, MessageBoxImage.Error);
                     break;
+                //Eliminar un color existente        
                 case ColorCRUDAction.Delete_Color:
                     if ((this.DataContext as PanelInventariosVM).DeleteColor() > 0)
                         MessageBox.Show("Color eliminado con éxito", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -253,6 +270,8 @@ namespace PSManagement.View
                     MessageBox.Show("Error en la operación", "Error en la operación", MessageBoxButton.OK, MessageBoxImage.Error);
                     break;
             }
+            EditarNombreColorTextBox.Text = "";
+            NombreColorAddTextBox.Text = "";
         }
 
         private void ColorCrudCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -276,6 +295,7 @@ namespace PSManagement.View
             }
         }
 
+        //Comando para limpiar los campos del groupbox de mantenimiento de colores.
         private void LimpiarColorCrudCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             switch (colorAction)
@@ -298,7 +318,7 @@ namespace PSManagement.View
         #endregion GroupBox_Colores
 
         #region GroupBox_Items
-
+        //Manejador del comando para cambiar la acción que se va a realizar sobre los articulos del inventario según el botón que se haya pulsado y abrir el formulario de mantenimiento de artículos.
         private void ItemCrudCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
 
@@ -320,12 +340,14 @@ namespace PSManagement.View
 
                     break;
 
+                //La acción por defecto es la de insertar un nuevo artículo
                 default:
                     itemAction = ItemCRUDAction.Insert_Item;
 
                     break;
             }
 
+            //Después de seleccionar la acción se muestra el diálogo con el formulario de mantenimiento de artículos
             FormularioCrudArticuloDialogView formularioCrudArticulo = (DataContext as PanelInventariosVM).ItemCrud_Execute(itemAction);
 
             if (formularioCrudArticulo != null)
@@ -344,7 +366,7 @@ namespace PSManagement.View
 
         #region Filtrado_de_datos
 
-        //Comando para filtrar
+        //Comando para filtrar la tabla de artículos
         private void FilterCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             (DataContext as PanelInventariosVM).FiltroArticulos();
@@ -367,6 +389,7 @@ namespace PSManagement.View
             e.CanExecute = (DataContext as PanelInventariosVM).Filter_CanExecute();
         }
 
+        //Manejador de evento para que se aplique el filtro de nombre o modelo a la vez que se va escribiendo.
         private void BarraFiltroTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             (DataContext as PanelInventariosVM).FiltroArticulos();

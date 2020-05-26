@@ -1,17 +1,11 @@
 ﻿using PSManagement.ViewModel;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
 
 namespace PSManagement.Dialogs
 {
@@ -65,21 +59,26 @@ namespace PSManagement.Dialogs
             }
         }
 
+        //Manejador de evento click para todos los botones
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            //Se comprueba si el botón es el número '0' y si en el textblock del resultado sólo queda un '0' el evento queda manejado.
             if (((Button)sender).Tag.ToString() == "0" && ResultadoTextBlock.Text == "0")
                 e.Handled = true;
+            //Se comprueba si el botón es cualquiera que no sea el '0' y si en el textblock del resultado sólo queda un '0' el texto se borra para dar agregar el nuevo número.
             else if (((Button)sender).Tag.ToString() != "0" && ResultadoTextBlock.Text == "0")
                 ResultadoTextBlock.Text = "";
 
-
+            //A partir de cualquier otra cifra que no empiece por '0' las cifras se van añadiendo al resultado.
             ResultadoTextBlock.Text += ((Button)sender).Tag.ToString();
         }
 
+        //Evento click del botón intro
         private void IntroButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
+                //Cuando se pulsa se intenta añadir a las tallas o números la cifra que aparece en el cuadro de resultado
                 DialogResult = (DataContext as PanelNumericoDialogVM).SetTallasONumeros(int.Parse(ResultadoTextBlock.Text));
             }
             catch (OverflowException)
@@ -98,6 +97,7 @@ namespace PSManagement.Dialogs
             BackSpace();
         }
 
+        //Manejador de evento KeyDown para toda la ventana por si se desean pulsar las teclas del teclado en vez de las del panel numérico de la ventana
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             string teclaPulsada = "";
@@ -158,12 +158,11 @@ namespace PSManagement.Dialogs
                     break;
             }
 
-
-
             if (!string.IsNullOrEmpty(teclaPulsada))
                 ResultadoTextBlock.Text += teclaPulsada;
         }
 
+        //Función que elimina el último dígito de la cadena de resultado y cuando llega a la última la cambia por un '0'.
         private void BackSpace()
         {
             if (ResultadoTextBlock.Text.Length == 1)

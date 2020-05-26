@@ -1,12 +1,8 @@
 ﻿using PSManagement.Dialogs;
 using PSManagement.View;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using System.Windows;
 
 namespace PSManagement.ViewModel
@@ -23,6 +19,7 @@ namespace PSManagement.ViewModel
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        //Cambia el panel actual por el panel de bienvenida.
         public PanelIntroduccionView CargaPanelBienvenida()
         {
 
@@ -36,7 +33,7 @@ namespace PSManagement.ViewModel
             return panelIntro;
         }
 
-
+        //Cambia el panel actual por el panel de configuración.
         public PanelOpcionesVIew CargaPanelOpciones()
         {
 
@@ -47,6 +44,7 @@ namespace PSManagement.ViewModel
             return panelOpt;
         }
 
+        //Cambia el panel actual por el panel de inventarios.
         public PanelInventariosView CargaPanelInventarios()
         {
             PanelInventariosView panelInv = new PanelInventariosView();
@@ -56,6 +54,7 @@ namespace PSManagement.ViewModel
             return panelInv;
         }
 
+        //Cambia el panel actual por el panel de gestión.
         public PanelGestionView CargaPanelGestion()
         {
             PanelGestionView panelGest = new PanelGestionView();
@@ -65,6 +64,7 @@ namespace PSManagement.ViewModel
             return panelGest;
         }
 
+        //Cambia el panel actual por el panel de ventas.
         public PanelVentasView CargaPanelVentas()
         {
             PanelVentasView panelVentas = new PanelVentasView();
@@ -74,6 +74,14 @@ namespace PSManagement.ViewModel
             return panelVentas;
         }
 
+        //Abre el manual de ayuda al usuario
+        internal void AbreManual()
+        {
+            string ruta = System.IO.Directory.GetCurrentDirectory().ToString() + @"\Manual\ManualPSManagement.chm";
+            System.Diagnostics.Process.Start(ruta);
+        }
+
+        //Muestra el diálogo para salir de la aplicación
         public void ExitDialog(ExitDialog ventanaSalir)
         {
 
@@ -83,11 +91,13 @@ namespace PSManagement.ViewModel
             }
         }
 
+        //Vuelve al panel de bienvenida.
         internal PanelIntroduccionView BotonHome()
         {
             return CargaPanelBienvenida();
         }
 
+        //Muestra el formulario para mantenimiento de descuento.
         internal bool DiscountExecuted(DiscountAction action)
         {
             FormularioDescuentosDialog formularioDescuentos = new FormularioDescuentosDialog(action)
@@ -96,7 +106,7 @@ namespace PSManagement.ViewModel
                 ShowInTaskbar = false
             };
 
-            return formularioDescuentos.ShowDialog() == true ? true : false;
+            return formularioDescuentos.ShowDialog() == true;
         }
     }
 }

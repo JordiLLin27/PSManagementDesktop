@@ -48,14 +48,17 @@ namespace PSManagement.ViewModel
 
         }
 
+        //Filtro para la tabla de de artículos en el panel de ventas
         private void ListaArticulosSeleccionados_Filter(object sender, FilterEventArgs e)
         {
             articulos item = (articulos)e.Item;
 
+            //Si no hay filtros seleccionados
             if (string.IsNullOrEmpty(FiltroTextBox) && ColorSeleccionado == null)
                 e.Accepted = true;
             else
             {
+                //Si coincide el color seleccionado
                 if (string.IsNullOrEmpty(FiltroTextBox) && ColorSeleccionado != null)
                 {
                     if (item.COLOR == ColorSeleccionado)
@@ -63,6 +66,7 @@ namespace PSManagement.ViewModel
                     else
                         e.Accepted = false;
                 }
+                //Si coincide nombre/modelo
                 else if (!string.IsNullOrEmpty(FiltroTextBox) && ColorSeleccionado == null)
                 {
                     if (item.Nombre.ToLower().Contains(FiltroTextBox.ToLower()) || item.CodArticulo.ToLower().Contains(FiltroTextBox.ToLower()))
@@ -73,6 +77,7 @@ namespace PSManagement.ViewModel
                     else
                         e.Accepted = false;
                 }
+                //Si coinciden nombre/modelo y color
                 else if (!string.IsNullOrEmpty(FiltroTextBox) && ColorSeleccionado != null)
                 {
                     if ((item.Nombre.ToLower().Contains(FiltroTextBox.ToLower()) || item.CodArticulo.ToLower().Contains(FiltroTextBox.ToLower())) && item.COLOR == ColorSeleccionado)
@@ -85,11 +90,14 @@ namespace PSManagement.ViewModel
             }
         }
 
+        //Elimina detalles de la factura actual
         internal void BorrarItems(detallesfactura detallesfacturaABorrar)
         {
+            //Si el artículo a eliminar contiene más de una unidad se resta una a los detalles de la factura
             if (detallesfacturaABorrar.CantidadArticulo > 1)
             {
                 detallesfacturaABorrar.CantidadArticulo--;
+                //Se comprueba si son tallas o números para sumar una unidad ya que vuelve al stock.
                 if (detallesfacturaABorrar.TallaONum.ToLower().Contains("talla"))
                 {
                     detallesfacturaABorrar.ARTICULO.TALLASTEXTILES.SumaTalla(detallesfacturaABorrar.TallaONum);
@@ -97,14 +105,18 @@ namespace PSManagement.ViewModel
                 else
                     detallesfacturaABorrar.ARTICULO.NUMEROSCALZADO.SumaNumero(detallesfacturaABorrar.TallaONum);
             }
+            //Si sólo queda una unidad se elimina el registro de los detalles de la factura y revierte los cambios en la base de datos.
             else
             {
                 DetallesArticulosFactura.Remove(detallesfacturaABorrar);
                 BbddService.RevertChanges();
             }
+            //Vuelve a calcular el precio actual
             RecalcularPrecio();
         }
 
+
+        //Muestra el diálogo para aplicar descuentos y devuelve el resultado de este.
         internal bool DiscountExecuted()
         {
             SeleccionDescuentoDialog seleccionDescuento = new SeleccionDescuentoDialog(FacturaFinal, DetallesArticulosFactura)
@@ -118,11 +130,14 @@ namespace PSManagement.ViewModel
             return DescuentoAplicado;
         }
 
+        //Determina si se puede ejecutar el comando para aplicar descuentos.
         internal bool DiscountCanExecute()
         {
             return FacturaFinal.ImporteTotalConIva > 0;
         }
 
+
+        //Ejecuta el comando para limpiar la factura actual de detalles e inicializa una nueva. Deshace los cambios en la base de datos.
         internal void DeleteExecuted()
         {
             DetallesArticulosFactura = new ObservableCollection<detallesfactura>();
@@ -135,6 +150,7 @@ namespace PSManagement.ViewModel
             return DetallesArticulosFactura.Count > 0;
         }
 
+        //Muestra el diálogo para terminar la venta y devuelve el resultado de este.
         internal bool SellExecuted()
         {
 
@@ -144,6 +160,7 @@ namespace PSManagement.ViewModel
                 ShowInTaskbar = false
             };
 
+            //Al terminar una venta se prepara una factura nueva para realizar la siguiente.
             if (terminarVenta.ShowDialog() == true)
             {
                 FacturaFinal = new facturas();
@@ -161,6 +178,7 @@ namespace PSManagement.ViewModel
             return FacturaFinal.ImporteTotalConIva > 0;
         }
 
+        //Muestra el diálogo para seleccionar las tallas o números del artículo seleccionado. Añade el artículo a la cantidad de elementos de la factura y calcula el precio.
         internal void SeleccionarTallaVenta()
         {
             SelectorTallasDialog selectorTallas = new SelectorTallasDialog(ArticuloSeleccionado, DetallesArticulosFactura) { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen, ShowInTaskbar = false };
@@ -172,6 +190,7 @@ namespace PSManagement.ViewModel
             }
         }
 
+        //Recalcula el precio de la factura actual
         private void RecalcularPrecio()
         {
             DescuentoAplicado = false;
@@ -182,6 +201,7 @@ namespace PSManagement.ViewModel
             }
         }
 
+        //Suma el precio de los artículos en la factura actual, si no hay ninguno, el precio es 0
         private void SumarPrecio(articulos articulo)
         {
             if (DetallesArticulosFactura.Count > 0)
@@ -190,6 +210,7 @@ namespace PSManagement.ViewModel
                 FacturaFinal.ImporteTotalConIva = 0;
         }
 
+        //Aplica el filtro para mostrar los artículos según la categoría seleccionada
         internal void CargaArticulosCategoriaSeleccionada()
         {
             if (CategoriaSeleccionada != null)
@@ -201,6 +222,7 @@ namespace PSManagement.ViewModel
 
         internal void FindExecuted() => ListaArticulosSeleccionados.View.Refresh();
 
+        //Limpia los filtros. Muestra la tabla original.
         internal void CleanFiltersExecuted()
         {
             FiltroTextBox = null;

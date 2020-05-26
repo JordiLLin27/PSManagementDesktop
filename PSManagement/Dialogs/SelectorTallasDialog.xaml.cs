@@ -1,19 +1,13 @@
 ﻿using PSManagement.Model;
 using PSManagement.ViewModel;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
 
 namespace PSManagement.Dialogs
 {
@@ -29,18 +23,20 @@ namespace PSManagement.Dialogs
             MuestraBotones();
         }
 
+        //Comando para seleccionar una talla o número según el botón pulsado
         private void SelectSizeCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            //El tag de cada botón indica qué talla o número se va a escoger.
             string tag = ((Button)e.Source).Tag.ToString();
-            string talla = ((Button)e.Source).Content.ToString();
-
             (DataContext as SelectorTallasDialogVM).SelectSizeExecuted(tag);
 
             this.DialogResult = true;
         }
 
+        //Función que muestra los botones de selección de tallas o números según si el artículo tiene tallas o números.
         private void MuestraBotones()
         {
+            //Se comprueba en la vista-modelo
             if ((DataContext as SelectorTallasDialogVM).TieneTallas())
             {
                 PanelTallasStackPanel.Visibility = Visibility.Visible;
@@ -55,8 +51,8 @@ namespace PSManagement.Dialogs
 
         private void SelectSizeCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
+            //se comprueba si el tag es correcto para poder ejecutar el comando.
             string tag = ((Button)e.Source).Tag.ToString();
-            string talla = ((Button)e.Source).Content.ToString();
             e.CanExecute = (DataContext as SelectorTallasDialogVM).SelectSizeCanExecute(tag);
         }
     }

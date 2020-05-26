@@ -1,19 +1,9 @@
 ﻿using PSManagement.Commands;
 using PSManagement.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace PSManagement.Dialogs
 {
@@ -32,6 +22,7 @@ namespace PSManagement.Dialogs
             PrimerNumPinTextBox.Focus();
         }
 
+        //Comando para comprobar el pin introducido o cambiarlo por otro.
         private void SavePinCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (pinActionConfig == PinConfig.Insert_Pin)
@@ -49,14 +40,19 @@ namespace PSManagement.Dialogs
             }
             else
             {
+                //Si la acción es la de actualizar se muestran otros textbox con otro título y se aplica el foco al primero de éstos.
                 if ((DataContext as PinDialogVM).CompruebaPIN())
                 {
                     PinTituloTextBlock.Visibility = Visibility.Collapsed;
                     TablaNumerosPinGrid.Visibility = Visibility.Collapsed;
+
                     NuevoPinTituloTextBlock.Visibility = Visibility.Visible;
                     TablaUpdatePinGrid.Visibility = Visibility.Visible;
+
                     UpdatePrimerNumPinTextBox.Focus();
+
                     AceptarButton.Content = "Guardar PIN";
+                    //Se cambia el comando del botón de aceptar por el de actualizar el pin.
                     AceptarButton.Command = CustomCommands.UpdatePIN;
                 }
                 else
@@ -72,6 +68,7 @@ namespace PSManagement.Dialogs
             e.CanExecute = (DataContext as PinDialogVM).SavePinCanExecute();
         }
 
+        //Comando para actualizar el pin
         private void UpdatePINCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if ((DataContext as PinDialogVM).UpdatePIN())
@@ -88,22 +85,26 @@ namespace PSManagement.Dialogs
             e.CanExecute = (DataContext as PinDialogVM).PINUpdateCanExecute();
         }
 
+        //MManejador de evento click para el botón cancelar que cierra el diálogo
         private void CancelarButton_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = false;
         }
 
+        //Manejador de evento TextChanged para los textbox donde se introduce cada número del pin
         private void NumPinTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            //Se comprueba si sólo se introducen dígitos del 0 al 9
             Regex patron = new Regex(@"[0-9]{1}");
 
+            //Si no coincide no se escribe nada.
             if (!patron.IsMatch((sender as TextBox).Text))
                 (sender as TextBox).Text = "";
             else
             {
                 TraversalRequest request = new TraversalRequest(FocusNavigationDirection.Next);
 
-
+                //Si se escribe un digito el foco y el cursor pasan al textbox siguiente
                 if (Keyboard.FocusedElement is UIElement elementWithFocus)
                 {
                     elementWithFocus.MoveFocus(request);
@@ -111,12 +112,15 @@ namespace PSManagement.Dialogs
             }
         }
 
+
+        //Cuando todos los dígitos se han introducido el botón aceptar se activa y entonces se le aplica el foco.
         private void AceptarButton_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if ((sender as Button).IsEnabled == true)
+            if ((sender as Button).IsEnabled)
                 (sender as Button).Focus();
         }
 
+        //Manejador de evento cuando para seleccionar el contenido del textbox cada vez que se le aplica el foco
         private void PinTextBox_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
             (sender as TextBox).SelectAll();
