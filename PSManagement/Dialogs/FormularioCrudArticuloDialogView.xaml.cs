@@ -179,14 +179,19 @@ namespace PSManagement.View
             VentaDisponibleCheckBox.IsEnabled = false;
             AbrirPanelNumericoButton.IsEnabled = false;
             SeleccionTallasToggleButton.IsEnabled = false;
+            TablaTallasGrid.IsEnabled = false;
+            TablaNumerosGrid.IsEnabled = false;
         }
 
         //Se utiliza para establecer a qué talla o número asignarle la cantidad escrita. Se controla que no sea el textbox con el tag 'Precio'
         private void TextBox_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
-            ((TextBox)sender).Text = "";
-            if (((TextBox)sender).Tag.ToString() != "Precio")
-                (DataContext as FormularioCrudArticuloVM).SetTextBoxActual((TextBox)sender);
+            if ((DataContext as FormularioCrudArticuloVM).itemAction != ItemCRUDAction.Delete_Item)
+            {
+                ((TextBox)sender).Text = "";
+                if (((TextBox)sender).Tag.ToString() != "Precio")
+                    (DataContext as FormularioCrudArticuloVM).SetTextBoxActual((TextBox)sender);
+            }
         }
 
         //Se utiliza siempre que sea el textbox con tag 'Precio' para reemplazar el caracter ',' por '.' si lo contiene.

@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.1062
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSManagement", "PSManagement\PSManagement.csproj", "{C20A27CD-B8A5-4828-9DC3-3468757271F2}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "PSManagementSetup", "PSManagementSetup\PSManagementSetup.vdproj", "{0C45178D-BA2A-4014-A28C-6F52200285D8}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "PSManagementSetup", "PSManagementSetup\PSManagementSetup.vdproj", "{15E3A69D-62DC-45AB-B681-B48AB2C9415F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,8 +17,8 @@ Global
 		{C20A27CD-B8A5-4828-9DC3-3468757271F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C20A27CD-B8A5-4828-9DC3-3468757271F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C20A27CD-B8A5-4828-9DC3-3468757271F2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0C45178D-BA2A-4014-A28C-6F52200285D8}.Debug|Any CPU.ActiveCfg = Debug
-		{0C45178D-BA2A-4014-A28C-6F52200285D8}.Release|Any CPU.ActiveCfg = Release
+		{15E3A69D-62DC-45AB-B681-B48AB2C9415F}.Debug|Any CPU.ActiveCfg = Debug
+		{15E3A69D-62DC-45AB-B681-B48AB2C9415F}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
