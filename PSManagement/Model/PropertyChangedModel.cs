@@ -46,4 +46,9 @@ namespace PSManagement.Model
     {
         public event PropertyChangedEventHandler PropertyChanged;
     }
+
+    public partial class descuentos : INotifyPropertyChanged
+    {
+        public event PropertyChangedEventHandler PropertyChanged;
+    }
 }
