@@ -85,6 +85,10 @@ namespace PSManagement.Dialogs
             {
                 MessageBox.Show("Has intentado introducir un número muy grande", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            catch (FormatException)
+            {
+                MessageBox.Show("Has intentado introducir un con coma, introduce sólo números enteros.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void CancelarButton_Click(object sender, RoutedEventArgs e)
