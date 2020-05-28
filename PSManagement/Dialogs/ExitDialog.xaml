@@ -17,7 +17,7 @@
         <TextBlock Text="¿Confirmar Salir?" HorizontalAlignment="Center" FontSize="24"/>
         <StackPanel x:Name="BotonesStackPanel" Orientation="Horizontal">
             <Button x:Name="BotonYesButton" Content="Sí" Margin="5" FontSize="20" Width="150" Foreground="White" IsDefault="True" Click="BotonYesButton_Click"/>
-            <Button x:Name="BotonCancelButton" Content="Canelar" Margin="5" FontSize="20" Width="150" Foreground="White" IsCancel="True" Style="{StaticResource MaterialDesignRaisedAccentButton}"/>
+            <Button x:Name="BotonCancelButton" Content="Cancelar" Margin="5" FontSize="20" Width="150" Foreground="White" IsCancel="True" Style="{StaticResource MaterialDesignRaisedAccentButton}"/>
         </StackPanel>
     </StackPanel>
 </Window>
